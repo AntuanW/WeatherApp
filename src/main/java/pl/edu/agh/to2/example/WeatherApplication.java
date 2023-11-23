@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class App extends Application  {
+public class WeatherApplication extends Application  {
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Label("test"));
