@@ -6,6 +6,13 @@ import pl.edu.agh.to2.example.weather.measures.Temperature;
 
 public class WeatherService {
 
+    private final WeatherApiService weatherApiService;
+    private Weather weather;
+
+    public WeatherService() {
+        weatherApiService = new WeatherApiService();
+    }
+
     public Wardrobe getWardrobe(){
         return null;
     }
