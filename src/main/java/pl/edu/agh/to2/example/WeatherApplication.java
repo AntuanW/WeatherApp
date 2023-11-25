@@ -1,15 +1,11 @@
 package pl.edu.agh.to2.example;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class WeatherApplication extends Application  {
-    @Override
-    public void start(Stage primaryStage) {
-        Scene scene = new Scene(new Label("test"));
-        primaryStage.setScene(scene);
-        primaryStage.show();
+@SpringBootApplication
+public class WeatherApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(WeatherApplication.class, args);
     }
 }

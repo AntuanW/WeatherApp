@@ -11,14 +11,32 @@ public class Weather {
     private Temperature temperature;
     private AirCondition airCondition;
 
-    public Weather(JsonNode forecast, JsonNode temperature, JsonNode airCondition) {
-        double temp = temperature.asDouble();
-        double pm2_5 = airCondition.get("pm2_5").asDouble();
-        String fc = forecast.asText();
-
-        this.temperature = Temperature.getTemperature(temp);
-        this.airCondition = AirCondition.fromPM2_5(pm2_5);
-        this.forecast = Forecast.getForecast(fc);
+    public Weather(){
     }
 
+    // Getters
+    public AirCondition getAirCondition() {
+        return airCondition;
+    }
+
+    public Forecast getForecast() {
+        return forecast;
+    }
+
+    public Temperature getTemperature() {
+        return temperature;
+    }
+
+    // Setters
+    public void setAirCondition(AirCondition airCondition) {
+        this.airCondition = airCondition;
+    }
+
+    public void setForecast(Forecast forecast) {
+        this.forecast = forecast;
+    }
+
+    public void setTemperature(Temperature temperature) {
+        this.temperature = temperature;
+    }
 }
