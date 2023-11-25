@@ -32,4 +32,6 @@ test {
 dependencies {
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 }

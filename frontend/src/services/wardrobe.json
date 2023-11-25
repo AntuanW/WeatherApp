@@ -1,0 +1,10 @@
+{
+    "umbrella": true,
+    "gasMask": false,
+    "clothes": {
+        "shoes": "sandals",
+        "trousers": "shorts",
+        "top": ["t-shirt"],
+        "accessories": ["sunglasses", "cup"]
+    }
+}
