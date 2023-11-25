@@ -10,6 +10,7 @@ public class Weather {
     private Forecast forecast;
     private Temperature temperature;
     private AirCondition airCondition;
+    private double temperatureCelsius;
 
     public Weather(){
     }
@@ -27,6 +28,10 @@ public class Weather {
         return temperature;
     }
 
+    public double getTemperatureCelsius() {
+        return temperatureCelsius;
+    }
+
     // Setters
     public void setAirCondition(AirCondition airCondition) {
         this.airCondition = airCondition;
@@ -38,5 +43,9 @@ public class Weather {
 
     public void setTemperature(Temperature temperature) {
         this.temperature = temperature;
+    }
+
+    public void setTemperatureCelsius(double temperatureCelsius) {
+        this.temperatureCelsius = temperatureCelsius;
     }
 }

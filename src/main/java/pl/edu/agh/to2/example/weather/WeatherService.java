@@ -13,6 +13,7 @@ public class WeatherService {
 
     private final WeatherApiService weatherApiService;
     private Weather weather;
+    private Wardrobe wardrobe;
 
     public WeatherService() {
         weatherApiService = new WeatherApiService();
@@ -20,7 +21,18 @@ public class WeatherService {
     }
 
     public void setWeatherData(LocationRequest locationRequest) {
-        weatherApiService.setWeatherApiURL("");
+
+        String lat, lon, locationString = "0.0,0.0";
+        try {
+            lat = Double.toString(locationRequest.latitude());
+            lon = Double.toString(locationRequest.longitude());
+            locationString = lat + "," + lon;
+        } catch (NumberFormatException e) {
+            System.err.println("Cannot convert number to string.");
+        }
+
+        weatherApiService.setWeatherApiURL(locationString);
+
         try {
             weatherApiService.setWeatherData();
         } catch (Exception e) {
@@ -29,16 +41,23 @@ public class WeatherService {
 
         double temp = weatherApiService.getTemperature().asDouble();
         weather.setTemperature(Temperature.getTemperature(temp));
+        weather.setTemperatureCelsius(temp);
 
         String forecast = weatherApiService.getForecast().asText();
         weather.setForecast(Forecast.getForecast(forecast));
 
         double airCondition = weatherApiService.getAirQuality().asDouble();
         weather.setAirCondition(AirCondition.fromPM2_5(airCondition));
+
+        System.out.println(temp + " " + forecast + " " + airCondition);
     }
 
-    public Wardrobe getWardrobe(){
-        return weather.getTemperature().getWardrobe();
+    public void setWardrobe(){
+        wardrobe = weather.getTemperature().getWardrobe();
+        boolean umbrella = wardrobe.checkUmbrella(weather.getForecast());
+        boolean gasMask = wardrobe.checkGasMask(weather.getAirCondition());
+        wardrobe.setUmbrella(umbrella);
+        wardrobe.setGasMask(gasMask);
     }
 
     public Temperature getTemperature() {
@@ -51,5 +70,14 @@ public class WeatherService {
 
     public AirCondition getAirCondition() {
         return weather.getAirCondition();
+    }
+
+    public double getTempCelsius() {
+        return weather.getTemperatureCelsius();
+    }
+
+    public Wardrobe getRightWardrobe() {
+        setWardrobe();
+        return wardrobe;
     }
 }

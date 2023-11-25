@@ -1,42 +1,16 @@
 package pl.edu.agh.to2.example.wardrobe;
 
+import pl.edu.agh.to2.example.weather.measures.Temperature;
+
 import java.util.List;
 
-public class HotWardrobe implements Wardrobe {
-    private boolean takeUmbrella;
-    private boolean takeGasMask;
-    private List<Item> clothing;
-
+public class HotWardrobe extends AbstractWardrobe {
     public HotWardrobe() {
+        clothes = new Clothes();
+        clothes.setShoes(Item.getShoes(Temperature.HOT));
+        clothes.setTrousers(Item.getTrousers(Temperature.HOT));
+        clothes.setTop(Item.getTop(Temperature.HOT));
+        clothes.setAccessories(Item.getAccessories(Temperature.HOT));
     }
 
-    @Override
-    public boolean checkUmbrella() {
-        return false;
-    }
-
-    @Override
-    public boolean checkGasMask() {
-        return false;
-    }
-
-    @Override
-    public List<Item> getClothing() {
-        return null;
-    }
-
-    @Override
-    public void addCloth(Item cloth) {
-        clothing.add(cloth);
-    }
-
-    @Override
-    public void setUmbrella(boolean takeUmbrella) {
-        this.takeUmbrella = takeUmbrella;
-    }
-
-    @Override
-    public void setGasMask(boolean takeGasMask) {
-        this.takeGasMask = takeGasMask;
-    }
 }

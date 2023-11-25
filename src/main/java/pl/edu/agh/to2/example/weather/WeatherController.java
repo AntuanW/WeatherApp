@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.to2.example.utils.LocationRequest;
+import pl.edu.agh.to2.example.utils.WeatherRequest;
+import pl.edu.agh.to2.example.wardrobe.Wardrobe;
 
 import javax.persistence.EntityNotFoundException;
 import javax.xml.stream.Location;
@@ -23,17 +25,22 @@ public class WeatherController {
     }
 
     @GetMapping("/wardrobe")
-    public String getWardrobe() {
-        return "Wardrobe";
+    public Wardrobe getWardrobe() {
+//        System.out.println(weatherService.getRightWardrobe());
+        return weatherService.getRightWardrobe();
     }
 
     @GetMapping("/weather")
-    public String getWeather() {
-        return "Weather";
+    public WeatherRequest getWeather() {
+        return new WeatherRequest(
+                weatherService.getTempCelsius(),
+                weatherService.getAirCondition(),
+                weatherService.getForecast()
+        );
     }
 
     @PostMapping("/location")
-    public ResponseEntity<String> postCoords(
+    public ResponseEntity<String> postLocation(
             @RequestBody LocationRequest locationRequest
     ) {
         try {
