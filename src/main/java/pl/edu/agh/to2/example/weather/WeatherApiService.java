@@ -1,5 +1,6 @@
 package pl.edu.agh.to2.example.weather;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -50,4 +51,7 @@ public class WeatherApiService {
     public JsonNode isDay() {
         return weatherData.get("current").get("is_day");
     }
+=======
+public class WeatherApiService {
+>>>>>>> 88c72fde0e9388a554e0796b9df90cd7a21a36f9
 }
