@@ -5,6 +5,7 @@ import MasksOutlinedIcon from '@mui/icons-material/MasksOutlined';
 const Weather = () => {
     const [weather, setWeather] = useState();
 
+
     useEffect(()=> {
         getWeather().then((res) => {console.log(res)})
         //setWeather);
@@ -18,6 +19,7 @@ const Weather = () => {
             {weather?.temperature}
             {weather?.airQuality}
             {weather?.forecast}
+
         </div>
     );
 };

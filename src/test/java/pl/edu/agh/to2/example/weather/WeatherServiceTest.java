@@ -1,29 +1,22 @@
 package pl.edu.agh.to2.example.weather;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.edu.agh.to2.example.utils.LocationRequest;
+import pl.edu.agh.to2.example.wardrobe.Wardrobe;
+import pl.edu.agh.to2.example.weather.measures.AirCondition;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 class WeatherServiceTest {
 
     private static WeatherService weatherService;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         weatherService = new WeatherService();
-//        weatherService.setWeatherData("50.0647,19.9450");
-    }
-
-    @Test
-    void setWeatherData() {
-//        assertDoesNotThrow(() -> weatherService.setWeatherData("50.0647,19.9450"));
-    }
-
-    @Test
-    void getWardrobe() {
-//        assertNotNull(weatherService.getWardrobe());
+        weatherService.setWeatherData(new LocationRequest(50.0, 50.0));
+        weatherService.setWardrobe();
     }
 
     @Test
@@ -39,5 +32,15 @@ class WeatherServiceTest {
     @Test
     void getAirCondition() {
         assertNotNull(weatherService.getAirCondition());
+    }
+
+    @Test
+    void getTempCelsius() {
+        assertNotNull(weatherService.getTempCelsius());
+    }
+
+    @Test
+    void getRightWardrobe() {
+        assertNotNull(weatherService.getRightWardrobe());
     }
 }

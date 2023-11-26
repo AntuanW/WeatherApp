@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
 public class WeatherApiService {
     private final static String weatherApiURLBase = "http://api.weatherapi.com/v1/current.json";
     private final static String apiKey = "2ea04a19ce374691987155332232411";

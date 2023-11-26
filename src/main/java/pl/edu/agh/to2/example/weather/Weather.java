@@ -10,6 +10,7 @@ public class Weather {
     private Temperature temperature;
     private AirCondition airCondition;
     private double temperatureCelsius;
+
     public Weather(){
     }
 
