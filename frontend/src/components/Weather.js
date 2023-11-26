@@ -4,6 +4,7 @@ import {getWeather} from '../services/weatherAPIService.js';
 const Weather = () => {
     const [weather, setWeather] = useState();
 
+
     useEffect(()=> {
         setWeather(getWeather());
     }, [])
@@ -13,6 +14,7 @@ const Weather = () => {
             {weather?.temperature}
             {weather?.airQuality}
             {weather?.forecast}
+
         </div>
     );
 };

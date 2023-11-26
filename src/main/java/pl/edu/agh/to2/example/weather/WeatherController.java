@@ -10,6 +10,7 @@ import pl.edu.agh.to2.example.wardrobe.Wardrobe;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
+@CrossOrigin()
 @RequestMapping(path = "weatherapp")
 public class WeatherController {
     private WeatherService weatherService;

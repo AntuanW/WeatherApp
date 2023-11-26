@@ -47,11 +47,9 @@ public class WeatherService {
 
         double airCondition = weatherApiService.getAirQuality().asDouble();
         weather.setAirCondition(AirCondition.fromPM2_5(airCondition));
-
-        System.out.println(temp + " " + forecast + " " + airCondition);
     }
 
-    public void setWardrobe(){
+    public void setWardrobe() {
         wardrobe = weather.getTemperature().getWardrobe();
         wardrobe.setUmbrella(wardrobe.checkUmbrella(weather.getForecast()));
         wardrobe.setGasMask(wardrobe.checkGasMask(weather.getAirCondition()));

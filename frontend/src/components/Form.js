@@ -5,14 +5,15 @@ import { FormProvider } from 'react-hook-form';
 import Input from './Input';
 import "./styles/form.css";
 import { useNavigate } from "react-router-dom";
+import { postLocation } from '../services/weatherAPIService';
 
 const Form = () => {
     const methods = useForm()
     const navigate = useNavigate();
 
     const onSubmit = methods.handleSubmit(data => {
-        console.log(methods.getValues());
-        navigate("/weather", { replace: true });
+        postLocation(methods.getValues());
+        navigate("/weather", { replace: false });
     })
 
     const latitudeValidation = {
