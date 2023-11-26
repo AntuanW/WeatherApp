@@ -5,7 +5,7 @@ import pl.edu.agh.to2.example.weather.measures.Temperature;
 import java.util.List;
 
 public enum Item {
-    // SHOES
+    // Shoes
     BOOTS,
     SNEAKERS,
     SANDALS,
@@ -19,7 +19,7 @@ public enum Item {
     // Trousers
     TROUSERS,
     SHORTS,
-    // TOP
+    // Top
     T_SHIRT,
     JUMPER,
     CARDIGAN,

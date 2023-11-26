@@ -22,6 +22,7 @@ const Input = (props) => {
             type="number"
             label={label}
             InputLabelProps={{ shrink: true }}
+            inputProps={{ step: 0.001 }}
             helperText={inputError.error?.message}
             error = {isInvalid}
             {...register(label, validation)}

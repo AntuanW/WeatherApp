@@ -11,18 +11,40 @@ import weatherData from "./weather.json"
 // HAIL;
 
 const getWeather = () => {
-    return weatherData;
-    // axios.get("./weather.json")
-    // .then((res) => {console.log(res)})
-    // .catch(err => console.log(err))
+    axios.get("http://localhost:8080/weatherapp/weather", {
+        headers: {
+            'Access-Control-Allow-Credentials':true
+        },
+        responseType: "json",
+    })
+    .then((res) => {console.log(res)})
+    .catch(err => console.log(err))
 }
 
 const getWardrobe = () => {
-
+    axios.get("http://localhost:8080/weatherapp/wardrobe", {
+        headers: {
+            'Access-Control-Allow-Credentials':true
+        },
+        responseType: "json",
+    })
+    .then((res) => {console.log(res)})
+    .catch(err => console.log(err))
 }
 
 const postLocation = (data) => {
     console.log(data);
+
+    axios.post("http://localhost:8080/weatherapp/location", {
+        body: data,
+        headers: {
+            'Access-Control-Allow-Credentials':true
+        },
+        responseType: "json",
+    })
+    .then((res) => {console.log(res)})
+    .catch(err => console.log(err))
+    
 }
 
-export {getWeather, getWardrobe, postLocation}
+export { getWeather, getWardrobe, postLocation }
