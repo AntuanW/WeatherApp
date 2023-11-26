@@ -4,7 +4,7 @@ Welcome to the Weather Application! The Weather Application is a full-stack web 
 
 ## Requirements
 - [Node.js](https://nodejs.org/en) installed
-- [Java Development Kit (JDK) ](https://www.oracle.com/java/technologies/downloads/) installed
+- [Java Development Kit (JDK) ](https://www.oracle.com/java/technologies/downloads/) installed (Java 17 or higher)
 - [Git](https://git-scm.com/) installed
 
 
@@ -24,13 +24,11 @@ To run the application locally, follow these steps:
   cd kp-wt-1500-chmurki
 ```
 
-3. Run the Start Script
+3. Run the start script from bash console
 
 ```bash
   ./start_application.sh
 ```
-
-
 
 ## Structure
 - [Backend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse?at=refs%2Fheads%2FM1) - The backend component is responsible for interacting with the [Weather API](https://www.weatherapi.com/) to fetch weather data.
