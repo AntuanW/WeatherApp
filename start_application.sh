@@ -21,6 +21,11 @@ start_frontend() {
   npm start
 }
 
+function handle_ctrl_c() {
+    echo "Ctrl+C pressed. Stopping the application..."
+    exit 1
+}
+
 
 main() {
 
@@ -37,5 +42,6 @@ main() {
   fi
 }
 
+trap 'handle_ctrl_c' INT
 
 main
