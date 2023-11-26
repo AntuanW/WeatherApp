@@ -13,7 +13,7 @@ repositories {
 }
 
 application {
-    mainClassName = 'WeatherApplication'
+    mainClassName = 'pl.edu.agh.to2.example.WeatherApplication'
 }
 
 java {
