@@ -23,7 +23,7 @@ start_frontend() {
 
 function handle_ctrl_c() {
     echo "Ctrl+C pressed. Stopping the application..."
-    exit 1 
+    exit 1
 }
 
 
