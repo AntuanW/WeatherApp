@@ -1,16 +1,6 @@
-<<<<<<< HEAD
 .gradle
 .idea
-=======
-.gradle/
-.idea/
->>>>>>> 7c25002a769b6ba0d40f05c4829bf7532fc8dc6a
 build
 out
-gradle/wrapper
-gradlew
-<<<<<<< HEAD
+gradlew.sh
 gradlew.bat
-=======
-gradlew.bat
->>>>>>> 7c25002a769b6ba0d40f05c4829bf7532fc8dc6a
