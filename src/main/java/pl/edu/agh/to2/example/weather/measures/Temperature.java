@@ -19,7 +19,7 @@ public enum Temperature {
 
     public static Temperature getTemperature(double temperature) {
         if (temperature < 3.0) {
-           return FREEZING;
+            return FREEZING;
         } else if (temperature < 15.0) {
             return COLD;
         } else if (temperature < 23.0) {

@@ -38,6 +38,7 @@ public class WeatherController {
             @RequestBody LocationRequest locationRequest
     ) {
         try {
+            System.out.println(locationRequest);
             weatherService.setWeatherData(locationRequest);
             return ResponseEntity.ok().body("Weather data set successfully.");
         }
