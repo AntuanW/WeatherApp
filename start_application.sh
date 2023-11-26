@@ -27,7 +27,7 @@ stop_backend() {
 trap stop_backend INT
 
 main() {
-  start_backend
+  start_backend &
 
   while ! curl -s http://localhost:8080 >/dev/null; do
     sleep 3
