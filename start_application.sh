@@ -7,8 +7,7 @@ FRONTEND_DIR="$PROJECT_DIR/frontend"
 start_backend() {
   echo "Start backend..."
   cd "$BACKEND_DIR"
-  bash ./gradlew bootRun &
-  BACKEND_PID=$!
+  bash ./gradlew bootRun
 }
 
 start_frontend() {
@@ -20,7 +19,9 @@ start_frontend() {
 
 stop_backend() {
   echo "Stopping backend..."
-  pkill -P $BACKEND_PID
+  cd ..
+  bash ./gradlew --stop
+  exit 1
 }
 
 trap stop_backend INT
