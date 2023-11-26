@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, Button } from '@mui/material';
+import { FormControl, Button, Typography } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { FormProvider } from 'react-hook-form';
 import Input from './Input';
@@ -12,8 +12,10 @@ const Form = () => {
     const navigate = useNavigate();
 
     const onSubmit = methods.handleSubmit(data => {
-        postLocation(methods.getValues());
-        navigate("/weather", { replace: false });
+        postLocation(methods.getValues()).then((res) => {
+            console.log(res);
+            navigate("/weather", { replace: false });
+        })
     })
 
     const latitudeValidation = {
@@ -50,12 +52,13 @@ const Form = () => {
         <div className='form'>
         <FormProvider {...methods}>
             <FormControl
-                sx={{ border: 1, borderColor: 'grey.500', borderRadius: 1, p: 4}}
+                sx={{ border: 1, borderColor: 'grey.500', borderRadius: 1, p: 4, backgroundColor: "whitesmoke"}}
                 style = {{width: "400px"}}
                 margin="normal"
                 onSubmit={e => e.preventDefault()}
                 noValidate
                 className="container">
+                <Typography variant="h5" sx={{ marginBottom: 3, color: '#0e0f3b', textAlign: 'center', textShadow: '1px 1px 1px #fff' }}> Don't know what to wear?</Typography>
                 <Input
                     label = "latitude"
                     id = "latitude"
