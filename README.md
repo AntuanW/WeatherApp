@@ -32,7 +32,42 @@ To run the application locally, follow these steps:
 
 4. To stop application press "Ctrl+C"
 
+## Run Application Locally - alternative way (without bash)
 
+
+1. Clone the project
+
+```bash
+  git clone https://bitbucket.lab.ii.agh.edu.pl/scm/to2023/kp-wt-1500-chmurki.git
+```
+
+2. Go to the project directory
+
+```bash
+  cd kp-wt-1500-chmurki
+```
+
+3. Run Java Application:  `WeatherApplication.java`
+
+    Ypu can find this file in: `src\main\java\pl\edu\agh\to2\example\WeatherApplication.java`
+
+4. Go to the frontend directory
+
+```bash
+  cd frontend
+```
+
+5. Run following comands
+
+```bash
+  npm install
+```
+
+```bash
+  npm start
+```
+
+6. The application is running on `localhost:3000`
 
 ## Structure
 - [Backend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse?at=refs%2Fheads%2FM1) - The backend component is responsible for interacting with the [Weather API](https://www.weatherapi.com/) to fetch weather data.

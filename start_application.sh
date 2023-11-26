@@ -24,10 +24,8 @@ stop_backend() {
   exit 1
 }
 
-trap stop_backend INT
-
 main() {
-  start_backend
+  start_backend &
 
   while ! curl -s http://localhost:8080 >/dev/null; do
     sleep 3
@@ -39,5 +37,7 @@ main() {
     echo "Error while running backend. Cannot run frontend"
   fi
 }
+
+trap stop_backend INT
 
 main
