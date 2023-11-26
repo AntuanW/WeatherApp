@@ -8,7 +8,6 @@ import pl.edu.agh.to2.example.utils.WeatherRequest;
 import pl.edu.agh.to2.example.wardrobe.Wardrobe;
 
 import javax.persistence.EntityNotFoundException;
-import javax.xml.stream.Location;
 
 @RestController
 @RequestMapping(path = "weatherapp")
@@ -26,7 +25,6 @@ public class WeatherController {
 
     @GetMapping("/wardrobe")
     public Wardrobe getWardrobe() {
-//        System.out.println(weatherService.getRightWardrobe());
         return weatherService.getRightWardrobe();
     }
 

@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.example.weather;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.utils.LocationRequest;
 import pl.edu.agh.to2.example.wardrobe.Wardrobe;
@@ -54,10 +53,8 @@ public class WeatherService {
 
     public void setWardrobe(){
         wardrobe = weather.getTemperature().getWardrobe();
-        boolean umbrella = wardrobe.checkUmbrella(weather.getForecast());
-        boolean gasMask = wardrobe.checkGasMask(weather.getAirCondition());
-        wardrobe.setUmbrella(umbrella);
-        wardrobe.setGasMask(gasMask);
+        wardrobe.setUmbrella(wardrobe.checkUmbrella(weather.getForecast()));
+        wardrobe.setGasMask(wardrobe.checkGasMask(weather.getAirCondition()));
     }
 
     public Temperature getTemperature() {

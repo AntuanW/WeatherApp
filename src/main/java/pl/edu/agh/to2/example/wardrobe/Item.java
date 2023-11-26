@@ -1,7 +1,5 @@
 package pl.edu.agh.to2.example.wardrobe;
 
-import pl.edu.agh.to2.example.weather.measures.AirCondition;
-import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
 import java.util.List;

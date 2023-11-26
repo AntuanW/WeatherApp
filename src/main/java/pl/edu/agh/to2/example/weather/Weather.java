@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.example.weather;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;

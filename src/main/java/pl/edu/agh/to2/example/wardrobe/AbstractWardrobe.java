@@ -1,12 +1,10 @@
 package pl.edu.agh.to2.example.wardrobe;
 
-import pl.edu.agh.to2.example.weather.Weather;
 import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
 
-import java.util.List;
 
-public class AbstractWardrobe implements Wardrobe{
+public abstract class AbstractWardrobe implements Wardrobe{
     protected boolean takeUmbrella;
     protected boolean takeGasMask;
     protected Clothes clothes;
