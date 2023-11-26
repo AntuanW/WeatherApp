@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import ThunderstormOutlinedIcon from '@mui/icons-material/ThunderstormOutlined';
 import WaterDropOutlinedIcon from '@mui/icons-material/WaterDropOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-free';
 
 const Weather = () => {
     const [weather, setWeather] = useState();
