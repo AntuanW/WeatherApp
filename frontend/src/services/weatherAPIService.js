@@ -18,11 +18,14 @@ const getWeather = () => {
 }
 
 const getWardrobe = () => {
-
+    // axios.get("./weather.json")
+    // .then((res) => {console.log(res)})
+    // .catch(err => console.log(err))
 }
 
 const postLocation = (data) => {
     console.log(data);
+    
 }
 
 export {getWeather, getWardrobe, postLocation}

@@ -8,24 +8,16 @@ public class Clothes {
     private List<Item> top;
     private List<Item> accessories;
 
-    //setters
-    public void setShoes(Item shoes) {
-        this.shoes = shoes;
+
+    private Clothes(Builder builder) {
+        this.shoes = builder.shoes;
+        this.trousers = builder.trousers;
+        this.top = builder.top;
+        this.accessories = builder.accessories;
     }
 
-    public void setTrousers(Item trousers) {
-        this.trousers = trousers;
-    }
+//getters
 
-    public void setTop(List<Item> top) {
-        this.top = top;
-    }
-
-    public void setAccessories(List<Item> accessories) {
-        this.accessories = accessories;
-    }
-
-    //getters
     public Item getShoes() {
         return shoes;
     }
@@ -40,5 +32,38 @@ public class Clothes {
 
     public List<Item> getAccessories() {
         return accessories;
+    }
+
+    //Builder class
+
+    public static class Builder {
+        private Item shoes;
+        private Item trousers;
+        private List<Item> top;
+        private List<Item> accessories;
+
+        public Builder setShoes(Item shoes) {
+            this.shoes = shoes;
+            return this;
+        }
+
+        public Builder setTrousers(Item trousers) {
+            this.trousers = trousers;
+            return this;
+        }
+
+        public Builder setTop(List<Item> top) {
+            this.top = top;
+            return this;
+        }
+
+        public Builder setAccessories(List<Item> accessories) {
+            this.accessories = accessories;
+            return this;
+        }
+
+        public Clothes build() {
+            return new Clothes(this);
+        }
     }
 }

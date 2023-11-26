@@ -12,7 +12,7 @@ const Form = () => {
 
     const onSubmit = methods.handleSubmit(data => {
         console.log(methods.getValues());
-        navigate("/weather", { replace: true });
+        navigate("/weather", { replace: false });
     })
 
     const latitudeValidation = {

@@ -1,7 +1,4 @@
 package pl.edu.agh.to2.example.weather.measures;
-import com.fasterxml.jackson.databind.JsonNode;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 
 public enum AirCondition {
@@ -9,7 +6,6 @@ public enum AirCondition {
     GOOD,
     OKAY,
     PASSABLE,
-    OKAY,
     UNHEALTHY,
     VERY_UNHEALTHY;
 
