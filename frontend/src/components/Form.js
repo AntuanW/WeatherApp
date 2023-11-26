@@ -12,8 +12,10 @@ const Form = () => {
     const navigate = useNavigate();
 
     const onSubmit = methods.handleSubmit(data => {
-        postLocation(methods.getValues());
-        navigate("/weather", { replace: false });
+        postLocation(methods.getValues()).then((res) => {
+            console.log(res);
+            navigate("/weather", { replace: false });
+        })
     })
 
     const latitudeValidation = {
@@ -50,7 +52,7 @@ const Form = () => {
         <div className='form'>
         <FormProvider {...methods}>
             <FormControl
-                sx={{ border: 1, borderColor: 'grey.500', borderRadius: 1, p: 4}}
+                sx={{ border: 1, borderColor: 'grey.500', borderRadius: 1, p: 4, backgroundColor: "whitesmoke"}}
                 style = {{width: "400px"}}
                 margin="normal"
                 onSubmit={e => e.preventDefault()}

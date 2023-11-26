@@ -29,7 +29,8 @@ public class WeatherController {
         return new WeatherRequest(
                 weatherService.getTempCelsius(),
                 weatherService.getAirCondition(),
-                weatherService.getForecast()
+                weatherService.getForecast(),
+                weatherService.getTemperature()
         );
     }
 
