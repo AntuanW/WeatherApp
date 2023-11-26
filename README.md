@@ -30,6 +30,8 @@ To run the application locally, follow these steps:
   ./start_application.sh
 ```
 
+4. To stop application press "Ctrl+C"
+
 
 
 ## Structure
