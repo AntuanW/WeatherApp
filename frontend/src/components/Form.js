@@ -12,8 +12,10 @@ const Form = () => {
     const navigate = useNavigate();
 
     const onSubmit = methods.handleSubmit(data => {
-        postLocation(methods.getValues());
-        navigate("/weather", { replace: true });
+        postLocation(methods.getValues()).then((res) => {
+            console.log(res);
+            navigate("/weather", { replace: true });
+        })
     })
 
     const latitudeValidation = {
