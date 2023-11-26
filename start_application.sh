@@ -1,35 +1,32 @@
 #!/bin/bash
 
 PROJECT_DIR="../kp-wt-1500-chmurki"
-
 BACKEND_DIR="../kp-wt-1500-chmurki"
-
 FRONTEND_DIR="$PROJECT_DIR/frontend"
-
 
 start_backend() {
   echo "Start backend..."
   cd "$BACKEND_DIR"
-  ./gradlew bootRun
+  bash ./gradlew bootRun &
+  BACKEND_PID=$!
 }
-
 
 start_frontend() {
   echo "Start frontendu..."
   cd "$FRONTEND_DIR"
-  npm install 
+  npm install
   npm start
 }
 
-function handle_ctrl_c() {
-    echo "Ctrl+C pressed. Stopping the application..."
-    exit 1
+stop_backend() {
+  echo "Stopping backend..."
+  pkill -P $BACKEND_PID
 }
 
+trap stop_backend INT
 
 main() {
-
-  start_backend &
+  start_backend
 
   while ! curl -s http://localhost:8080 >/dev/null; do
     sleep 3
@@ -41,7 +38,5 @@ main() {
     echo "Error while running backend. Cannot run frontend"
   fi
 }
-
-trap 'handle_ctrl_c' INT
 
 main
