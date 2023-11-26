@@ -18,11 +18,6 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping
-    public String sayHello() {
-        return "Hello";
-    }
-
     @GetMapping("/wardrobe")
     public Wardrobe getWardrobe() {
         return weatherService.getRightWardrobe();
