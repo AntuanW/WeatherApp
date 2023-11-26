@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+
 public enum AirCondition {
     VERY_GOOD,
     GOOD,
@@ -11,6 +12,10 @@ public enum AirCondition {
     OKAY,
     UNHEALTHY,
     VERY_UNHEALTHY;
+
+    public boolean checkIfGasMask() {
+        return this == UNHEALTHY || this == VERY_UNHEALTHY;
+    }
 
     //from pm2 to enum
     public static AirCondition fromPM2_5(double pm2) {

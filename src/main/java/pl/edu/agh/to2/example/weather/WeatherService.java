@@ -1,36 +1,80 @@
 package pl.edu.agh.to2.example.weather;
 
+import org.springframework.stereotype.Service;
+import pl.edu.agh.to2.example.utils.LocationRequest;
 import pl.edu.agh.to2.example.wardrobe.Wardrobe;
-<<<<<<< HEAD
+import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
+@Service
 public class WeatherService {
 
     private final WeatherApiService weatherApiService;
     private Weather weather;
+    private Wardrobe wardrobe;
 
     public WeatherService() {
         weatherApiService = new WeatherApiService();
+        weather = new Weather();
     }
 
-    public Wardrobe getWardrobe(){
-        return null;
+    public void setWeatherData(LocationRequest locationRequest) {
+
+        String lat, lon, locationString = "0.0,0.0";
+        try {
+            lat = Double.toString(locationRequest.latitude());
+            lon = Double.toString(locationRequest.longitude());
+            locationString = lat + "," + lon;
+        } catch (NumberFormatException e) {
+            System.err.println("Cannot convert number to string.");
+        }
+
+        weatherApiService.setWeatherApiURL(locationString);
+
+        try {
+            weatherApiService.setWeatherData();
+        } catch (Exception e) {
+            System.out.println("Something went wrong with getting weather data.");
+        }
+
+        double temp = weatherApiService.getTemperature().asDouble();
+        weather.setTemperature(Temperature.getTemperature(temp));
+        weather.setTemperatureCelsius(temp);
+
+        String forecast = weatherApiService.getForecast().asText();
+        weather.setForecast(Forecast.getForecast(forecast));
+
+        double airCondition = weatherApiService.getAirQuality().asDouble();
+        weather.setAirCondition(AirCondition.fromPM2_5(airCondition));
+
+        System.out.println(temp + " " + forecast + " " + airCondition);
+    }
+
+    public void setWardrobe() {
+        wardrobe = weather.getTemperature().getWardrobe();
+        wardrobe.setUmbrella(wardrobe.checkUmbrella(weather.getForecast()));
+        wardrobe.setGasMask(wardrobe.checkGasMask(weather.getAirCondition()));
     }
 
     public Temperature getTemperature() {
-        return Temperature.WARM;
+        return weather.getTemperature();
     }
 
     public Forecast getForecast() {
-        return Forecast.CLEAR;
+        return weather.getForecast();
     }
-=======
 
-public class WeatherService {
-
-    public Wardrobe getWardrobe(){
-        return null;
+    public AirCondition getAirCondition() {
+        return weather.getAirCondition();
     }
->>>>>>> 88c72fde0e9388a554e0796b9df90cd7a21a36f9
+
+    public double getTempCelsius() {
+        return weather.getTemperatureCelsius();
+    }
+
+    public Wardrobe getRightWardrobe() {
+        setWardrobe();
+        return wardrobe;
+    }
 }

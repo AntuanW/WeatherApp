@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.example.weather;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,17 +9,25 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class WeatherApiService {
-    private final String weatherApiURLBase = "http://api.weatherapi.com/v1/current.json";
-    private final String apiKey = "2ea04a19ce374691987155332232411";
+    private final static String weatherApiURLBase = "http://api.weatherapi.com/v1/current.json";
+    private final static String apiKey = "2ea04a19ce374691987155332232411";
     private String weatherApiURL;
     private JsonNode weatherData;
+
+    public WeatherApiService() {
+    }
 
     public void setWeatherApiURL(String coords) {
         this.weatherApiURL = (weatherApiURLBase + "?key=" + apiKey + "&q=" + coords + "&aqi=yes");
     }
 
+    //getter for weatherApiURL
+    public String getWeatherApiURL() {
+        return weatherApiURL;
+    }
+
     // Getting weather data
-    public void getWeatherData() throws Exception {
+    public void setWeatherData() throws Exception {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(new URI(this.weatherApiURL)).build();
 
@@ -28,8 +35,7 @@ public class WeatherApiService {
 
         if (response.statusCode() == 200) {
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(response.body());
-            this.weatherData = jsonNode;
+            this.weatherData = objectMapper.readTree(response.body());
         } else {
             System.out.println("Error " + response.statusCode());
         }
@@ -41,17 +47,10 @@ public class WeatherApiService {
     }
 
     public JsonNode getAirQuality() {
-        return weatherData.get("current").get("air_quality");
+        return weatherData.get("current").get("air_quality").get("pm2_5");
     }
 
     public JsonNode getForecast() {
         return weatherData.get("current").get("condition").get("text");
     }
-
-    public JsonNode isDay() {
-        return weatherData.get("current").get("is_day");
-    }
-=======
-public class WeatherApiService {
->>>>>>> 88c72fde0e9388a554e0796b9df90cd7a21a36f9
 }
