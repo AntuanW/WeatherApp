@@ -60,8 +60,8 @@ const Weather = () => {
     return (
         <div className='weather'>
             {getWeatherEmote(weather?.forecast)}
-            <p id = "temperature" style={{color: temperatureColor}}>{weather?.temperature}&deg;C</p>
-            <p>Air quality: {weather?.airQuality}</p>
+            <p id = "temperature" style={{color: temperatureColor}}><b>{weather?.temperature}&deg;C</b></p>
+            <p><b>Air quality:</b> {weather?.airQuality}</p>
         </div>
     );
 };
