@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, Button } from '@mui/material';
+import { FormControl, Button, Typography } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { FormProvider } from 'react-hook-form';
 import Input from './Input';
@@ -56,6 +56,7 @@ const Form = () => {
                 onSubmit={e => e.preventDefault()}
                 noValidate
                 className="container">
+                <Typography variant="h5" sx={{ marginBottom: 3, color: '#0e0f3b', textAlign: 'center', textShadow: '1px 1px 1px #fff' }}> Don't know what to wear?</Typography>
                 <Input
                     label = "latitude"
                     id = "latitude"

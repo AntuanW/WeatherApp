@@ -3,4 +3,9 @@
     display: flex;
     justify-content: center;
     margin-top: 30px;
+    backgroundSize: 'cover';
+    minHeight: '100vh';
+    display: 'flex';
+    alignItems: 'center';
+    justifyContent: 'center';
 }
