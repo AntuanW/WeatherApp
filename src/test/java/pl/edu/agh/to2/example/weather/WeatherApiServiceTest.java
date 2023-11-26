@@ -30,17 +30,19 @@ class WeatherApiServiceTest {
 
     @Test
     void getTemperature() {
-        System.out.println(weatherApiService.getTemperature());
         assertNotNull(weatherApiService.getTemperature());
+        assertTrue(weatherApiService.getTemperature() instanceof JsonNode);
     }
 
     @Test
     void getAirQuality() {
         assertNotNull(weatherApiService.getAirQuality());
+        assertTrue(weatherApiService.getAirQuality() instanceof JsonNode);
     }
 
     @Test
     void getForecast() {
         assertNotNull(weatherApiService.getForecast());
+        assertTrue(weatherApiService.getForecast() instanceof JsonNode);
     }
 }
