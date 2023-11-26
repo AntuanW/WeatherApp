@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { postLocation } from '../services/weatherAPIService';
 
 const Form = () => {
-    const methods = useForm()
+    const methods = useForm();
     const navigate = useNavigate();
 
     const onSubmit = methods.handleSubmit(data => {

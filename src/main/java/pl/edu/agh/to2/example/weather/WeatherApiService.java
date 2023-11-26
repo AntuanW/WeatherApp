@@ -1,5 +1,4 @@
 package pl.edu.agh.to2.example.weather;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
