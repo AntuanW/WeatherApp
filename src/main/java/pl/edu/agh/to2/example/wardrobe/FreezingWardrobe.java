@@ -1,42 +1,15 @@
 package pl.edu.agh.to2.example.wardrobe;
 
-import java.util.List;
+import pl.edu.agh.to2.example.weather.measures.Temperature;
 
-public class FreezingWardrobe implements Wardrobe{
-        private boolean takeUmbrella;
-        private boolean takeGasMask;
-        private List<Item> clothing;
 
+public class FreezingWardrobe extends AbstractWardrobe{
         public FreezingWardrobe() {
+                clothes = new Clothes();
+                clothes.setShoes(Item.getShoes(Temperature.FREEZING));
+                clothes.setTrousers(Item.getTrousers(Temperature.FREEZING));
+                clothes.setTop(Item.getTop(Temperature.FREEZING));
+                clothes.setAccessories(Item.getAccessories(Temperature.FREEZING));
         }
 
-        @Override
-        public boolean checkUmbrella() {
-            return false;
-        }
-
-        @Override
-        public boolean checkGasMask() {
-            return false;
-        }
-
-        @Override
-        public List<Item> getClothing() {
-            return null;
-        }
-
-        @Override
-        public void addCloth(Item cloth) {
-            clothing.add(cloth);
-        }
-
-        @Override
-        public void setUmbrella(boolean takeUmbrella) {
-            this.takeUmbrella = takeUmbrella;
-        }
-
-        @Override
-        public void setGasMask(boolean takeGasMask) {
-            this.takeGasMask = takeGasMask;
-        }
 }

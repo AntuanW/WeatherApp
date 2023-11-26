@@ -1,28 +1,24 @@
 plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'java'
 }
 
 group 'pl.edu.agh.to2'
 version '1.0-SNAPSHOT'
-
-apply plugin: 'org.openjfx.javafxplugin'
 
 repositories {
     mavenCentral()
 }
 
 application {
-    mainClassName = 'Main'
+    mainClassName = 'pl.edu.agh.to2.example.WeatherApplication'
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-}
-
-javafx {
-    version = '17'
-    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
 }
 
 test {
@@ -30,8 +26,12 @@ test {
 }
 
 dependencies {
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.h2database:h2' // przeniesione z runtimeOnly
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
 }
