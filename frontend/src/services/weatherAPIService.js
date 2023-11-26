@@ -1,5 +1,4 @@
 import axios from 'axios'
-import weatherData from "./weather.json"
 
 // CLEAR,
 // CLOUDY,
