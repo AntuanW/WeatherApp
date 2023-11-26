@@ -47,8 +47,6 @@ public class WeatherService {
 
         double airCondition = weatherApiService.getAirQuality().asDouble();
         weather.setAirCondition(AirCondition.fromPM2_5(airCondition));
-
-        System.out.println(temp + " " + forecast + " " + airCondition);
     }
 
     public void setWardrobe() {
