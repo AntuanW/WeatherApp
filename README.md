@@ -73,6 +73,10 @@ To run the application locally, follow these steps:
 - [Backend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse?at=refs%2Fheads%2FM1) - The backend component is responsible for interacting with the [Weather API](https://www.weatherapi.com/) to fetch weather data.
 - [Frontend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse/frontend?at=refs%2Fheads%2FM1) - The frontend component manages user input and displays weather information in a user-friendly way.
 
+## UML Schema
+
+![Wheather Application Class Schema](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse/WeatherAppUML.pdf?at=refs%2Fheads%2FM1)
+
 
 ## Authors
 
