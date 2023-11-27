@@ -1,0 +1,17 @@
+nav {
+    min-height: 100px;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+}
+
+hr{
+    margin: 0;
+    border: 0;
+    height: 2px;
+    background: #333;
+    background-image: linear-gradient(to right, #E9EEE8, rgb(107, 33, 176), #E9EEE8);
+}

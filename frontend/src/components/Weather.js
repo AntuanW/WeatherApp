@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import ThunderstormOutlinedIcon from '@mui/icons-material/ThunderstormOutlined';
 import WaterDropOutlinedIcon from '@mui/icons-material/WaterDropOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
-import { solid } from '@fortawesome/fontawesome-free';
+import {faCloudMeatball, faSmog} from '@fortawesome/free-solid-svg-icons'
 
 const Weather = () => {
     const [weather, setWeather] = useState();
@@ -15,47 +15,41 @@ const Weather = () => {
     useEffect(()=> {
         getWeather().then((res) => {
             setWeather(res)
-            switch (res.temperatureScale) {
-                case 'FREEZING':
-                    setTemperatureColor("#7EC8E3");
-                    break;
-                case 'COLD':
-                    setTemperatureColor("#0000FF");
-                    break;
-                case 'WARM':
-                    setTemperatureColor("green");
-                    break;
-                case 'HOT':
-                    setTemperatureColor("red");
-                    break;
-                default:
-                    break;
-            }
+            setColor(res.temperatureScale)
         })
     }, [])
 
-    const getWeatherEmote = (emote) => {
-        switch (emote) {
-            case 'CLEAR':
-                return <WbSunnyOutlinedIcon sx={{ fontSize: 100, color: '#ffea00' }}/>
-            case 'CLOUDY':
-                return <CloudOutlinedIcon sx={{ fontSize: 100, color: '#7EC8E3' }}/>
-            case 'FOGGY':
-                return <FontAwesomeIcon icon={solid("smog")} style={{color: "grey", fontSize: 100}} />
-            case 'THUNDERY':
-                return <ThunderstormOutlinedIcon sx={{ fontSize: 100, color: "#050A30" }}/>
-            case 'RAINY':
-                return <WaterDropOutlinedIcon sx={{ fontSize: 100, color: "#050A30"}}/>
-            case 'SLEETY':
-                return <FontAwesomeIcon icon={solid("cloud-meatball")} style = {{color: "#7EC8E3", fontSize: 100}} />
-            case 'SNOWY':
-                return <AcUnitOutlinedIcon sx={{ fontSize: 100 }}/>
-            case 'HAIL':
-                return <FontAwesomeIcon icon={solid("cloud-meatball")} style = {{color: "#7EC8E3", fontSize: 100}} />
+    const setColor = (temperature) => {
+        switch (temperature) {
+            case 'FREEZING':
+                setTemperatureColor("#7EC8E3");
+                break;
+            case 'COLD':
+                setTemperatureColor("#0000FF");
+                break;
+            case 'WARM':
+                setTemperatureColor("green");
+                break;
+            case 'HOT':
+                setTemperatureColor("red");
+                break;
             default:
-                return <></>
+                break;
         }
     }
+
+    const weatherIcon = {
+        CLEAR: <WbSunnyOutlinedIcon sx={{ fontSize: 100, color: '#ffea00' }}/>,
+        CLOUDY: <CloudOutlinedIcon sx={{ fontSize: 100, color: '#7EC8E3' }}/>,
+        FOGGY: <FontAwesomeIcon icon={faSmog} style={{color: "grey", fontSize: 100}} />,
+        THUNDERY: <ThunderstormOutlinedIcon sx={{ fontSize: 100, color: "#050A30" }}/>,
+        RAINY: <WaterDropOutlinedIcon sx={{ fontSize: 100, color: "#050A30"}}/>,
+        SLEETY: <FontAwesomeIcon icon={faCloudMeatball} style = {{color: "#7EC8E3", fontSize: 100}} />,
+        SNOWY: <AcUnitOutlinedIcon sx={{ fontSize: 100, color: "#7EC8E3" }}/>,
+        HAIL: <FontAwesomeIcon icon={faCloudMeatball} style = {{color: "#7EC8E3", fontSize: 100}} />,
+        null: <p style = {{color: "red"}} >No data for provided arguments</p>
+    }
+    const getWeatherEmote = (emote) => weatherIcon[emote];
     
     return (
         <div className='weather'>

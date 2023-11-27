@@ -15,6 +15,12 @@ const Wardrobe = () => {
         })
     }, [])
 
+    const wardrobeStyle = {
+        elevation: 3,
+        className: 'clothes',
+        sx: {backgroundColor: "whitesmoke"}
+    }
+
     return (
         <div id = "clothes-container">
             <div id = "items">
@@ -31,7 +37,7 @@ const Wardrobe = () => {
                 </div>
             </div>
             
-            <Paper elevation={3} className='clothes'>
+            <Paper {...wardrobeStyle}>
                 <h2>Top</h2>
                 <ul>
                 {wardrobe?.clothes.top.map((item, i) =>
@@ -39,15 +45,15 @@ const Wardrobe = () => {
                 )}
                 </ul>
             </Paper>
-            <Paper elevation={3} className='clothes'>
+            <Paper {...wardrobeStyle}>
                 <h2>Bottom</h2>
                 <ul><li>{wardrobe?.clothes.trousers}</li></ul>
             </Paper>
-            <Paper elevation={3} className='clothes'>
+            <Paper {...wardrobeStyle}>
                 <h2>Shoes</h2>
                 <ul><li>{wardrobe?.clothes.shoes}</li></ul>
             </Paper>
-            <Paper elevation={3} className='clothes'>
+            <Paper {...wardrobeStyle}>
                 <h2>Accessories</h2>
                 <ul>{wardrobe?.clothes.accessories.map((item, i) =>
                     <li key = {i}>{item}</li>
