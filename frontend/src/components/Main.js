@@ -16,7 +16,7 @@ const Main = () => {
 
     return (
         <main>
-            <Button sx={{left: 30}} variant="outlined" onClick={onClick}>Change location</Button>
+            <Button color = "secondary" sx={{left: 30}} variant="outlined" onClick={onClick}>Change location</Button>
             <Weather/>
             <Wardrobe/>
         </main>
