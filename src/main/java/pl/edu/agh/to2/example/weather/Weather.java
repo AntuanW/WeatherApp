@@ -11,9 +11,6 @@ public class Weather {
     private AirCondition airCondition;
     private double temperatureCelsius;
 
-    public Weather(){
-    }
-
     // Getters
     public AirCondition getAirCondition() {
         return airCondition;

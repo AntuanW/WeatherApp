@@ -37,11 +37,11 @@ class AirConditionTest {
 
     @Test
     void fromPM2_5() {
-        assertEquals(veryGoodAirCondition, AirCondition.fromPM2_5(11));
-        assertEquals(goodAirCondition, AirCondition.fromPM2_5(35));
-        assertEquals(okayAirCondition, AirCondition.fromPM2_5(59));
-        assertEquals(passableAirCondition, AirCondition.fromPM2_5(83));
-        assertEquals(unhealthyAirCondition, AirCondition.fromPM2_5(179));
-        assertEquals(veryUnhealthyAirCondition, AirCondition.fromPM2_5(180));
+        assertEquals(veryGoodAirCondition, AirCondition.fromPM25(11));
+        assertEquals(goodAirCondition, AirCondition.fromPM25(35));
+        assertEquals(okayAirCondition, AirCondition.fromPM25(59));
+        assertEquals(passableAirCondition, AirCondition.fromPM25(83));
+        assertEquals(unhealthyAirCondition, AirCondition.fromPM25(179));
+        assertEquals(veryUnhealthyAirCondition, AirCondition.fromPM25(180));
     }
 }

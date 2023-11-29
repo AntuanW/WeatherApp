@@ -8,16 +8,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class WeatherApiService {
-    private final static String weatherApiURLBase = "http://api.weatherapi.com/v1/current.json";
-    private final static String apiKey = "2ea04a19ce374691987155332232411";
+    private static final String WEATHER_API_URL_BASE = "http://api.weatherapi.com/v1/current.json";
+    private static final String API_KEY = "2ea04a19ce374691987155332232411";
     private String weatherApiURL;
     private JsonNode weatherData;
 
-    public WeatherApiService() {
-    }
 
     public void setWeatherApiURL(String coords) {
-        this.weatherApiURL = (weatherApiURLBase + "?key=" + apiKey + "&q=" + coords + "&aqi=yes");
+        this.weatherApiURL = (WEATHER_API_URL_BASE + "?key=" + API_KEY + "&q=" + coords + "&aqi=yes");
     }
 
     //getter for weatherApiURL

@@ -21,7 +21,9 @@ public class WeatherService {
 
     public void setWeatherData(LocationRequest locationRequest) {
 
-        String lat, lon, locationString = "0.0,0.0";
+        String lat;
+        String lon;
+        String locationString = "0.0,0.0";
         try {
             lat = Double.toString(locationRequest.latitude());
             lon = Double.toString(locationRequest.longitude());
@@ -46,7 +48,7 @@ public class WeatherService {
         weather.setForecast(Forecast.getForecast(forecast));
 
         double airCondition = weatherApiService.getAirQuality().asDouble();
-        weather.setAirCondition(AirCondition.fromPM2_5(airCondition));
+        weather.setAirCondition(AirCondition.fromPM25(airCondition));
     }
 
     public void setWardrobe() {

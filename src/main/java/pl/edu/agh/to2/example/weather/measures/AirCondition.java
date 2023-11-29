@@ -1,5 +1,4 @@
 package pl.edu.agh.to2.example.weather.measures;
-import com.fasterxml.jackson.databind.JsonNode;
 
 
 public enum AirCondition {
@@ -15,7 +14,7 @@ public enum AirCondition {
     }
 
     //from pm2 to enum
-    public static AirCondition fromPM2_5(double pm2) {
+    public static AirCondition fromPM25(double pm2) {
         if (pm2 < 12) {
             return VERY_GOOD;
         } else if (pm2 < 36) {
