@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
+import pl.edu.agh.to2.example.weather.measures.Temperature;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +14,7 @@ class WeatherRequestTest {
 
     @BeforeAll
     static void setUp() {
-        weatherRequest = new WeatherRequest(0.0, AirCondition.GOOD, Forecast.FOGGY);
+        weatherRequest = new WeatherRequest(0.0, AirCondition.GOOD, Forecast.FOGGY, Temperature.COLD);
     }
 
     @Test
@@ -29,5 +30,10 @@ class WeatherRequestTest {
     @Test
     void forecast() {
         assertEquals(Forecast.FOGGY, weatherRequest.forecast());
+    }
+
+    @Test
+    void temperatureScale() {
+        assertEquals(Temperature.COLD, weatherRequest.temperatureScale());
     }
 }

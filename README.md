@@ -49,7 +49,7 @@ To run the application locally, follow these steps:
 
 3. Run Java Application:  `WeatherApplication.java`
 
-    Ypu can find this file in: `src\main\java\pl\edu\agh\to2\example\WeatherApplication.java`
+    You can find this file in: `src\main\java\pl\edu\agh\to2\example\WeatherApplication.java`
 
 4. Go to the frontend directory
 
@@ -75,7 +75,7 @@ To run the application locally, follow these steps:
 
 ## UML Schema
 
-![Wheather Application Class Schema](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse/WeatherAppUML.pdf?at=refs%2Fheads%2FM1)
+![Wheather Application Class Schema](docs/WeatherAppUML.png)
 
 
 ## Authors
