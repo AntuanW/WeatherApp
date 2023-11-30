@@ -40,22 +40,22 @@ const Wardrobe = () => {
             <Paper {...wardrobeStyle}>
                 <h2>Top</h2>
                 <ul>
-                {wardrobe?.clothes.top.map((item, i) =>
+                {wardrobe?.clothes?.top.map((item, i) =>
                     <li key = {i}>{item}</li>
                 )}
                 </ul>
             </Paper>
             <Paper {...wardrobeStyle}>
                 <h2>Bottom</h2>
-                <ul><li>{wardrobe?.clothes.trousers}</li></ul>
+                <ul><li>{wardrobe?.clothes?.trousers}</li></ul>
             </Paper>
             <Paper {...wardrobeStyle}>
                 <h2>Shoes</h2>
-                <ul><li>{wardrobe?.clothes.shoes}</li></ul>
+                <ul><li>{wardrobe?.clothes?.shoes}</li></ul>
             </Paper>
             <Paper {...wardrobeStyle}>
                 <h2>Accessories</h2>
-                <ul>{wardrobe?.clothes.accessories.map((item, i) =>
+                <ul>{wardrobe?.clothes?.accessories.map((item, i) =>
                     <li key = {i}>{item}</li>
                 )}
                 </ul>

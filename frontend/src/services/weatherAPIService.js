@@ -32,7 +32,7 @@ const postLocation = (data) => {
     console.log(data);
 
     return new Promise((resolve, reject) => {
-        axios.post("http://localhost:8080/weatherapp/location", 
+        axios.post("http://localhost:8080/users/configuration/location", 
         data, {
             headers: {
                 'Access-Control-Allow-Credentials':true

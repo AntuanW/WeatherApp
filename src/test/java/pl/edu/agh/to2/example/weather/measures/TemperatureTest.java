@@ -2,10 +2,6 @@ package pl.edu.agh.to2.example.weather.measures;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.example.wardrobe.ColdWardrobe;
-import pl.edu.agh.to2.example.wardrobe.FreezingWardrobe;
-import pl.edu.agh.to2.example.wardrobe.HotWardrobe;
-import pl.edu.agh.to2.example.wardrobe.WarmWardrobe;
 
 import static org.junit.jupiter.api.Assertions.*;
 

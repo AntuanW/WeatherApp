@@ -11,7 +11,6 @@ public class Weather {
     private AirCondition airCondition;
     private double temperatureCelsius;
 
-    // Getters
     public AirCondition getAirCondition() {
         return airCondition;
     }
@@ -28,7 +27,6 @@ public class Weather {
         return temperatureCelsius;
     }
 
-    // Setters
     public void setAirCondition(AirCondition airCondition) {
         this.airCondition = airCondition;
     }

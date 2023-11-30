@@ -1,9 +1,15 @@
 package pl.edu.agh.to2.example.weather;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.to2.example.utils.LocationRequest;
-import pl.edu.agh.to2.example.wardrobe.Wardrobe;
+import pl.edu.agh.to2.example.controller.payload.LocationRequest;
+import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
+import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
+import pl.edu.agh.to2.example.persistance.ClothesRepository;
+import pl.edu.agh.to2.example.persistance.UserConfiguration;
+import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
+import pl.edu.agh.to2.example.wardrobe.*;
 import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
@@ -11,74 +17,49 @@ import java.util.logging.Logger;
 
 @Service
 public class WeatherService {
+    @Autowired
+    private UserConfigurationRepository userConfigurationRepository;
+    @Autowired
+    private WeatherApiService weatherApiService;
+    @Autowired
+    private ClothesRepository clothesRepository;
 
-    private final WeatherApiService weatherApiService;
-    private Weather weather;
-    private Wardrobe wardrobe;
-
-    private final Logger logger = Logger.getLogger(getClass().getName());
-
-    public WeatherService() {
-        weatherApiService = new WeatherApiService();
-        weather = new Weather();
+    public Wardrobe getRightWardrobe(String userId) {
+        UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(()-> new UserNotFoundException(userId));
+        JsonNode data = weatherApiService.getWeatherData(userConfiguration.getLocation());
+        Weather weather = extractWeather(data);
+        return pickWardrobe(weather);
     }
 
-    public void setWeatherData(LocationRequest locationRequest) throws Exception {
-
-        String lat;
-        String lon;
-        String locationString = "0.0,0.0";
-        try {
-            lat = Double.toString(locationRequest.latitude());
-            lon = Double.toString(locationRequest.longitude());
-            locationString = lat + "," + lon;
-        } catch (NumberFormatException e) {
-            logger.info("Cannot convert number to string.");
-            throw new Exception();
-        }
-
-        weatherApiService.setWeatherApiURL(locationString);
-
-        try{
-            JsonNode weatherData = weatherApiService.getWeatherData();
-            double temp = weatherData.get("temp_c").asDouble();
-            weather.setTemperature(Temperature.getTemperature(temp));
-            weather.setTemperatureCelsius(temp);
-
-            String forecast = weatherData.get("condition").get("text").asText();
-            weather.setForecast(Forecast.getForecast(forecast));
-
-            double airCondition = weatherData.get("air_quality").get("pm2_5").asDouble();
-            weather.setAirCondition(AirCondition.fromPM25(airCondition));
-        } catch (Exception e) {
-            logger.info("Something went wrong with getting weather data.");
-        }
+    public Weather getWeather(String userId) {
+        UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(()-> new UserNotFoundException(userId));
+        JsonNode data = weatherApiService.getWeatherData(userConfiguration.getLocation());
+        Weather weather = extractWeather(data);
+        return weather;
     }
 
-    public void setWardrobe() {
-        wardrobe = weather.getTemperature().getWardrobe();
-        wardrobe.setUmbrella(wardrobe.checkUmbrella(weather.getForecast()));
-        wardrobe.setGasMask(wardrobe.checkGasMask(weather.getAirCondition()));
+    private Weather extractWeather(JsonNode data) {
+        double temp = data.get("temp_c").asDouble();
+        Weather weather = new Weather();
+        weather.setTemperature(Temperature.getTemperature(temp));
+        weather.setTemperatureCelsius(temp);
+
+        String forecast = data.get("condition").get("text").asText();
+        weather.setForecast(Forecast.getForecast(forecast));
+
+        double airCondition = data.get("air_quality").get("pm2_5").asDouble();
+        weather.setAirCondition(AirCondition.fromPM25(airCondition));
+
+        return weather;
     }
 
-    public Temperature getTemperature() {
-        return weather.getTemperature();
-    }
+    private Wardrobe pickWardrobe(Weather weather) {
+        Wardrobe wardrobe = new Wardrobe();
+        wardrobe.setClothes(clothesRepository.getByTemperature(weather.getTemperature())
+                .orElseThrow(() -> new ResourceNotFoundException("Clothes for temperature not found")));
+        wardrobe.setUmbrella(weather.getForecast());
+        wardrobe.setGasMask(weather.getAirCondition());
 
-    public Forecast getForecast() {
-        return weather.getForecast();
-    }
-
-    public AirCondition getAirCondition() {
-        return weather.getAirCondition();
-    }
-
-    public double getTempCelsius() {
-        return weather.getTemperatureCelsius();
-    }
-
-    public Wardrobe getRightWardrobe() {
-        setWardrobe();
         return wardrobe;
     }
 }

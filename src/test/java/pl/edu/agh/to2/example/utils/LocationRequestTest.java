@@ -2,6 +2,7 @@ package pl.edu.agh.to2.example.utils;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pl.edu.agh.to2.example.controller.payload.LocationRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
 

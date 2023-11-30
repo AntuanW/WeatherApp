@@ -9,10 +9,6 @@ public enum AirCondition {
     UNHEALTHY,
     VERY_UNHEALTHY;
 
-    public boolean checkIfGasMask() {
-        return this == UNHEALTHY || this == VERY_UNHEALTHY;
-    }
-
     //from pm2 to enum
     public static AirCondition fromPM25(double pm2) {
         if (pm2 < 12) {

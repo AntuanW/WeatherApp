@@ -12,19 +12,19 @@ class HotWardrobeTest {
 
     private static HotWardrobe hotWardrobe;
     private static Clothes hotClothes;
-    private static Item hotShoes;
-    private static Item hotTrousers;
-    private static List<Item> hotTop;
-    private static List<Item> hotAccessories;
+    private static String hotShoes;
+    private static String hotTrousers;
+    private static List<String> hotTop;
+    private static List<String> hotAccessories;
 
     @BeforeAll
     static void setUp() {
         hotWardrobe = new HotWardrobe();
         hotClothes = hotWardrobe.getClothes();
-        hotShoes = Item.getShoes(Temperature.HOT);
-        hotTrousers = Item.getTrousers(Temperature.HOT);
-        hotTop = Item.getTop(Temperature.HOT);
-        hotAccessories = Item.getAccessories(Temperature.HOT);
+        hotShoes = String.getShoes(Temperature.HOT);
+        hotTrousers = String.getTrousers(Temperature.HOT);
+        hotTop = String.getTop(Temperature.HOT);
+        hotAccessories = String.getAccessories(Temperature.HOT);
     }
 
     @Test

@@ -10,10 +10,6 @@ public enum Forecast {
     SNOWY,
     HAIL;
 
-    public boolean checkIfUmbrella(){
-        return this == RAINY || this == SLEETY || this == SNOWY || this == HAIL;
-    }
-
     public static Forecast getForecast(String forecast) {
         forecast = forecast.toLowerCase();
 
