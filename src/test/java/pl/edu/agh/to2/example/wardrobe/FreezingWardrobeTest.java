@@ -19,6 +19,7 @@ class FreezingWardrobeTest {
     @BeforeAll
     static void setUp() {
         freezingWardrobe = new FreezingWardrobe();
+        freezingClothes = freezingWardrobe.getClothes();
         freezingShoes = Item.getShoes(Temperature.FREEZING);
         freezingTrousers = Item.getTrousers(Temperature.FREEZING);
         freezingTop = Item.getTop(Temperature.FREEZING);
@@ -28,6 +29,7 @@ class FreezingWardrobeTest {
     @Test
     void getClothes() {
         Clothes clothes = freezingWardrobe.getClothes();
+        assertEquals(freezingClothes, clothes);
         assertEquals(freezingShoes, clothes.getShoes());
         assertEquals(freezingTrousers, clothes.getTrousers());
         assertEquals(freezingTop, clothes.getTop());
