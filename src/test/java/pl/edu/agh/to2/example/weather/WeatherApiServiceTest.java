@@ -14,7 +14,6 @@ class WeatherApiServiceTest {
     static void setUp() {
         weatherApiService = new WeatherApiService();
         weatherApiService.setWeatherApiURL("50.0647,19.9450");
-        weatherApiService.setWeatherData();
     }
 
     @Test
