@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
-import java.awt.desktop.SystemEventListener;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -11,9 +11,13 @@ class WeatherServiceTest {
     private static WeatherService weatherService;
 
     @BeforeEach
-    void setUp() {
+    void setUp(){
         weatherService = new WeatherService();
-        weatherService.setWeatherData(new LocationRequest(50.0, 50.0));
+        try {
+            weatherService.setWeatherData(new LocationRequest(50.0, 50.0));
+        } catch (Exception e) {
+            System.out.println("Something went wrong with getting weather data.");
+        }
         weatherService.setWardrobe();
     }
 

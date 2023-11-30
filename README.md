@@ -57,7 +57,7 @@ To run the application locally, follow these steps:
   cd frontend
 ```
 
-5. Run following comands
+5. Run following commands
 
 ```bash
   npm install
@@ -75,7 +75,7 @@ To run the application locally, follow these steps:
 
 ## UML Schema
 
-![Wheather Application Class Schema](docs/WeatherAppUML.png)
+![Weather Application Class Schema](docs/WeatherAppUML.png)
 
 
 ## Authors

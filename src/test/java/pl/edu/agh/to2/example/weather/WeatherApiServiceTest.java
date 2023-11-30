@@ -11,7 +11,7 @@ class WeatherApiServiceTest {
     private static WeatherApiService weatherApiService;
 
     @BeforeAll
-    static void setUp() throws Exception {
+    static void setUp() {
         weatherApiService = new WeatherApiService();
         weatherApiService.setWeatherApiURL("50.0647,19.9450");
         weatherApiService.setWeatherData();
@@ -24,25 +24,8 @@ class WeatherApiServiceTest {
     }
 
     @Test
-    void setWeatherData() {
-        assertDoesNotThrow(() -> weatherApiService.setWeatherData());
-    }
-
-    @Test
-    void getTemperature() {
-        assertNotNull(weatherApiService.getTemperature());
-        assertTrue(weatherApiService.getTemperature() instanceof JsonNode);
-    }
-
-    @Test
-    void getAirQuality() {
-        assertNotNull(weatherApiService.getAirQuality());
-        assertTrue(weatherApiService.getAirQuality() instanceof JsonNode);
-    }
-
-    @Test
-    void getForecast() {
-        assertNotNull(weatherApiService.getForecast());
-        assertTrue(weatherApiService.getForecast() instanceof JsonNode);
+    void getWeatherData() throws Exception {
+        JsonNode weatherData = weatherApiService.getWeatherData();
+        assertNotNull(weatherData);
     }
 }

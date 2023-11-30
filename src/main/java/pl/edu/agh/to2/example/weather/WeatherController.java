@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.to2.example.utils.LocationRequest;
 import pl.edu.agh.to2.example.utils.WeatherRequest;
 import pl.edu.agh.to2.example.wardrobe.Wardrobe;
+import java.util.logging.Logger;
+
 
 import javax.persistence.EntityNotFoundException;
 
@@ -14,6 +16,8 @@ import javax.persistence.EntityNotFoundException;
 @RequestMapping(path = "/weatherapp")
 public class WeatherController {
     private final WeatherService weatherService;
+
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     public WeatherController(WeatherService weatherService) {
         this.weatherService = weatherService;
@@ -39,7 +43,7 @@ public class WeatherController {
             @RequestBody LocationRequest locationRequest
     ) {
         try {
-            System.out.println(locationRequest);
+            logger.info(() -> "Message: " + locationRequest.toString());
             weatherService.setWeatherData(locationRequest);
             return ResponseEntity.ok().body("Weather data set successfully.");
         }

@@ -20,6 +20,7 @@ class HotWardrobeTest {
     @BeforeAll
     static void setUp() {
         hotWardrobe = new HotWardrobe();
+        hotClothes = hotWardrobe.getClothes();
         hotShoes = Item.getShoes(Temperature.HOT);
         hotTrousers = Item.getTrousers(Temperature.HOT);
         hotTop = Item.getTop(Temperature.HOT);
@@ -29,6 +30,7 @@ class HotWardrobeTest {
     @Test
     void getClothes() {
         Clothes clothes = hotWardrobe.getClothes();
+        assertEquals(hotClothes, clothes);
         assertEquals(hotShoes, clothes.getShoes());
         assertEquals(hotTrousers, clothes.getTrousers());
         assertEquals(hotTop, clothes.getTop());
