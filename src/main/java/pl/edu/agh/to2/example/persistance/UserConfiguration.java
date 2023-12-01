@@ -2,6 +2,8 @@ package pl.edu.agh.to2.example.persistance;
 
 import pl.edu.agh.to2.example.model.Location;
 
+import java.util.Optional;
+
 public class UserConfiguration {
 
     private final String userId;
@@ -11,8 +13,8 @@ public class UserConfiguration {
         this.userId = userId;
     }
 
-    public Location getLocation() {
-        return location;
+    public Optional<Location> getLocation() {
+        return Optional.ofNullable(location);
     }
 
     public void setLocation(Location location) {

@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.example.weather.measures;
 
-
 public enum AirCondition {
     VERY_GOOD,
     GOOD,
@@ -9,7 +8,6 @@ public enum AirCondition {
     UNHEALTHY,
     VERY_UNHEALTHY;
 
-    //from pm2 to enum
     public static AirCondition fromPM25(double pm2) {
         if (pm2 < 12) {
             return VERY_GOOD;

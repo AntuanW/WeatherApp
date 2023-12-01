@@ -4,4 +4,8 @@ public class ExternalApiException extends RuntimeException {
     public ExternalApiException(Throwable cause) {
         super("Api communication error", cause);
     }
+
+    public ExternalApiException(String message) {
+        super(message);
+    }
 }

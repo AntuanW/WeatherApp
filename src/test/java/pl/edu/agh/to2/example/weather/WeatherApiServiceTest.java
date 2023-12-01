@@ -3,6 +3,7 @@ package pl.edu.agh.to2.example.weather;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pl.edu.agh.to2.example.service.WeatherApiService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
