@@ -11,12 +11,12 @@ class ClothesTest {
 
     @Test
     void testClothesBuilder() {
-        Item shoes = Item.BOOTS;
-        Item trousers = Item.TROUSERS;
-        List<Item> top = List.of(Item.T_SHIRT, Item.JACKET);
-        List<Item> accessories = List.of(Item.SCARF, Item.GLOVES);
+        String shoes = String.BOOTS;
+        String trousers = String.TROUSERS;
+        List<String> top = List.of(String.T_SHIRT, String.JACKET);
+        List<String> accessories = List.of(String.SCARF, String.GLOVES);
 
-        Clothes clothes = new Clothes.Builder()
+        Clothes clothes = new ClothesBuilder()
                 .setShoes(shoes)
                 .setTrousers(trousers)
                 .setTop(top)

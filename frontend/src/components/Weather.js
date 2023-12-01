@@ -11,11 +11,16 @@ import {faCloudMeatball, faSmog} from '@fortawesome/free-solid-svg-icons'
 const Weather = () => {
     const [weather, setWeather] = useState();
     const [temperatureColor, setTemperatureColor] = useState("black");
+    const [error, setError] = useState(false);
 
     useEffect(()=> {
         getWeather().then((res) => {
             setWeather(res)
             setColor(res.temperatureScale)
+            setError(false);
+        }).catch((err) => {
+            setError(true);
+            console.log(err);
         })
     }, [])
 
@@ -46,13 +51,13 @@ const Weather = () => {
         RAINY: <WaterDropOutlinedIcon sx={{ fontSize: 100, color: "#050A30"}}/>,
         SLEETY: <FontAwesomeIcon icon={faCloudMeatball} style = {{color: "#7EC8E3", fontSize: 100}} />,
         SNOWY: <AcUnitOutlinedIcon sx={{ fontSize: 100, color: "#7EC8E3" }}/>,
-        HAIL: <FontAwesomeIcon icon={faCloudMeatball} style = {{color: "#7EC8E3", fontSize: 100}} />,
-        null: <p style = {{color: "red"}} >No data for provided arguments</p>
+        HAIL: <FontAwesomeIcon icon={faCloudMeatball} style = {{color: "#7EC8E3", fontSize: 100}} />
     }
     const getWeatherEmote = (emote) => weatherIcon[emote];
     
     return (
         <div className='weather'>
+            {error && <p style = {{color: "red"}} >No data for provided arguments</p>}
             {getWeatherEmote(weather?.forecast)}
             <p id = "temperature" style={{color: temperatureColor}}><b>{weather?.temperature}&deg;C</b></p>
             <p><b>Air quality:</b> {weather?.airQuality}</p>

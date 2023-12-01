@@ -2,7 +2,8 @@ package pl.edu.agh.to2.example.weather;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.example.utils.LocationRequest;
+import pl.edu.agh.to2.example.controller.payload.LocationRequest;
+import pl.edu.agh.to2.example.service.WeatherService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

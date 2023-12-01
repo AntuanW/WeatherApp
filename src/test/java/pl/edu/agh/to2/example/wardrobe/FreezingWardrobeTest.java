@@ -11,19 +11,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class FreezingWardrobeTest {
     private static FreezingWardrobe freezingWardrobe;
     private static Clothes freezingClothes;
-    private static Item freezingShoes;
-    private static Item freezingTrousers;
-    private static List<Item> freezingTop;
-    private static List<Item> freezingAccessories;
+    private static String freezingShoes;
+    private static String freezingTrousers;
+    private static List<String> freezingTop;
+    private static List<String> freezingAccessories;
 
     @BeforeAll
     static void setUp() {
         freezingWardrobe = new FreezingWardrobe();
         freezingClothes = freezingWardrobe.getClothes();
-        freezingShoes = Item.getShoes(Temperature.FREEZING);
-        freezingTrousers = Item.getTrousers(Temperature.FREEZING);
-        freezingTop = Item.getTop(Temperature.FREEZING);
-        freezingAccessories = Item.getAccessories(Temperature.FREEZING);
+        freezingShoes = String.getShoes(Temperature.FREEZING);
+        freezingTrousers = String.getTrousers(Temperature.FREEZING);
+        freezingTop = String.getTop(Temperature.FREEZING);
+        freezingAccessories = String.getAccessories(Temperature.FREEZING);
     }
 
     @Test

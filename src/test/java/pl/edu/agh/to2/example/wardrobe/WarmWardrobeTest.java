@@ -11,18 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class WarmWardrobeTest {
 
     private static WarmWardrobe warmWardrobe;
-    private static Item warmShoes;
-    private static Item warmTrousers;
-    private static List<Item> warmTop;
-    private static List<Item> warmAccessories;
+    private static String warmShoes;
+    private static String warmTrousers;
+    private static List<String> warmTop;
+    private static List<String> warmAccessories;
 
     @BeforeAll
     static void setUp() {
         warmWardrobe = new WarmWardrobe();
-        warmShoes = Item.getShoes(Temperature.WARM);
-        warmTrousers = Item.getTrousers(Temperature.WARM);
-        warmTop = Item.getTop(Temperature.WARM);
-        warmAccessories = Item.getAccessories(Temperature.WARM);
+        warmShoes = String.getShoes(Temperature.WARM);
+        warmTrousers = String.getTrousers(Temperature.WARM);
+        warmTop = String.getTop(Temperature.WARM);
+        warmAccessories = String.getAccessories(Temperature.WARM);
     }
 
     @Test
