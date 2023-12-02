@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
 import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
-import pl.edu.agh.to2.example.model.Location;
 import pl.edu.agh.to2.example.persistance.ClothesRepository;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;

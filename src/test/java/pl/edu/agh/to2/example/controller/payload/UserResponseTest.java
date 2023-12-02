@@ -7,11 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserResponseTest {
 
+    private UserResponse userResponse;
+    private String token;
+
     @BeforeEach
     void setUp() {
+        token = "token";
+        userResponse = new UserResponse(token);
     }
 
     @Test
     void token() {
+        assertEquals(token, userResponse.token());
     }
 }

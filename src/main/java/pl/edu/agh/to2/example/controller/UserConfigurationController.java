@@ -10,7 +10,6 @@ import pl.edu.agh.to2.example.model.Location;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 import javax.persistence.EntityNotFoundException;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController()
