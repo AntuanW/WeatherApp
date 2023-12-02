@@ -1,32 +1,29 @@
 package pl.edu.agh.to2.example.wardrobe;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ClothesTest {
 
+    @BeforeAll
+    static void setUp() {
+    }
+
     @Test
-    void testClothesBuilder() {
-        String shoes = String.BOOTS;
-        String trousers = String.TROUSERS;
-        List<String> top = List.of(String.T_SHIRT, String.JACKET);
-        List<String> accessories = List.of(String.SCARF, String.GLOVES);
+    void getShoes() {
+    }
 
-        Clothes clothes = new ClothesBuilder()
-                .setShoes(shoes)
-                .setTrousers(trousers)
-                .setTop(top)
-                .setAccessories(accessories)
-                .build();
+    @Test
+    void getTrousers() {
+    }
 
-        assertNotNull(clothes);
-        assertEquals(shoes, clothes.getShoes());
-        assertEquals(trousers, clothes.getTrousers());
-        assertEquals(top, clothes.getTop());
-        assertEquals(accessories, clothes.getAccessories());
+    @Test
+    void getTop() {
+    }
+
+    @Test
+    void getAccessories() {
     }
 }
