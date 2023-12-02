@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.example.weather;
+package pl.edu.agh.to2.example.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

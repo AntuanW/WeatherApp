@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.example.weather;
+package pl.edu.agh.to2.example.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.BeforeAll;
