@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.example.utils;
+package pl.edu.agh.to2.example.controller.payload;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
