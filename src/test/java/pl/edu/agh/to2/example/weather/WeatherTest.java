@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherTest {
 
-    private Weather weather = new Weather();
+    private final Weather weather = new Weather();
     private AirCondition airCondition;
     private Forecast forecast;
     private double temperatureCelsius;

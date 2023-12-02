@@ -21,7 +21,7 @@ public class WeatherApiService {
     private final NumberFormat locationFormatter = new DecimalFormat("0.####");
 
     private String buildApiURL(Location location) {
-        String loc = locationFormatter.format(location.lattitude()) + "," + locationFormatter.format(location.longitude());
+        String loc = locationFormatter.format(location.latitude()) + "," + locationFormatter.format(location.longitude());
         return String.format("%s?key=%s&q=%s&%s", WEATHER_API_URL_BASE, API_KEY, loc, AQI_PARAM);
     }
 
