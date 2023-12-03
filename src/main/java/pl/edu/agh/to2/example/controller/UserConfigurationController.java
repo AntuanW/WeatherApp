@@ -1,4 +1,5 @@
 package pl.edu.agh.to2.example.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
 import pl.edu.agh.to2.example.model.Location;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.logging.Logger;
 
@@ -22,13 +24,13 @@ public class UserConfigurationController {
     private UserConfigurationRepository userConfigurationRepository;
 
     @PostMapping("/user")
-    public UserResponse initializeUser(
+    public ResponseEntity<UserResponse> initializeUser(
     ) {
         String userToken = "aa";//UUID.randomUUID().toString();
         UserConfiguration userConfiguration = userConfigurationRepository
                 .findByUserId(userToken).orElse(new UserConfiguration(userToken));
         userConfigurationRepository.saveUserConfiguration(userConfiguration);
-        return new UserResponse(userToken);
+        return ResponseEntity.ok().body(new UserResponse(userToken));
     }
 
     @PostMapping("/location")
@@ -37,7 +39,6 @@ public class UserConfigurationController {
             @RequestBody LocationRequest locationRequest
     ) {
         try {
-
             logger.info(() -> "Message: " + locationRequest.toString());
             UserConfiguration userConfiguration = userConfigurationRepository
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -45,13 +46,12 @@ public class UserConfigurationController {
             userConfiguration.setLocation(location);
             userConfigurationRepository.saveUserConfiguration(userConfiguration);
             return ResponseEntity.ok().body("User location successfully saved");
-        }
-        catch (EntityNotFoundException e){
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Something went wrong with posting location.");
         }
-        catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something went wrong with getting weather data.");
-        }
-
     }
 }

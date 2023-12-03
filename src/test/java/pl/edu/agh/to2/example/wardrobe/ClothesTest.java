@@ -25,22 +25,22 @@ class ClothesTest {
     }
 
     @Test
-    void getShoes() {
+    void testGetShoes() {
         assertEquals(shoes, clothes.getShoes());
     }
 
     @Test
-    void getTrousers() {
+    void testGetTrousers() {
         assertEquals(trousers, clothes.getTrousers());
     }
 
     @Test
-    void getTop() {
+    void testGetTop() {
         assertEquals(top, clothes.getTop());
     }
 
     @Test
-    void getAccessories() {
+    void testGetAccessories() {
         assertEquals(accessories, clothes.getAccessories());
     }
 }

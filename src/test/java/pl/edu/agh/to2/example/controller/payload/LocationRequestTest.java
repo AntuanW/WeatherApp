@@ -2,12 +2,10 @@ package pl.edu.agh.to2.example.controller.payload;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.example.controller.payload.LocationRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LocationRequestTest {
-
     private static LocationRequest locationRequest;
 
     @BeforeAll
@@ -16,12 +14,12 @@ class LocationRequestTest {
     }
 
     @Test
-    void latitude() {
+    void testLatitude() {
         assertEquals(1.0, locationRequest.latitude());
     }
 
     @Test
-    void longitude() {
+    void testLongitude() {
         assertEquals(2.0, locationRequest.longitude());
     }
 }

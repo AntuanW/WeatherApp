@@ -5,7 +5,6 @@ import pl.edu.agh.to2.example.model.Location;
 import java.util.Optional;
 
 public class UserConfiguration {
-
     private final String userId;
     private Location location;
 

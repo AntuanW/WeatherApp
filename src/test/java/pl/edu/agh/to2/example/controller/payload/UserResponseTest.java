@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserResponseTest {
-
     private UserResponse userResponse;
     private String token;
 
@@ -17,7 +16,7 @@ class UserResponseTest {
     }
 
     @Test
-    void token() {
+    void testToken() {
         assertEquals(token, userResponse.token());
     }
 }

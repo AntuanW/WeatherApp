@@ -1,5 +1,6 @@
 package pl.edu.agh.to2.example.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.to2.example.controller.payload.WeatherResponse;
@@ -12,6 +13,7 @@ import pl.edu.agh.to2.example.service.WeatherService;
 @RequestMapping(path = "/weatherapp")
 public class WeatherController {
     private final WeatherService weatherService;
+
     public WeatherController(WeatherService weatherService) {
         this.weatherService = weatherService;
     }
@@ -20,20 +22,27 @@ public class WeatherController {
     public ResponseEntity<Wardrobe> getWardrobe(
             @RequestHeader("Authorization") String userToken
     ) {
-        Wardrobe wardrobe = weatherService.getRightWardrobe(userToken);
-        return ResponseEntity.ok().body(wardrobe);
+        try {
+            Wardrobe wardrobe = weatherService.getRightWardrobe(userToken);
+            return ResponseEntity.ok().body(wardrobe);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/weather")
-    public WeatherResponse getWeather(
+    public ResponseEntity<WeatherResponse> getWeather(
             @RequestHeader("Authorization") String userToken
     ) {
-        Weather weather = weatherService.getWeather(userToken);
-        return new WeatherResponse(
-                weather.getTemperatureCelsius(),
-                weather.getAirCondition(),
-                weather.getForecast(),
-                weather.getTemperature()
-        );
+        try {
+            Weather weather = weatherService.getWeather(userToken);
+            return ResponseEntity.ok().body(new WeatherResponse(
+                    weather.getTemperatureCelsius(),
+                    weather.getAirCondition(),
+                    weather.getForecast(),
+                    weather.getTemperature()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

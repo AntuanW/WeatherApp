@@ -9,6 +9,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ExternalApiException;
 import pl.edu.agh.to2.example.model.Location;
+
 import java.net.URI;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -38,11 +39,11 @@ public class WeatherApiService {
     }
 
     public JsonNode getWeatherData(Location location) {
-        try(CloseableHttpClient httpClient = HttpClients.createDefault()){
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             URI uri = new URI(buildApiURL(location));
             HttpGet request = new HttpGet(uri);
             return requestWeather(request, httpClient);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new ExternalApiException(e);
         }
     }

@@ -29,13 +29,13 @@ class ForecastTest {
     }
 
     @Test
-    void getClearForecast() {
+    void testGetClearForecast() {
         assertEquals(clearForecast, Forecast.getForecast("Sunny"));
         assertEquals(clearForecast, Forecast.getForecast("Clear"));
     }
 
     @Test
-    void getSnowyForecast(){
+    void testGetSnowyForecast() {
         assertEquals(snowyForecast, Forecast.getForecast("Patchy light snow with thunder"));
         assertEquals(snowyForecast, Forecast.getForecast("Moderate or heavy snow with thunder"));
         assertEquals(snowyForecast, Forecast.getForecast("Light snow showers"));
@@ -52,7 +52,7 @@ class ForecastTest {
     }
 
     @Test
-    void getRainyForecast(){
+    void testGetRainyForecast() {
         assertEquals(rainyForecast, Forecast.getForecast("Patchy light rain with thunder"));
         assertEquals(rainyForecast, Forecast.getForecast("Moderate or heavy rain with thunder"));
         assertEquals(rainyForecast, Forecast.getForecast("Light rain shower"));
@@ -75,28 +75,28 @@ class ForecastTest {
     }
 
     @Test
-    void getHailForecast(){
+    void testGetHailForecast() {
         assertEquals(hailForecast, Forecast.getForecast("Light showers of ice pellets"));
         assertEquals(hailForecast, Forecast.getForecast("Moderate or heavy showers of ice pellets"));
         assertEquals(hailForecast, Forecast.getForecast("Ice pellets"));
     }
 
     @Test
-    void getCloudyForecast(){
+    void testGetCloudyForecast() {
         assertEquals(cloudyForecast, Forecast.getForecast("Partly cloudy"));
         assertEquals(cloudyForecast, Forecast.getForecast("Cloudy"));
         assertEquals(cloudyForecast, Forecast.getForecast("Overcast"));
     }
 
     @Test
-    void getFogyForecast(){
+    void testGetFogyForecast() {
         assertEquals(foggyForecast, Forecast.getForecast("Mist"));
         assertEquals(foggyForecast, Forecast.getForecast("Fog"));
         assertEquals(foggyForecast, Forecast.getForecast("Freezing fog"));
     }
 
     @Test
-    void getSleetyForecast(){
+    void testGetSleetyForecast() {
         assertEquals(sleetyForecast, Forecast.getForecast("Light sleet"));
         assertEquals(sleetyForecast, Forecast.getForecast("Moderate or heavy sleet"));
         assertEquals(sleetyForecast, Forecast.getForecast("Light sleet showers"));
@@ -105,7 +105,7 @@ class ForecastTest {
     }
 
     @Test
-    void getThunderyForecast(){
+    void testGetThunderyForecast() {
         assertEquals(thunderyForecast, Forecast.getForecast("Thundery outbreaks possible"));
     }
 }

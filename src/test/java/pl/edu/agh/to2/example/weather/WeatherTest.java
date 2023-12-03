@@ -25,27 +25,26 @@ class WeatherTest {
     }
 
     @Test
-    void getAirCondition() {
+    void testGetAirCondition() {
         weather.setAirCondition(airCondition);
         assertEquals(airCondition, weather.getAirCondition());
     }
 
     @Test
-    void getForecast() {
+    void testGetForecast() {
         weather.setForecast(forecast);
         assertEquals(forecast, weather.getForecast());
     }
 
     @Test
-    void getTemperature() {
+    void testGetTemperature() {
         weather.setTemperature(temperature);
         assertEquals(temperature, weather.getTemperature());
     }
 
     @Test
-    void getTemperatureCelsius() {
+    void testGetTemperatureCelsius() {
         weather.setTemperatureCelsius(temperatureCelsius);
         assertEquals(temperatureCelsius, weather.getTemperatureCelsius());
     }
-
 }
