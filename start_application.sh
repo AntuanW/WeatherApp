@@ -5,13 +5,13 @@ BACKEND_DIR="../kp-wt-1500-chmurki"
 FRONTEND_DIR="$PROJECT_DIR/frontend"
 
 start_backend() {
-  echo "Start backend..."
+  echo "Starting backend..."
   cd "$BACKEND_DIR"
   bash ./gradlew bootRun
 }
 
 start_frontend() {
-  echo "Start frontendu..."
+  echo "Starting frontend..."
   cd "$FRONTEND_DIR"
   npm install
   npm start

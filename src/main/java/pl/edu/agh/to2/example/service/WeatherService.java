@@ -26,14 +26,14 @@ public class WeatherService {
     }
 
     public Wardrobe getRightWardrobe(String userId) {
-        UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(()-> new UserNotFoundException(userId));
+        UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(() -> new UserNotFoundException(userId));
         JsonNode data = weatherApiService.getWeatherData(userConfiguration.getLocation().orElseThrow(() -> new ResourceNotFoundException("No location provided")));
         Weather weather = extractWeather(data);
         return pickWardrobe(weather);
     }
 
     public Weather getWeather(String userId) {
-        UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(()-> new UserNotFoundException(userId));
+        UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(() -> new UserNotFoundException(userId));
         JsonNode data = weatherApiService.getWeatherData(userConfiguration.getLocation().orElseThrow(() -> new ResourceNotFoundException("No location provided")));
         return extractWeather(data);
     }

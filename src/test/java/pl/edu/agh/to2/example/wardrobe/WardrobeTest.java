@@ -28,13 +28,13 @@ class WardrobeTest {
     }
 
     @Test
-    void getClothes() {
+    void testGetClothes() {
         wardrobe.setClothes(clothes);
         assertEquals(clothes, wardrobe.getClothes());
     }
 
     @Test
-    void getIfUmbrella() {
+    void testGetIfUmbrella() {
         wardrobe.setUmbrella(rainForecast);
         assertTrue(wardrobe.getIfUmbrella());
         wardrobe.setUmbrella(clearForecast);
@@ -42,7 +42,7 @@ class WardrobeTest {
     }
 
     @Test
-    void getIfGasMask() {
+    void testGetIfGasMask() {
         wardrobe.setGasMask(maskAirCondition);
         assertTrue(wardrobe.getIfGasMask());
         wardrobe.setGasMask(healthyAirCondition);

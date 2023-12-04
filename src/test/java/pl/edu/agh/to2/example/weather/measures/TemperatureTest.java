@@ -11,6 +11,7 @@ class TemperatureTest {
     private Temperature coldTemperature;
     private Temperature warmTemperature;
     private Temperature hotTemperature;
+
     @BeforeEach
     void setUp() {
         freezingTemperature = Temperature.FREEZING;
@@ -20,7 +21,7 @@ class TemperatureTest {
     }
 
     @Test
-    void getTemperature() {
+    void testGetTemperature() {
         assertEquals(freezingTemperature, Temperature.getTemperature(-1.0));
         assertEquals(freezingTemperature, Temperature.getTemperature(0.0));
         assertEquals(coldTemperature, Temperature.getTemperature(3.0));

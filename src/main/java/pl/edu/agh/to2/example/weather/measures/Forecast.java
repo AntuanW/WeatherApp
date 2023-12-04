@@ -32,7 +32,7 @@ public enum Forecast {
         if (forecast.contains("cloudy") || forecast.contains("overcast")) {
             return CLOUDY;
         }
-        
+
         if (forecast.contains("ice pellets")) {
             return HAIL;
         }

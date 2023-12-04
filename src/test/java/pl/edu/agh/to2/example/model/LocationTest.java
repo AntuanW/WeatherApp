@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LocationTest {
-
     private static Location location;
 
     @BeforeAll
@@ -15,12 +14,12 @@ class LocationTest {
     }
 
     @Test
-    void latitude() {
+    void testLatitude() {
         assertEquals(1.0, location.latitude());
     }
 
     @Test
-    void longitude() {
+    void testLongitude() {
         assertEquals(2.0, location.longitude());
     }
 }

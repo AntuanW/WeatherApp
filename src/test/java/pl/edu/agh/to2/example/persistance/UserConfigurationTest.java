@@ -9,7 +9,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserConfigurationTest {
-
     private UserConfiguration userConfiguration;
     private String userId;
     private Location location;
@@ -22,14 +21,14 @@ class UserConfigurationTest {
     }
 
     @Test
-    void getLocation() {
+    void testGetLocation() {
         assertEquals(Optional.empty(), userConfiguration.getLocation());
         userConfiguration.setLocation(location);
         assertEquals(Optional.of(location), userConfiguration.getLocation());
     }
 
     @Test
-    void getUserId() {
+    void testGetUserId() {
         assertEquals(userId, userConfiguration.getUserId());
     }
 }

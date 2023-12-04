@@ -25,7 +25,7 @@ class AirConditionTest {
     }
 
     @Test
-    void fromPM25() {
+    void testFromPM25() {
         assertEquals(veryGoodAirCondition, AirCondition.fromPM25(11));
         assertEquals(goodAirCondition, AirCondition.fromPM25(35));
         assertEquals(okayAirCondition, AirCondition.fromPM25(59));

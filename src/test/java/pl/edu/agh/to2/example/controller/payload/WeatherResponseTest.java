@@ -9,7 +9,6 @@ import pl.edu.agh.to2.example.weather.measures.Temperature;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherResponseTest {
-
     private WeatherResponse weatherResponse;
     private double temperature;
     private AirCondition airQuality;
@@ -26,22 +25,22 @@ class WeatherResponseTest {
     }
 
     @Test
-    void temperature() {
+    void testTemperature() {
         assertEquals(temperature, weatherResponse.temperature());
     }
 
     @Test
-    void airQuality() {
+    void testAirQuality() {
         assertEquals(airQuality, weatherResponse.airQuality());
     }
 
     @Test
-    void forecast() {
+    void testForecast() {
         assertEquals(forecast, weatherResponse.forecast());
     }
 
     @Test
-    void temperatureScale() {
+    void testTemperatureScale() {
         assertEquals(temperatureScale, weatherResponse.temperatureScale());
     }
 }
