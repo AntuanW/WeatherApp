@@ -1,12 +1,12 @@
 package pl.edu.agh.to2.example.persistance;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Service
+@Repository
 public class UserConfigurationRepository {
     private final Map<String, UserConfiguration> usersConfigurationMap = new HashMap<>();
 

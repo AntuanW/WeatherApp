@@ -1,6 +1,6 @@
 package pl.edu.agh.to2.example.persistance;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import pl.edu.agh.to2.example.wardrobe.Clothes;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Service
+@Repository
 public class ClothesRepository {
     //w przyszłości wstrzyknięte z bazy, pewnie osobne tabele dla accessories, shoes, trousers i top.
     // W tabelach kolumny "cloth" i "temperature".
