@@ -22,13 +22,13 @@ public class UserConfigurationController {
     private UserConfigurationRepository userConfigurationRepository;
 
     @PostMapping("/user")
-    public UserResponse initializeUser(
+    public ResponseEntity<UserResponse> initializeUser(
     ) {
         String userToken = "aa";//UUID.randomUUID().toString();
         UserConfiguration userConfiguration = userConfigurationRepository
                 .findByUserId(userToken).orElse(new UserConfiguration(userToken));
         userConfigurationRepository.saveUserConfiguration(userConfiguration);
-        return new UserResponse(userToken);
+        return ResponseEntity.ok().body(new UserResponse(userToken));
     }
 
     @PostMapping("/location")

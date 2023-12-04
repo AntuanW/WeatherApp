@@ -25,15 +25,15 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
-    public WeatherResponse getWeather(
+    public ResponseEntity<WeatherResponse> getWeather(
             @RequestHeader("Authorization") String userToken
     ) {
         Weather weather = weatherService.getWeather(userToken);
-        return new WeatherResponse(
+        return ResponseEntity.ok().body(new WeatherResponse(
                 weather.getTemperatureCelsius(),
                 weather.getAirCondition(),
                 weather.getForecast(),
                 weather.getTemperature()
-        );
+        ));
     }
 }
