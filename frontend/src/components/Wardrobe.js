@@ -27,13 +27,13 @@ const Wardrobe = () => {
                 <div style={{position: "relative"}}>
                     <MasksOutlinedIcon
                         sx={{ fontSize: 100 }}/>
-                    {!wardrobe?.gasMask && <CloseOutlinedIcon sx = {{color: "#6f0000", fontSize: 100, position: "absolute", left: 0}}/>}
+                    {!wardrobe?.ifGasMask && <CloseOutlinedIcon sx = {{color: "#6f0000", fontSize: 100, position: "absolute", left: 0}}/>}
                 </div>
 
                 <div style={{position: "relative"}}>
                     <UmbrellaOutlinedIcon
                         sx={{ fontSize: 100 }}/>
-                    {!wardrobe?.umbrella && <CloseOutlinedIcon sx = {{color: "#6f0000", fontSize: 100, position: "absolute", right: 0}}/>}
+                    {!wardrobe?.ifUmbrella && <CloseOutlinedIcon sx = {{color: "#6f0000", fontSize: 100, position: "absolute", right: 0}}/>}
                 </div>
             </div>
             
