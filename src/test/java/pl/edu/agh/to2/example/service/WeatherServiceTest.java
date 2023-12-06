@@ -37,6 +37,9 @@ class WeatherServiceTest {
     private WeatherApiService weatherApiService;
 
     @Mock
+    private TemperatureService temperatureService;
+
+    @Mock
     private ClothesRepository clothesRepository;
 
     @InjectMocks
@@ -146,14 +149,14 @@ class WeatherServiceTest {
     }
 
     private JsonNode createMockWeatherData() throws JsonProcessingException {
-        String json = "{ \"temp_c\": 35, \"condition\": { \"text\": \"Sunny\" }, \"air_quality\": { \"pm2_5\": 2 } }";
+        String json = "{ \"location\": { \"name\": \"CityName\" }, \"current\": { \"temp_c\": 3.0, \"condition\": { \"text\": \"Sunny\" }, \"air_quality\": { \"pm2_5\": 2 }, \"wind_kph\": 0.1 } }";
         return readTree(json);
     }
 
     private Weather createMockWeather() {
         Weather weather = new Weather();
-        weather.setTemperature(Temperature.getTemperature(35));
-        weather.setTemperatureCelsius(35);
+        weather.setTemperature(Temperature.FREEZING);
+        weather.setTemperatureCelsius(3.0);
         weather.setForecast(Forecast.getForecast("Sunny"));
         weather.setAirCondition(AirCondition.fromPM25(2));
         return weather;

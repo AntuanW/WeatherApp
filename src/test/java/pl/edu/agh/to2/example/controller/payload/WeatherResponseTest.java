@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherResponseTest {
     private WeatherResponse weatherResponse;
+    private String locationName;
     private double temperature;
     private AirCondition airQuality;
     private Forecast forecast;
@@ -17,13 +18,18 @@ class WeatherResponseTest {
 
     @BeforeEach
     void setUp() {
+        locationName = "Krakow";
         temperature = 0.0;
         airQuality = AirCondition.GOOD;
         forecast = Forecast.CLEAR;
         temperatureScale = Temperature.COLD;
-        weatherResponse = new WeatherResponse(temperature, airQuality, forecast, temperatureScale);
+        weatherResponse = new WeatherResponse(locationName, temperature, airQuality, forecast, temperatureScale);
     }
 
+    @Test
+    void testLocationName() {
+        assertEquals(locationName, weatherResponse.locationName());
+    }
     @Test
     void testTemperature() {
         assertEquals(temperature, weatherResponse.temperature());

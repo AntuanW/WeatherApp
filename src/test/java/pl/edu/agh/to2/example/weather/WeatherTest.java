@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WeatherTest {
 
     private final Weather weather = new Weather();
+    private String locationName;
     private AirCondition airCondition;
     private Forecast forecast;
     private double temperatureCelsius;
@@ -22,6 +23,7 @@ class WeatherTest {
         forecast = Forecast.FOGGY;
         temperatureCelsius = 0.0;
         temperature = Temperature.COLD;
+        locationName = "Mumbai";
     }
 
     @Test
@@ -46,5 +48,11 @@ class WeatherTest {
     void testGetTemperatureCelsius() {
         weather.setTemperatureCelsius(temperatureCelsius);
         assertEquals(temperatureCelsius, weather.getTemperatureCelsius());
+    }
+
+    @Test
+    void testGetLocationName() {
+        weather.setLocationName(locationName);
+        assertEquals(locationName, weather.getLocationName());
     }
 }

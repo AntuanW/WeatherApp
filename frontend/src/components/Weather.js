@@ -59,6 +59,7 @@ const Weather = () => {
     return (
         <div className='weather'>
             {!weather && <CircularProgress color="secondary" />} {}
+            <h3 style={{ textTransform: 'uppercase' }}>{weather?.locationName}</h3>
             {error && <p style = {{color: "red"}} >No data for provided arguments</p>}
             {weather && !error && (<>
             {getWeatherEmote(weather?.forecast)}

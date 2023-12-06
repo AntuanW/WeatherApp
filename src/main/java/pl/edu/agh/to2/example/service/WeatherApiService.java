@@ -32,7 +32,7 @@ public class WeatherApiService {
                 throw new ExternalApiException("Something went wrong with getting weather data.");
             }
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readTree(response.getEntity().getContent()).get("current");
+            return objectMapper.readTree(response.getEntity().getContent());
         } catch (Exception e) {
             throw new ExternalApiException(e);
         }
