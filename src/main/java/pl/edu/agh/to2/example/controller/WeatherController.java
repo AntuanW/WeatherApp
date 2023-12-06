@@ -37,6 +37,7 @@ public class WeatherController {
         try {
             Weather weather = weatherService.getWeather(userToken);
             return ResponseEntity.ok().body(new WeatherResponse(
+                    weather.getLocationName(),
                     weather.getTemperatureCelsius(),
                     weather.getAirCondition(),
                     weather.getForecast(),

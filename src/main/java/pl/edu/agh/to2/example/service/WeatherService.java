@@ -16,12 +16,15 @@ import pl.edu.agh.to2.example.weather.measures.*;
 public class WeatherService {
     private UserConfigurationRepository userConfigurationRepository;
     private WeatherApiService weatherApiService;
+    private TemperatureService temperatureService;
     private ClothesRepository clothesRepository;
 
     @Autowired
-    public WeatherService(UserConfigurationRepository userConfigurationRepository, WeatherApiService weatherApiService, ClothesRepository clothesRepository) {
+    public WeatherService(UserConfigurationRepository userConfigurationRepository, WeatherApiService weatherApiService,
+                          TemperatureService temperatureService, ClothesRepository clothesRepository) {
         this.userConfigurationRepository = userConfigurationRepository;
         this.weatherApiService = weatherApiService;
+        this.temperatureService = temperatureService;
         this.clothesRepository = clothesRepository;
     }
 
@@ -39,16 +42,23 @@ public class WeatherService {
     }
 
     private Weather extractWeather(JsonNode data) {
-        double temp = data.get("temp_c").asDouble();
         Weather weather = new Weather();
-        weather.setTemperature(Temperature.getTemperature(temp));
-        weather.setTemperatureCelsius(temp);
+        JsonNode currentData = data.get("current");
 
-        String forecast = data.get("condition").get("text").asText();
+        String locationName = data.get("location").get("name").asText();
+        weather.setLocationName(locationName);
+
+        String forecast = currentData.get("condition").get("text").asText();
         weather.setForecast(Forecast.getForecast(forecast));
 
-        double airCondition = data.get("air_quality").get("pm2_5").asDouble();
+        double airCondition = currentData.get("air_quality").get("pm2_5").asDouble();
         weather.setAirCondition(AirCondition.fromPM25(airCondition));
+
+        double temperature = currentData.get("temp_c").asDouble();
+        weather.setTemperatureCelsius(temperature);
+
+       double windSpeedKmPerHour = currentData.get("wind_kph").asDouble();
+        weather.setTemperature(Temperature.getTemperature(temperatureService.calculateSensedTemperature(temperature, windSpeedKmPerHour)));
 
         return weather;
     }
