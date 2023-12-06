@@ -10,7 +10,7 @@ const Input = (props) => {
         formState: { errors },
     } = useFormContext()
 
-    const inputError = findInputErrors(errors, label);
+    const inputError = findInputErrors(errors, id);
     const isInvalid = !isValid(inputError);
 
     return (
@@ -25,7 +25,7 @@ const Input = (props) => {
             inputProps={{ step: 0.001 }}
             helperText={inputError.error?.message}
             error = {isInvalid}
-            {...register(label, validation)}
+            {...register(id, validation)}
         />
     );
 };

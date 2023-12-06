@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormControl, Button, Typography } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { FormProvider } from 'react-hook-form';
@@ -17,6 +17,12 @@ const Form = () => {
             navigate("/weather", { replace: false });
         })
     })
+
+    const [additionalLocation, setLocationAdded] = useState(false);
+    
+    const addLocation = () => {
+        setLocationAdded(true);
+    };
 
     const latitudeValidation = {
         required: {
@@ -49,28 +55,35 @@ const Form = () => {
     }
 
     return (
-        <div className='form'>
+    <div className='form'>
         <FormProvider {...methods}>
-            <FormControl
-                sx={{ border: 1, borderColor: 'grey.500', borderRadius: 1, p: 4, backgroundColor: "whitesmoke"}}
-                style = {{width: "400px"}}
-                margin="normal"
-                onSubmit={e => e.preventDefault()}
-                noValidate
-                className="container">
-                <Typography variant="h5" sx={{ marginBottom: 3, color: '#0e0f3b', textAlign: 'center', textShadow: '1px 1px 1px #fff' }}> Don't know what to wear?</Typography>
-                <Input
-                    label = "latitude"
-                    id = "latitude"
-                    validation = {latitudeValidation}/>
-                <Input
-                    label = "longitude"
-                    id = "longitude"
-                    validation = {longitudeValidation}/>
-                <Button variant="outlined" onClick={onSubmit}>Show weather</Button>
-            </FormControl>
+        <FormControl
+            sx={{ border: 1, borderColor: 'grey.500', borderRadius: 1, p: 4, backgroundColor: "whitesmoke" }}
+            style={{ width: "400px" }}
+            margin="normal"
+            onSubmit={e => e.preventDefault()}
+            noValidate
+            className="container"
+        >
+            <Typography variant="h5" sx={{ marginBottom: 3, color: '#0e0f3b', textAlign: 'center', textShadow: '1px 1px 1px #fff' }}> Don't know what to wear?</Typography>
+            <>
+                {additionalLocation && <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b', textAlign: 'center' }}>First Location</Typography>}
+                <Input label="latitude" id="latitude" validation={latitudeValidation} />
+                <Input label="longitude" id="longitude" validation={longitudeValidation} />
+                {!additionalLocation && <Button variant="outlined" onClick={addLocation} sx={{ marginTop: 2 }}>Add Location</Button>}
+            </>
+            {additionalLocation && (
+                <>
+                    {additionalLocation && <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b', textAlign: 'center' }}>Second Location</Typography>}
+                    <Input label="latitude" id="latitude2" validation={latitudeValidation} />
+                    <Input label="longitude" id="longitude2" validation={longitudeValidation} />
+                </>
+            )}
+
+            <Button variant="outlined" onClick={onSubmit} sx={{ marginTop: 2 }}>Show weather</Button>
+        </FormControl>
         </FormProvider>
-        </div>
+    </div>
     );
 };
 
