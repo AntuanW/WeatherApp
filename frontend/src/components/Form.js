@@ -68,15 +68,15 @@ const Form = () => {
             <Typography variant="h5" sx={{ marginBottom: 3, color: '#0e0f3b', textAlign: 'center', textShadow: '1px 1px 1px #fff' }}> Don't know what to wear?</Typography>
             <>
                 {additionalLocation && <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b', textAlign: 'center' }}>First Location</Typography>}
-                <Input label="latitude" id="1" validation={latitudeValidation} />
-                <Input label="longitude" id="2" validation={longitudeValidation} />
+                <Input label="latitude" id="latitude" validation={latitudeValidation} />
+                <Input label="longitude" id="longitude" validation={longitudeValidation} />
                 {!additionalLocation && <Button variant="outlined" onClick={addLocation} sx={{ marginTop: 2 }}>Add Location</Button>}
             </>
             {additionalLocation && (
                 <>
                     {additionalLocation && <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b', textAlign: 'center' }}>Second Location</Typography>}
-                    <Input label="latitude" id="3" validation={latitudeValidation} />
-                    <Input label="longitude" id="4" validation={longitudeValidation} />
+                    <Input label="latitude" id="latitude2" validation={latitudeValidation} />
+                    <Input label="longitude" id="longitude2" validation={longitudeValidation} />
                 </>
             )}
 
