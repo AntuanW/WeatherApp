@@ -7,6 +7,7 @@ import ThunderstormOutlinedIcon from '@mui/icons-material/ThunderstormOutlined';
 import WaterDropOutlinedIcon from '@mui/icons-material/WaterDropOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
 import {faCloudMeatball, faSmog} from '@fortawesome/free-solid-svg-icons'
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Weather = () => {
     const [weather, setWeather] = useState();
@@ -57,10 +58,14 @@ const Weather = () => {
     
     return (
         <div className='weather'>
+            {!weather && <CircularProgress color="secondary" />} {}
             {error && <p style = {{color: "red"}} >No data for provided arguments</p>}
+            {weather && !error && (<>
             {getWeatherEmote(weather?.forecast)}
             <p id = "temperature" style={{color: temperatureColor}}><b>{weather?.temperature}&deg;C</b></p>
             <p><b>Air quality:</b> {weather?.airQuality}</p>
+            </>
+            )}
         </div>
     );
 };
