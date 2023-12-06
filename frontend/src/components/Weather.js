@@ -57,6 +57,7 @@ const Weather = () => {
     
     return (
         <div className='weather'>
+            <h3 style={{ textTransform: 'uppercase' }}>{weather?.locationName}</h3>
             {error && <p style = {{color: "red"}} >No data for provided arguments</p>}
             {getWeatherEmote(weather?.forecast)}
             <p id = "temperature" style={{color: temperatureColor}}><b>{weather?.temperature}&deg;C</b></p>
