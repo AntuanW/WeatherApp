@@ -3,7 +3,7 @@
 Welcome to the Weather Application! The Weather Application is a full-stack web application that provides users with real-time weather information based on their input. The project is structured into a backend component, developed with Spring Boot and Gradle, and a frontend component built with React.
 
 ## Requirements
-- [Node.js](https://nodejs.org/en) installed
+- [Node.js](https://nodejs.org/en) installed (Node version 20.0.0 or higher)
 - [Java Development Kit (JDK) ](https://www.oracle.com/java/technologies/downloads/) installed (Java 17 or higher)
 - [Git](https://git-scm.com/) installed
 
@@ -70,8 +70,8 @@ To run the application locally, follow these steps:
 6. The application is running on `localhost:3000`
 
 ## Structure
-- [Backend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse?at=refs%2Fheads%2FM1) - The backend component is responsible for interacting with the [Weather API](https://www.weatherapi.com/) to fetch weather data.
-- [Frontend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse/frontend?at=refs%2Fheads%2FM1) - The frontend component manages user input and displays weather information in a user-friendly way.
+- [Backend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse) to fetch weather data.
+- [Frontend](https://bitbucket.lab.ii.agh.edu.pl/projects/TO2023/repos/kp-wt-1500-chmurki/browse/frontend) - The frontend component manages user input and displays weather information in a user-friendly way.
 
 ## UML Schema
 
