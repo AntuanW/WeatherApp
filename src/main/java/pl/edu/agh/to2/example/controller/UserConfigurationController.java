@@ -42,7 +42,12 @@ public class UserConfigurationController {
             logger.info(() -> "Message: " + locationRequest.toString());
             UserConfiguration userConfiguration = userConfigurationRepository
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
-            Location location = new Location(locationRequest.latitude(), locationRequest.longitude());
+            Location location = new Location(
+                    locationRequest.latitude(),
+                    locationRequest.longitude(),
+                    locationRequest.latitude2(),
+                    locationRequest.longitude2()
+            );
             userConfiguration.setLocation(location);
             userConfigurationRepository.saveUserConfiguration(userConfiguration);
             return ResponseEntity.ok().body("User location successfully saved");
