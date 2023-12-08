@@ -39,7 +39,7 @@ public class WeatherService {
         Location locationProvided = userConfiguration.getLocation().orElseThrow(() -> new ResourceNotFoundException("No location provided"));
         if (locationProvided.latitude2().isPresent() && locationProvided.longitude2().isPresent()) {
             Weather weather1 = extractWeather(weatherApiService.getWeatherData(locationProvided.latitude(), locationProvided.longitude()));
-            Weather weather2 = extractWeather(weatherApiService.getWeatherData(locationProvided.longitude2().get(), locationProvided.longitude2().get()));
+            Weather weather2 = extractWeather(weatherApiService.getWeatherData(locationProvided.latitude2().get(), locationProvided.longitude2().get()));
             return combineWeather(weather1, weather2);
         }else {
             JsonNode data = weatherApiService.getWeatherData(locationProvided.latitude(), locationProvided.longitude());

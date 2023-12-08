@@ -44,7 +44,7 @@ class UserConfigurationControllerTest {
     @Test
     void testPostLocationWithSuccess() {
         String userToken = "testToken";
-        LocationRequest locationRequest = new LocationRequest(10.0, 20.0);
+        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, null, null);
         UserConfiguration userConfiguration = new UserConfiguration(userToken);
 
         when(userConfigurationRepository.findByUserId(userToken)).thenReturn(java.util.Optional.of(userConfiguration));
@@ -60,7 +60,7 @@ class UserConfigurationControllerTest {
     @Test
     void testPostLocationWithUserNotFound() {
         String userToken = "User not found";
-        LocationRequest locationRequest = new LocationRequest(10.0, 20.0);
+        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, null, null);
 
         when(userConfigurationRepository.findByUserId(userToken)).thenReturn(java.util.Optional.empty());
         when(userConfigurationRepository.findByUserId(userToken)).thenReturn(java.util.Optional.empty());
@@ -76,7 +76,7 @@ class UserConfigurationControllerTest {
     @Test
     void testPostLocationWithException() {
         String userToken = "testToken";
-        LocationRequest locationRequest = new LocationRequest(10.0, 20.0);
+        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, null, null);
 
         when(userConfigurationRepository.findByUserId(userToken)).thenThrow(new RuntimeException("Test Exception"));
 

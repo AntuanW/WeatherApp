@@ -10,7 +10,7 @@ class LocationTest {
 
     @BeforeAll
     static void setUp() {
-        location = new Location(1.0, 2.0);
+        location = new Location(1.0, 2.0, null, null);
     }
 
     @Test

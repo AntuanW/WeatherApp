@@ -4,8 +4,8 @@ import java.util.Optional;
 
 public record LocationRequest(
         double latitude,
-        Optional<Double> latitude2,
         double longitude,
+        Optional<Double> latitude2,
         Optional<Double> longitude2
 ) {
 }

@@ -17,12 +17,12 @@ class WeatherApiServiceTest {
 
     @BeforeEach
     void setUp() {
-        location = new Location(50.0619, 19.9367);
+        location = new Location(50.0619, 19.9367, null, null);
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void testGetWeatherData() {
-        assertNotNull(weatherApiService.getWeatherData(location));
+        assertNotNull(weatherApiService.getWeatherData(location.latitude(), location.longitude()));
     }
 }
