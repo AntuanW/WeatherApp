@@ -75,8 +75,8 @@ const Form = () => {
             {additionalLocation && (
                 <>
                     {additionalLocation && <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b', textAlign: 'center' }}>Second Location</Typography>}
-                    <Input label="latitude" id="latitude2" validation={latitudeValidation} />
-                    <Input label="longitude" id="longitude2" validation={longitudeValidation} />
+                    <Input label="latitude2" id="latitude2" validation={latitudeValidation} />
+                    <Input label="longitude2" id="longitude2" validation={longitudeValidation} />
                 </>
             )}
 
