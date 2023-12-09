@@ -21,8 +21,8 @@ public class WeatherApiService {
     private static final String AQI_PARAM = "aqi=yes";
     private final NumberFormat locationFormatter = new DecimalFormat("0.####");
 
-    private String buildApiURL(Location location) {
-        String loc = locationFormatter.format(location.latitude()) + "," + locationFormatter.format(location.longitude());
+    private String buildApiURL(double latitude, double longitude) {
+        String loc = locationFormatter.format(latitude) + "," + locationFormatter.format(longitude);
         return String.format("%s?key=%s&q=%s&%s", WEATHER_API_URL_BASE, API_KEY, loc, AQI_PARAM);
     }
 
@@ -38,9 +38,9 @@ public class WeatherApiService {
         }
     }
 
-    public JsonNode getWeatherData(Location location) {
+    public JsonNode getWeatherData(double latitude, double longitude) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            URI uri = new URI(buildApiURL(location));
+            URI uri = new URI(buildApiURL(latitude, longitude));
             HttpGet request = new HttpGet(uri);
             return requestWeather(request, httpClient);
         } catch (Exception e) {
