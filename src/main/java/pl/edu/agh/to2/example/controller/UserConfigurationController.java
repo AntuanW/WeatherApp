@@ -12,6 +12,7 @@ import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController()
@@ -26,7 +27,7 @@ public class UserConfigurationController {
     @PostMapping("/user")
     public ResponseEntity<UserResponse> initializeUser(
     ) {
-        String userToken = "aa";//UUID.randomUUID().toString();
+        String userToken = UUID.randomUUID().toString();
         UserConfiguration userConfiguration = userConfigurationRepository
                 .findByUserId(userToken).orElse(new UserConfiguration(userToken));
         userConfigurationRepository.saveUserConfiguration(userConfiguration);
