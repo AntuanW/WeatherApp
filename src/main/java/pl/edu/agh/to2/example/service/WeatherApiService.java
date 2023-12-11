@@ -8,7 +8,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ExternalApiException;
-import pl.edu.agh.to2.example.model.Location;
 
 import java.net.URI;
 import java.text.DecimalFormat;
