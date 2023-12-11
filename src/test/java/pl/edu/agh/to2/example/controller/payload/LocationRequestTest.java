@@ -14,7 +14,7 @@ class LocationRequestTest {
     @BeforeAll
     static void setUp() {
         dualLocationRequest = new LocationRequest(1.0, 2.0, Optional.of(3.0), Optional.of(4.0));
-        singleLocationRequest = new LocationRequest(1.0, 2.0, null, null);
+        singleLocationRequest = new LocationRequest(1.0, 2.0, Optional.empty(), Optional.empty());
     }
 
     @Test
