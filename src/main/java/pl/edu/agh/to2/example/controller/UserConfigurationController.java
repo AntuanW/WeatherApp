@@ -21,8 +21,11 @@ import java.util.logging.Logger;
 public class UserConfigurationController {
     private static final Logger logger = Logger.getLogger(String.valueOf(UserConfigurationController.class));
 
+    private final UserConfigurationRepository userConfigurationRepository;
     @Autowired
-    private UserConfigurationRepository userConfigurationRepository;
+    public UserConfigurationController(UserConfigurationRepository userConfigurationRepository) {
+        this.userConfigurationRepository = userConfigurationRepository;
+    }
 
     @PostMapping("/user")
     public ResponseEntity<UserResponse> initializeUser(

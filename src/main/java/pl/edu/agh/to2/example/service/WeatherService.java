@@ -6,32 +6,32 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
 import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
 import pl.edu.agh.to2.example.model.Location;
-import pl.edu.agh.to2.example.persistance.ClothesRepository;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
-import pl.edu.agh.to2.example.wardrobe.*;
 import pl.edu.agh.to2.example.weather.Weather;
 import pl.edu.agh.to2.example.weather.measures.*;
 
 @Service
 public class WeatherService {
-    private UserConfigurationRepository userConfigurationRepository;
-    private WeatherApiService weatherApiService;
-    private TemperatureService temperatureService;
-    private ClothesRepository clothesRepository;
+    private final UserConfigurationRepository userConfigurationRepository;
+    private final WeatherApiService weatherApiService;
+    private final TemperatureService temperatureService;
+    private static final String CURRENT_PARAM = "current";
+    private static final String NAME_PARAM = "name";
+    private static final String TEXT_PARAM = "text";
+    private static final String LOCATION_PARAM = "location";
+    private static final String CONDITION_PARAM = "condition";
+    private static final String AIR_QUALITY_PARAM = "air_quality";
+    private static final String TEMP_C_PARAM = "temp_c";
+    private static final String WIND_KPH_PARAM = "wind_kph";
+    private static final String PM2_5_PARAM = "pm2_5";
 
     @Autowired
     public WeatherService(UserConfigurationRepository userConfigurationRepository, WeatherApiService weatherApiService,
-                          TemperatureService temperatureService, ClothesRepository clothesRepository) {
+                          TemperatureService temperatureService) {
         this.userConfigurationRepository = userConfigurationRepository;
         this.weatherApiService = weatherApiService;
         this.temperatureService = temperatureService;
-        this.clothesRepository = clothesRepository;
-    }
-
-    public Wardrobe getRightWardrobe(String userId) {
-        Weather weather = getWeather(userId);
-        return pickWardrobe(weather);
     }
 
     public Weather getWeather(String userId) {
@@ -49,22 +49,23 @@ public class WeatherService {
 
     private Weather combineWeather(Weather weather1, Weather weather2) {
         Weather weather = new Weather();
-        // location name
+
         weather.setLocationName(weather1.getLocationName() + " and " + weather2.getLocationName());
-        // temperature
+
         weather.setTemperatureCelsius(Math.min(weather1.getTemperatureCelsius(), weather2.getTemperatureCelsius()));
+
         weather.setTemperature(
                 weather1.getTemperatureCelsius() < weather2.getTemperatureCelsius()
                         ? weather1.getTemperature()
                         : weather2.getTemperature()
         );
-        // forecast
+
         weather.setForecast(
                 weather1.getForecast().ordinal() > weather2.getForecast().ordinal()
                         ? weather1.getForecast()
                         : weather2.getForecast()
         );
-        // air condition
+
         weather.setAirCondition(
                 weather1.getAirCondition().ordinal() > weather2.getAirCondition().ordinal()
                         ? weather1.getAirCondition()
@@ -75,33 +76,23 @@ public class WeatherService {
 
     private Weather extractWeather(JsonNode data) {
         Weather weather = new Weather();
-        JsonNode currentData = data.get("current");
+        JsonNode currentData = data.get(CURRENT_PARAM);
 
-        String locationName = data.get("location").get("name").asText();
+        String locationName = data.get(LOCATION_PARAM).get(NAME_PARAM).asText();
         weather.setLocationName(locationName);
 
-        String forecast = currentData.get("condition").get("text").asText();
+        String forecast = currentData.get(CONDITION_PARAM).get(TEXT_PARAM).asText();
         weather.setForecast(Forecast.getForecast(forecast));
 
-        double airCondition = currentData.get("air_quality").get("pm2_5").asDouble();
+        double airCondition = currentData.get(AIR_QUALITY_PARAM).get(PM2_5_PARAM).asDouble();
         weather.setAirCondition(AirCondition.fromPM25(airCondition));
 
-        double temperature = currentData.get("temp_c").asDouble();
+        double temperature = currentData.get(TEMP_C_PARAM).asDouble();
         weather.setTemperatureCelsius(temperature);
 
-        double windSpeedKmPerHour = currentData.get("wind_kph").asDouble();
+        double windSpeedKmPerHour = currentData.get(WIND_KPH_PARAM).asDouble();
         weather.setTemperature(Temperature.getTemperature(temperatureService.calculateSensedTemperature(temperature, windSpeedKmPerHour)));
 
         return weather;
-    }
-
-    private Wardrobe pickWardrobe(Weather weather) {
-        Wardrobe wardrobe = new Wardrobe();
-        wardrobe.setClothes(clothesRepository.getByTemperature(weather.getTemperature())
-                .orElseThrow(() -> new ResourceNotFoundException("Clothes for temperature not found")));
-        wardrobe.setUmbrella(weather.getForecast());
-        wardrobe.setGasMask(weather.getAirCondition());
-
-        return wardrobe;
     }
 }
