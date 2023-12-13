@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { isValid, findInputErrors } from "../services/formCheck.js"
+import { isValid, findInputErrors } from "../../services/formCheck.js"
 import { TextField } from '@mui/material';
 
 const Input = (props) => {
