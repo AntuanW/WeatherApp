@@ -1,12 +1,29 @@
 package pl.edu.agh.to2.example.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
+import pl.edu.agh.to2.example.model.Location;
 import pl.edu.agh.to2.example.persistance.ClothesRepository;
+import pl.edu.agh.to2.example.persistance.UserConfiguration;
+import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
+import pl.edu.agh.to2.example.wardrobe.Clothes;
+import pl.edu.agh.to2.example.weather.Weather;
+import pl.edu.agh.to2.example.weather.measures.AirCondition;
+import pl.edu.agh.to2.example.weather.measures.Forecast;
+import pl.edu.agh.to2.example.weather.measures.Temperature;
 
-public class WardrobeServiceTest {
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+class WardrobeServiceTest {
 
     @Mock
     private ClothesRepository clothesRepository;
@@ -14,6 +31,10 @@ public class WardrobeServiceTest {
     @Mock
     private WeatherService weatherService;
 
+    @Mock
+    private Weather weather;
+    @Mock
+    private UserConfigurationRepository userConfigurationRepository;
 
     @InjectMocks
     private WardrobeService wardrobeService;
@@ -24,63 +45,42 @@ public class WardrobeServiceTest {
     }
 
 
-//        @Test
-//    void testGetRightWardrobeWithSuccess() throws JsonProcessingException {
-//        String userId = "testUser";
-//        UserConfiguration userConfiguration = new UserConfiguration(userId);
-//        userConfiguration.setLocation(new Location(
-//                50.0619, 19.9367, Optional.empty(), Optional.empty()
-//        ));
-//        Clothes mockedClothes = new Clothes("Sandals", "Shorts",
-//                List.of("T-shirt"), List.of("Sunglasses", "Hat", "Baseball cap"));
-//
-//        JsonNode weatherData = createMockWeatherData();
-//        Weather expectedWeather = createMockWeather();
-//
-//        when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
-//        when(weatherApiService.getWeatherData(
-//                userConfiguration.getLocation().get().latitude(),
-//                userConfiguration.getLocation().get().longitude())
-//        ).thenReturn(weatherData);
-//        when(clothesRepository.getByTemperature(expectedWeather.getTemperature())).thenReturn(Optional.of(mockedClothes));
-//
-//        Wardrobe result = weatherService.getRightWardrobe(userId);
-//
-//        assertNotNull(result);
-//        assertEquals(mockedClothes, result.getClothes());
-//        assertFalse(result.getIfUmbrella());
-//        assertFalse(result.getIfGasMask());
-//        verify(userConfigurationRepository, times(1)).findByUserId(userId);
-//        verify(weatherApiService, times(1)).getWeatherData(
-//                userConfiguration.getLocation().get().latitude(),
-//                userConfiguration.getLocation().get().longitude()
-//        );
-//        verify(clothesRepository, times(1)).getByTemperature(expectedWeather.getTemperature());
-//    }
-//
-//    @Test
-//    void testGetRightWardrobeWithUserNotFoundException() {
-//        String userId = "nonexistentUser";
-//        when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.empty());
-//
-//        assertThrows(UserNotFoundException.class, () -> weatherService.getRightWardrobe(userId));
-//
-//        verify(userConfigurationRepository, times(1)).findByUserId(userId);
-//        verify(weatherApiService, never()).getWeatherData(anyDouble(), anyDouble());
-//        verify(clothesRepository, never()).getByTemperature(any());
-//    }
-//
-//    @Test
-//    void testGetRightWardrobeWithResourceNotFoundException() {
-//        String userId = "testUser";
-//        UserConfiguration userConfiguration = new UserConfiguration(userId);
-//        userConfiguration.setLocation(null);
-//        when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
-//
-//        assertThrows(ResourceNotFoundException.class, () -> weatherService.getRightWardrobe(userId));
-//
-//        verify(weatherApiService, never()).getWeatherData(anyDouble(), anyDouble());
-//        verify(clothesRepository, never()).getByTemperature(any());
-//    }
+    @Test
+    void testGetRightWardrobeWithSuccess() throws JsonProcessingException {
+        String userId = "testUser";
+        UserConfiguration userConfiguration = new UserConfiguration(userId);
+        userConfiguration.setLocation(new Location(
+                50.0619, 19.9367, Optional.empty(), Optional.empty()
+        ));
+
+        Clothes mockedClothes = new Clothes("Sandals", "Shorts",
+                List.of("T-shirt"), List.of("Sunglasses", "Hat", "Baseball cap"));
+
+        when(weather.getTemperature()).thenReturn(Temperature.HOT);
+        when(weather.getForecast()).thenReturn(Forecast.CLEAR);
+        when(weather.getAirCondition()).thenReturn(AirCondition.GOOD);
+
+        when(weatherService.getWeather(userId)).thenReturn(weather);
+        when(clothesRepository.getByTemperature(Temperature.HOT)).thenReturn(Optional.of(mockedClothes));
+
+        assertEquals(mockedClothes, wardrobeService.getRightWardrobe(userId).getClothes());
+    }
+
+    @Test
+    void testGetRightWardrobeWithResourceNotFoundException() {
+        String userId = "testUser";
+        UserConfiguration userConfiguration = new UserConfiguration(userId);
+        userConfiguration.setLocation(null);
+
+        when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
+
+        when(weather.getTemperature()).thenReturn(Temperature.HOT);
+        when(weather.getForecast()).thenReturn(Forecast.CLEAR);
+        when(weather.getAirCondition()).thenReturn(AirCondition.GOOD);
+
+        when(weatherService.getWeather(userId)).thenReturn(weather);
+
+        assertThrows(ResourceNotFoundException.class, () -> wardrobeService.getRightWardrobe(userId));
+    }
 
 }

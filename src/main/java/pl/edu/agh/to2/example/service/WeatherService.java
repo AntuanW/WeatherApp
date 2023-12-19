@@ -41,10 +41,9 @@ public class WeatherService {
             Weather weather1 = extractWeather(weatherApiService.getWeatherData(locationProvided.latitude(), locationProvided.longitude()));
             Weather weather2 = extractWeather(weatherApiService.getWeatherData(locationProvided.latitude2().get(), locationProvided.longitude2().get()));
             return combineWeather(weather1, weather2);
-        }else {
-            JsonNode data = weatherApiService.getWeatherData(locationProvided.latitude(), locationProvided.longitude());
-            return extractWeather(data);
         }
+        JsonNode data = weatherApiService.getWeatherData(locationProvided.latitude(), locationProvided.longitude());
+        return extractWeather(data);
     }
 
     private Weather combineWeather(Weather weather1, Weather weather2) {

@@ -36,6 +36,9 @@ class WeatherServiceTest {
     @Mock
     private WeatherApiService weatherApiService;
 
+    @Mock
+    private TemperatureService temperatureService;
+
     @InjectMocks
     private WeatherService weatherService;
 
