@@ -1,7 +1,4 @@
 const isValid = error =>{
-    console.log("valid")
-    console.log(error)
-    console.log(Object.keys(error))
     return !(Object.keys(error).length > 0);
 }
 

@@ -16,6 +16,7 @@ const Form = () => {
             console.log(res);
             navigate("/weather", { replace: false });
         })
+        .catch(e => console.log(e))
     })
 
     return (
