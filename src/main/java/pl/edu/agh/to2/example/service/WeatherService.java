@@ -1,6 +1,7 @@
 package pl.edu.agh.to2.example.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
@@ -10,6 +11,8 @@ import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 import pl.edu.agh.to2.example.weather.Weather;
 import pl.edu.agh.to2.example.weather.measures.*;
+
+import java.util.*;
 
 @Service
 public class WeatherService {
@@ -36,40 +39,51 @@ public class WeatherService {
 
     public Weather getWeather(String userId) {
         UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(() -> new UserNotFoundException(userId));
-        Location locationProvided = userConfiguration.getLocation().orElseThrow(() -> new ResourceNotFoundException("No location provided"));
-        if (locationProvided.latitude2().isPresent() && locationProvided.longitude2().isPresent()) {
-            Weather weather1 = extractWeather(weatherApiService.getWeatherData(locationProvided.latitude(), locationProvided.longitude()));
-            Weather weather2 = extractWeather(weatherApiService.getWeatherData(locationProvided.latitude2().get(), locationProvided.longitude2().get()));
-            return combineWeather(weather1, weather2);
-        }
-        JsonNode data = weatherApiService.getWeatherData(locationProvided.latitude(), locationProvided.longitude());
-        return extractWeather(data);
+        List<Location> locationsProvided = userConfiguration.getLocations();
+
+        if(locationsProvided.isEmpty()) throw new ResourceNotFoundException("No location provided");
+
+        List<Weather> weathers = locationsProvided.stream()
+                .map(location -> extractWeather(weatherApiService.getWeatherData(location)))
+                .toList();
+
+        return combineWeather(weathers);
     }
 
-    private Weather combineWeather(Weather weather1, Weather weather2) {
+    private Weather combineWeather(List<Weather> weathers) {
         Weather weather = new Weather();
 
-        weather.setLocationName(weather1.getLocationName() + " and " + weather2.getLocationName());
+        StringBuilder locationName = new StringBuilder(weathers.get(0).getLocationName());
 
-        weather.setTemperatureCelsius(Math.min(weather1.getTemperatureCelsius(), weather2.getTemperatureCelsius()));
+        for (int i = 1; i < weathers.size(); i++) {
+            locationName.append(" and ");
+            locationName.append(weathers.get(i).getLocationName());
+        }
 
-        weather.setTemperature(
-                weather1.getTemperatureCelsius() < weather2.getTemperatureCelsius()
-                        ? weather1.getTemperature()
-                        : weather2.getTemperature()
-        );
+        weather.setLocationName(locationName.toString());
 
-        weather.setForecast(
-                weather1.getForecast().ordinal() > weather2.getForecast().ordinal()
-                        ? weather1.getForecast()
-                        : weather2.getForecast()
-        );
+        Weather minimumTemperatureWeather = weathers.stream()
+                        .min(Comparator.comparing(Weather::getTemperatureCelsius))
+                        .orElseThrow(NoSuchElementException::new);
 
-        weather.setAirCondition(
-                weather1.getAirCondition().ordinal() > weather2.getAirCondition().ordinal()
-                        ? weather1.getAirCondition()
-                        : weather2.getAirCondition()
-        );
+        weather.setTemperatureCelsius(minimumTemperatureWeather.getTemperatureCelsius());
+
+        weather.setTemperature(minimumTemperatureWeather.getTemperature());
+
+        Forecast forecast = weathers.stream()
+                        .max(Comparator.comparing(w -> w.getForecast().ordinal()))
+                        .map(Weather::getForecast)
+                        .orElseThrow(NoSuchElementException::new);
+
+        weather.setForecast(forecast);
+
+        AirCondition airCondition = weathers.stream()
+                .max(Comparator.comparing(w -> w.getAirCondition().ordinal()))
+                .map(Weather::getAirCondition)
+                .orElseThrow(NoSuchElementException::new);
+
+        weather.setAirCondition(airCondition);
+
         return weather;
     }
 

@@ -19,15 +19,26 @@ const getWardrobe = () => {
         'Authorization': localStorage.getItem("token")},
         responseType: "json",
         })
-        .then(res => resolve(res.data))
+        .then(res => {resolve(res.data)})
         .catch(err => {reject(err)})
     })
 }
 
 const postLocation = (data) => {
+    console.log(data)  
+    let locationData = Object.values(data);  
+
+    let dataToSend = [];
+
+    for(let i = 0; i < locationData.length; i+=2) {
+        dataToSend.push({"latitude": locationData[i], "longitude": locationData[i + 1]});
+    }
+
+    console.log(dataToSend)
+
     return new Promise((resolve, reject) => {
         axios.post("http://localhost:8080/users/configuration/location", 
-        data, {
+        dataToSend, {
             headers: {'Access-Control-Allow-Credentials':true,
             'Authorization': localStorage.getItem("token")},
             responseType: "json",
@@ -37,22 +48,50 @@ const postLocation = (data) => {
     })
 }
 
+const checkUser = () => {
+    //console.log(localStorage.getItem("token"))
+    return new Promise((resolve, reject) => {
+        axios.post("http://localhost:8080/users/configuration/checkUser", "aa",
+        {
+            headers: {
+                'Access-Control-Allow-Credentials':true,
+                'Authorization': localStorage.getItem("token")
+            },
+            responseType: "json",
+        })
+        .then(res => {
+            resolve(res)})
+        .catch(err => {
+            console.log(err);
+            if(err.response.status === 401) {
+                console.log("new token")
+                localStorage.removeItem("token")
+            }
+            reject(err)
+        })
+    })
+}
+
 const openUserSession = () => {
     return new Promise((resolve, reject) => {
-        if(localStorage.getItem("token") === null) {
-            axios.post("http://localhost:8080/users/configuration/user", 
-            {headers: {
-                    'Access-Control-Allow-Credentials':true
-                },
-                responseType: "json",
-            })
-            .then(res => {
-                localStorage.setItem("token", res.data.token);
-                resolve(res)})
-            .catch(err => reject(err))
-        }
+        checkUser().then()
+        .catch(e => console.log(e))
+        .finally(() => {
+            if(localStorage.getItem("token") === null) {
+                axios.post("http://localhost:8080/users/configuration/user", 
+                {headers: {
+                        'Access-Control-Allow-Credentials':true,
+                    },
+                    responseType: "json",
+                })
+                .then(res => {
+                    localStorage.setItem("token", res.data.token);
+                    resolve(res)})
+                .catch(err => reject(err)) 
+            }
 
-        resolve(localStorage.getItem("token"))
+            resolve(localStorage.getItem("token"))
+        })
     })
 }
 
