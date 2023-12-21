@@ -10,7 +10,7 @@ function App() {
   useEffect(()=> {
     openUserSession().then((res) =>{
       setFlag(true);
-    });
+    }).catch(e => console.log(e));
 }, [])
 
   return (

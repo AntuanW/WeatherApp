@@ -8,6 +8,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ExternalApiException;
+import pl.edu.agh.to2.example.model.Location;
 
 import java.net.URI;
 import java.text.DecimalFormat;
@@ -37,9 +38,9 @@ public class WeatherApiService {
         }
     }
 
-    public JsonNode getWeatherData(double latitude, double longitude) {
+    public JsonNode getWeatherData(Location location) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            URI uri = new URI(buildApiURL(latitude, longitude));
+            URI uri = new URI(buildApiURL(location.latitude(), location.longitude()));
             HttpGet request = new HttpGet(uri);
             return requestWeather(request, httpClient);
         } catch (Exception e) {
