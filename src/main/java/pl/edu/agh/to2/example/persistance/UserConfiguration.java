@@ -10,15 +10,14 @@ public class UserConfiguration {
 
     public UserConfiguration(String userId) {
         this.userId = userId;
-        locations = new LinkedList<>();
     }
 
     public List<Location> getLocations() {
         return locations;
     }
 
-    public void addLocation(Location location) {
-        locations.add(location);
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 
     public String getUserId() {
