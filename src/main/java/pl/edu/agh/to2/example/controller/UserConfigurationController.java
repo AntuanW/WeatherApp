@@ -43,7 +43,6 @@ public class UserConfigurationController {
     public ResponseEntity<String> checkUser(
             @RequestHeader("Authorization") Optional<String> userToken
     ) {
-        System.out.println(userToken);
         String token = userToken.orElseThrow(() -> new UserNotFoundException(""));
         userConfigurationRepository.findByUserId(token).orElseThrow(() -> new UserNotFoundException(token));
         return ResponseEntity.ok().body("OK");
@@ -59,9 +58,10 @@ public class UserConfigurationController {
             UserConfiguration userConfiguration = userConfigurationRepository
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
 
-            locationRequests.stream()
+            List<Location> locations = locationRequests.stream()
                             .map(locationRequest -> new Location(locationRequest.latitude(), locationRequest.longitude()))
-                                    .forEach(userConfiguration::addLocation);
+                            .toList();
+            userConfiguration.setLocations(locations);
 
             userConfigurationRepository.saveUserConfiguration(userConfiguration);
             return ResponseEntity.ok().body("User location successfully saved");

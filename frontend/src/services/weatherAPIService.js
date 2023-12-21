@@ -31,6 +31,8 @@ const postLocation = (data) => {
     let dataToSend = [];
 
     for(let i = 0; i < locationData.length; i+=2) {
+        if(locationData[i] === '') break
+
         dataToSend.push({"latitude": locationData[i], "longitude": locationData[i + 1]});
     }
 
