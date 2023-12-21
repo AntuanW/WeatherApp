@@ -29,4 +29,10 @@ class UserConfigurationRepositoryTest {
         assertEquals(Optional.of(userConfiguration), userConfigurationRepository.findByUserId(userID));
     }
 
+    @Test
+    void testSaveUserConfiguration() {
+        userConfigurationRepository.saveUserConfiguration(userConfiguration);
+        assertEquals(Optional.of(userConfiguration), userConfigurationRepository.findByUserId(userID));
+    }
+
 }

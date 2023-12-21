@@ -5,7 +5,7 @@ import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
 public class Weather {
-
+    private String locationName;
     private Forecast forecast;
     private Temperature temperature;
     private AirCondition airCondition;
@@ -27,6 +27,10 @@ public class Weather {
         return temperatureCelsius;
     }
 
+    public String getLocationName() {
+        return locationName;
+    }
+
     public void setAirCondition(AirCondition airCondition) {
         this.airCondition = airCondition;
     }
@@ -41,5 +45,9 @@ public class Weather {
 
     public void setTemperatureCelsius(double temperatureCelsius) {
         this.temperatureCelsius = temperatureCelsius;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 }

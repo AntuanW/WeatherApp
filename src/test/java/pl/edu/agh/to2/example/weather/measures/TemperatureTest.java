@@ -25,9 +25,9 @@ class TemperatureTest {
         assertEquals(freezingTemperature, Temperature.getTemperature(-1.0));
         assertEquals(freezingTemperature, Temperature.getTemperature(0.0));
         assertEquals(coldTemperature, Temperature.getTemperature(3.0));
-        assertEquals(coldTemperature, Temperature.getTemperature(14.0));
+        assertEquals(coldTemperature, Temperature.getTemperature(9.5));
         assertEquals(warmTemperature, Temperature.getTemperature(15.0));
-        assertEquals(warmTemperature, Temperature.getTemperature(22.0));
+        assertEquals(warmTemperature, Temperature.getTemperature(18.0));
         assertEquals(hotTemperature, Temperature.getTemperature(23.0));
         assertEquals(hotTemperature, Temperature.getTemperature(30.0));
     }

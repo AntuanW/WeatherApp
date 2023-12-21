@@ -20,9 +20,9 @@ class ExternalApiExceptionTest {
     void setUp() {
         errorMessage = "Custom error message";
         exception = new ExternalApiException(errorMessage);
-        location = new Location(0.0, 0.0);
+        location = new Location(0.0, 0.0, null, null);
         weatherApiService = mock(WeatherApiService.class);
-        when(weatherApiService.getWeatherData(location)).thenThrow(exception);
+        when(weatherApiService.getWeatherData(location.latitude(), location.longitude())).thenThrow(exception);
     }
 
     @Test
@@ -34,7 +34,7 @@ class ExternalApiExceptionTest {
     @Test
     void testExternalApiException() {
         assertThrows(ExternalApiException.class, () -> {
-            weatherApiService.getWeatherData(location);
+            weatherApiService.getWeatherData(location.latitude(), location.longitude());
         });
     }
 }

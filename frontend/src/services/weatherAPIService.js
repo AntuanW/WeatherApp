@@ -1,14 +1,10 @@
 import axios from 'axios'
 
-const headersConfig = {
-    'Access-Control-Allow-Credentials':true,
-    'Authorization': "aa"
-}
-
 const getWeather = () => {
     return new Promise((resolve, reject) => {
         axios.get("http://localhost:8080/weatherapp/weather", {
-        headers: headersConfig,
+        headers: {'Access-Control-Allow-Credentials':true,
+        'Authorization': localStorage.getItem("token")},
         responseType: "json",
         })
         .then(res => resolve(res.data))
@@ -19,7 +15,8 @@ const getWeather = () => {
 const getWardrobe = () => {
     return new Promise((resolve, reject) => {
         axios.get("http://localhost:8080/weatherapp/wardrobe", {
-        headers: headersConfig,
+        headers: {'Access-Control-Allow-Credentials':true,
+        'Authorization': localStorage.getItem("token")},
         responseType: "json",
         })
         .then(res => resolve(res.data))
@@ -28,12 +25,11 @@ const getWardrobe = () => {
 }
 
 const postLocation = (data) => {
-    console.log(data);
-
     return new Promise((resolve, reject) => {
         axios.post("http://localhost:8080/users/configuration/location", 
         data, {
-            headers: headersConfig,
+            headers: {'Access-Control-Allow-Credentials':true,
+            'Authorization': localStorage.getItem("token")},
             responseType: "json",
         })
         .then(res => resolve(res))
@@ -43,14 +39,20 @@ const postLocation = (data) => {
 
 const openUserSession = () => {
     return new Promise((resolve, reject) => {
-        axios.post("http://localhost:8080/users/configuration/user", 
-        {headers: {
-                'Access-Control-Allow-Credentials':true
-            },
-            responseType: "json",
-        })
-        .then(res => resolve(res))
-        .catch(err => reject(err))
+        if(localStorage.getItem("token") === null) {
+            axios.post("http://localhost:8080/users/configuration/user", 
+            {headers: {
+                    'Access-Control-Allow-Credentials':true
+                },
+                responseType: "json",
+            })
+            .then(res => {
+                localStorage.setItem("token", res.data.token);
+                resolve(res)})
+            .catch(err => reject(err))
+        }
+
+        resolve(localStorage.getItem("token"))
     })
 }
 

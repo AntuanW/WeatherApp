@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import pl.edu.agh.to2.example.controller.payload.WeatherResponse;
+import pl.edu.agh.to2.example.service.WardrobeService;
 import pl.edu.agh.to2.example.service.WeatherService;
 import pl.edu.agh.to2.example.wardrobe.Clothes;
 import pl.edu.agh.to2.example.wardrobe.Wardrobe;
@@ -25,6 +26,9 @@ class WeatherControllerTest {
     @Mock
     private WeatherService weatherService;
 
+    @Mock
+    private WardrobeService wardrobeService;
+
     @InjectMocks
     private WeatherController weatherController;
 
@@ -40,14 +44,14 @@ class WeatherControllerTest {
         expectedWardrobe.setClothes(new Clothes("Sandals", "Shorts",
                 List.of("T-shirt"), List.of("Sunglasses", "Hat", "Baseball cap")));
 
-        when(weatherService.getRightWardrobe(userToken)).thenReturn(expectedWardrobe);
+        when(wardrobeService.getRightWardrobe(userToken)).thenReturn(expectedWardrobe);
 
         ResponseEntity<Wardrobe> responseEntity = weatherController.getWardrobe(userToken);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(expectedWardrobe, responseEntity.getBody());
         assertEquals(expectedWardrobe.getClothes(), Objects.requireNonNull(responseEntity.getBody()).getClothes());
-        verify(weatherService, times(1)).getRightWardrobe(userToken);
+        verify(wardrobeService, times(1)).getRightWardrobe(userToken);
     }
 
     @Test
@@ -68,12 +72,12 @@ class WeatherControllerTest {
     @Test
     void testGetWardrobeError() {
         String userToken = "testToken";
-        when(weatherService.getRightWardrobe(userToken)).thenThrow(new RuntimeException("Test exception"));
+        when(wardrobeService.getRightWardrobe(userToken)).thenThrow(new RuntimeException("Test exception"));
 
         ResponseEntity<Wardrobe> responseEntity = weatherController.getWardrobe(userToken);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
-        verify(weatherService, times(1)).getRightWardrobe(userToken);
+        verify(wardrobeService, times(1)).getRightWardrobe(userToken);
     }
 
     @Test

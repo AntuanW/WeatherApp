@@ -12,6 +12,7 @@ import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController()
@@ -20,13 +21,16 @@ import java.util.logging.Logger;
 public class UserConfigurationController {
     private static final Logger logger = Logger.getLogger(String.valueOf(UserConfigurationController.class));
 
+    private final UserConfigurationRepository userConfigurationRepository;
     @Autowired
-    private UserConfigurationRepository userConfigurationRepository;
+    public UserConfigurationController(UserConfigurationRepository userConfigurationRepository) {
+        this.userConfigurationRepository = userConfigurationRepository;
+    }
 
     @PostMapping("/user")
     public ResponseEntity<UserResponse> initializeUser(
     ) {
-        String userToken = "aa";//UUID.randomUUID().toString();
+        String userToken = UUID.randomUUID().toString();
         UserConfiguration userConfiguration = userConfigurationRepository
                 .findByUserId(userToken).orElse(new UserConfiguration(userToken));
         userConfigurationRepository.saveUserConfiguration(userConfiguration);
@@ -42,7 +46,12 @@ public class UserConfigurationController {
             logger.info(() -> "Message: " + locationRequest.toString());
             UserConfiguration userConfiguration = userConfigurationRepository
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
-            Location location = new Location(locationRequest.latitude(), locationRequest.longitude());
+            Location location = new Location(
+                    locationRequest.latitude(),
+                    locationRequest.longitude(),
+                    locationRequest.latitude2(),
+                    locationRequest.longitude2()
+            );
             userConfiguration.setLocation(location);
             userConfigurationRepository.saveUserConfiguration(userConfiguration);
             return ResponseEntity.ok().body("User location successfully saved");

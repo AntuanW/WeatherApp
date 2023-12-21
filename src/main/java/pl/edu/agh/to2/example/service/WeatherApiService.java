@@ -8,7 +8,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ExternalApiException;
-import pl.edu.agh.to2.example.model.Location;
 
 import java.net.URI;
 import java.text.DecimalFormat;
@@ -21,8 +20,8 @@ public class WeatherApiService {
     private static final String AQI_PARAM = "aqi=yes";
     private final NumberFormat locationFormatter = new DecimalFormat("0.####");
 
-    private String buildApiURL(Location location) {
-        String loc = locationFormatter.format(location.latitude()) + "," + locationFormatter.format(location.longitude());
+    private String buildApiURL(double latitude, double longitude) {
+        String loc = locationFormatter.format(latitude) + "," + locationFormatter.format(longitude);
         return String.format("%s?key=%s&q=%s&%s", WEATHER_API_URL_BASE, API_KEY, loc, AQI_PARAM);
     }
 
@@ -32,15 +31,15 @@ public class WeatherApiService {
                 throw new ExternalApiException("Something went wrong with getting weather data.");
             }
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readTree(response.getEntity().getContent()).get("current");
+            return objectMapper.readTree(response.getEntity().getContent());
         } catch (Exception e) {
             throw new ExternalApiException(e);
         }
     }
 
-    public JsonNode getWeatherData(Location location) {
+    public JsonNode getWeatherData(double latitude, double longitude) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            URI uri = new URI(buildApiURL(location));
+            URI uri = new URI(buildApiURL(latitude, longitude));
             HttpGet request = new HttpGet(uri);
             return requestWeather(request, httpClient);
         } catch (Exception e) {

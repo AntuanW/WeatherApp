@@ -16,7 +16,7 @@ class UserConfigurationTest {
     @BeforeEach
     void setUp() {
         userId = "123";
-        location = new Location(0.0, 0.0);
+        location = new Location(0.0, 0.0, null, null);
         userConfiguration = new UserConfiguration(userId);
     }
 
