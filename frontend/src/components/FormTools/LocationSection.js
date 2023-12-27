@@ -4,28 +4,27 @@ import { Button } from '@mui/material';
 import LocationInput from './LocationInput';
 
 const LocationSection = () => {
-    const [additionalLocation, setLocationAdded] = useState(false);
-    
-    const addLocation = () => {
-        setLocationAdded(true);
-    };
+    const [locationCount, setLocationCount] = useState(1);
 
     return (
         <>
-            <LocationInput
-            title="First Location"
-            latitudeLabel="latitude"
-            longitudeLabel="longitude"/> 
+            {new Array(locationCount).fill(0).map(function(object, i){
+                return <LocationInput
+                key = {i}
+                title="Location"
+                latitudeLabel={"latitude" + i}
+                longitudeLabel={"longitude" + i}/> 
+            })}
             
-            {!additionalLocation && <Button 
+            {locationCount < 5 && <Button 
             variant="outlined" 
-            onClick={addLocation} 
+            onClick={() => setLocationCount(locationCount => locationCount + 1)} 
             sx={{ marginTop:2 }}>Add Location</Button>}
-            
-            {additionalLocation && <LocationInput
-            title="Second Location"
-            latitudeLabel="latitude2"
-            longitudeLabel="longitude2"/> }
+
+            {locationCount > 0 && <Button 
+            variant="outlined" 
+            onClick={() => setLocationCount(locationCount => locationCount -1)}  
+            sx={{ marginTop:2 }}>Remove Location</Button>}
         </>
     );
 };
