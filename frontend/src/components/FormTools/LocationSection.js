@@ -11,9 +11,11 @@ const LocationSection = () => {
             {new Array(locationCount).fill(0).map(function(object, i){
                 return <LocationInput
                 key = {i}
-                title="Location"
+                title={"Location " + i}
                 latitudeLabel={"latitude" + i}
-                longitudeLabel={"longitude" + i}/> 
+                longitudeLabel={"longitude" + i}
+                timeLabel={"time" + i}
+                nameLabel={"name" + i}/> 
             })}
             
             {locationCount < 5 && <Button 
@@ -21,7 +23,7 @@ const LocationSection = () => {
             onClick={() => setLocationCount(locationCount => locationCount + 1)} 
             sx={{ marginTop:2 }}>Add Location</Button>}
 
-            {locationCount > 0 && <Button 
+            {locationCount > 1 && <Button 
             variant="outlined" 
             onClick={() => setLocationCount(locationCount => locationCount -1)}  
             sx={{ marginTop:2 }}>Remove Location</Button>}

@@ -13,7 +13,6 @@ const Main = () => {
         navigate("/", { replace: false });
     }
 
-
     return (
         <main>
             <Button color = "secondary" sx={{left: 30}} variant="outlined" onClick={onClick}>Change location</Button>
