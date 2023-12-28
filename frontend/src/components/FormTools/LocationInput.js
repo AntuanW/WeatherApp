@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { Typography } from '@mui/material';
-import Input from './Input';
+import CoordinatesInput from './CoordinatesInput';
+import NameInput from './NameInput';
+import TimeInput from './TimeInput';
 
 const LocationInput = (props) => {
-    const { title, latitudeLabel, longitudeLabel } = props;
+    const { title, latitudeLabel, longitudeLabel, timeLabel, nameLabel } = props;
 
     const latitudeValidation = {
         required: {
@@ -36,11 +38,14 @@ const LocationInput = (props) => {
         }
     }
 
+
     return (
         <>
-        <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b',  textAlign: 'center' }}>{title}</Typography>
-        <Input label={latitudeLabel} id={latitudeLabel}  validation={latitudeValidation} />
-        <Input label={longitudeLabel}  id={longitudeLabel}  validation={longitudeValidation} />
+        <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b',    textAlign: 'center', fontWeight: 'bold' }}>{title}</Typography>
+        <CoordinatesInput label={latitudeLabel} id={latitudeLabel}  validation={latitudeValidation} />
+        <CoordinatesInput label={longitudeLabel}  id={longitudeLabel}  validation={longitudeValidation} /> 
+        <TimeInput label={timeLabel} id={timeLabel}/>
+        <NameInput label={nameLabel} id={nameLabel}/>
         </>
     );
 };
