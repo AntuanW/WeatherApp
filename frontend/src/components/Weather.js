@@ -37,6 +37,9 @@ const Weather = () => {
                 setTemperatureColor("green");
                 break;
             case 'HOT':
+                setTemperatureColor("#FFA500");
+                break;
+            case 'SWELTERING':
                 setTemperatureColor("red");
                 break;
             default:

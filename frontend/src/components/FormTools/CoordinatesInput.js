@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { isValid, findInputErrors } from "../../services/formCheck.js"
 import { TextField } from '@mui/material';
 
-const Input = (props) => {
+const CoordinatesInput = (props) => {
     const {label, id, validation} = props;
     const {
         register,
@@ -25,9 +25,10 @@ const Input = (props) => {
             inputProps={{ step: 0.001 }}
             helperText={inputError.error?.message}
             error = {isInvalid}
+            required={true}
             {...register(id, validation)}
         />
     );
 };
 
-export default Input;
+export default CoordinatesInput;

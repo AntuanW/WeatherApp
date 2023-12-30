@@ -6,6 +6,7 @@ import "./styles/form.css";
 import { useNavigate } from "react-router-dom";
 import { postLocation } from '../services/weatherAPIService';
 import LocationSection from './FormTools/LocationSection';
+import LocationDropdown from './FormTools/LocationDropdown';
 
 const Form = () => {
     const methods = useForm();
@@ -18,6 +19,7 @@ const Form = () => {
         })
         .catch(e => console.log(e))
     })
+
 
     return (
     <div className='form'>
@@ -32,6 +34,7 @@ const Form = () => {
         >
             <Typography variant="h5" sx={{ marginBottom: 3, color: '#0e0f3b', textAlign: 'center', textShadow: '1px 1px 1px #fff' }}> 
             Don't know what to wear?</Typography>
+            <LocationDropdown/>
             <LocationSection />
             <Button variant="outlined" onClick={onSubmit} sx={{ marginTop: 2 }}>Show weather</Button>
         </FormControl>
