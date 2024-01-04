@@ -12,6 +12,9 @@ import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 import pl.edu.agh.to2.example.weather.Weather;
 import pl.edu.agh.to2.example.weather.measures.*;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -28,6 +31,10 @@ public class WeatherService {
     private static final String TEMP_C_PARAM = "temp_c";
     private static final String WIND_KPH_PARAM = "wind_kph";
     private static final String PM2_5_PARAM = "pm2_5";
+    private static final String FORECAST_PARAM = "forecast";
+    private static final String FORECASTDAY_PARAM = "forecastday";
+    private static final String HOUR_PARAM = "hour";
+    private static final String TIME_PARAM = "time";
 
     @Autowired
     public WeatherService(UserConfigurationRepository userConfigurationRepository, WeatherApiService weatherApiService,
@@ -44,7 +51,7 @@ public class WeatherService {
         if(locationsProvided.isEmpty()) throw new ResourceNotFoundException("No location provided");
 
         List<Weather> weathers = locationsProvided.stream()
-                .map(location -> extractWeather(weatherApiService.getWeatherData(location)))
+                .map(location -> extractWeather(weatherApiService.getWeatherData(location), location.time()))
                 .toList();
 
         return combineWeather(weathers);
@@ -87,25 +94,32 @@ public class WeatherService {
         return weather;
     }
 
-    private Weather extractWeather(JsonNode data) {
+    private Weather extractWeather(JsonNode data, LocalTime forecastTime) {
         Weather weather = new Weather();
         JsonNode currentData = data.get(CURRENT_PARAM);
 
         String locationName = data.get(LOCATION_PARAM).get(NAME_PARAM).asText();
         weather.setLocationName(locationName);
 
-        String forecast = currentData.get(CONDITION_PARAM).get(TEXT_PARAM).asText();
-        weather.setForecast(Forecast.getForecast(forecast));
-
         double airCondition = currentData.get(AIR_QUALITY_PARAM).get(PM2_5_PARAM).asDouble();
         weather.setAirCondition(AirCondition.fromPM25(airCondition));
 
-        double temperature = currentData.get(TEMP_C_PARAM).asDouble();
+        JsonNode forecastData = data.get(FORECAST_PARAM).get(FORECASTDAY_PARAM);
+
+        // If forecast time is before current time, it means that we have to check forecast for the next day
+        LocalTime currentTime = LocalTime.now();
+        int searchTime = forecastTime.truncatedTo(ChronoUnit.HOURS).getHour();
+        int day = forecastTime.isBefore(currentTime) ? 1 : 0;
+        forecastData = forecastData.get(day).get(HOUR_PARAM).get(searchTime);
+
+        String forecast = forecastData.get(CONDITION_PARAM).get(TEXT_PARAM).asText();
+        weather.setForecast(Forecast.getForecast(forecast));
+
+        double temperature = forecastData.get(TEMP_C_PARAM).asDouble();
         weather.setTemperatureCelsius(temperature);
 
-        double windSpeedKmPerHour = currentData.get(WIND_KPH_PARAM).asDouble();
+        double windSpeedKmPerHour = forecastData.get(WIND_KPH_PARAM).asDouble();
         weather.setTemperature(Temperature.getTemperature(temperatureService.calculateSensedTemperature(temperature, windSpeedKmPerHour)));
-
         return weather;
     }
 }
