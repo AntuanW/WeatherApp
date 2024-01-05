@@ -12,7 +12,9 @@ import pl.edu.agh.to2.example.model.Location;
 
 import java.net.URI;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 @Service
 public class WeatherApiService {
@@ -21,7 +23,7 @@ public class WeatherApiService {
     private static final String AQI_PARAM = "aqi=yes";
     private static final String ALERTS_PARAM = "alerts=no";
     private static final String DAYS_PARAM = "days=2";
-    private final NumberFormat locationFormatter = new DecimalFormat("0.####");
+    private final NumberFormat locationFormatter = new DecimalFormat("0.####", new DecimalFormatSymbols(Locale.US));
 
     private String buildApiURL(double latitude, double longitude) {
         String loc = locationFormatter.format(latitude) + "," + locationFormatter.format(longitude);
