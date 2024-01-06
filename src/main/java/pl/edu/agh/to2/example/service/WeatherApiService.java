@@ -12,18 +12,22 @@ import pl.edu.agh.to2.example.model.Location;
 
 import java.net.URI;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 @Service
 public class WeatherApiService {
-    private static final String WEATHER_API_URL_BASE = "https://api.weatherapi.com/v1/current.json";
+    private static final String WEATHER_API_URL_BASE = "https://api.weatherapi.com/v1/forecast.json";
     private static final String API_KEY = "2ea04a19ce374691987155332232411";
     private static final String AQI_PARAM = "aqi=yes";
-    private final NumberFormat locationFormatter = new DecimalFormat("0.####");
+    private static final String ALERTS_PARAM = "alerts=no";
+    private static final String DAYS_PARAM = "days=2";
+    private final NumberFormat locationFormatter = new DecimalFormat("0.####", new DecimalFormatSymbols(Locale.US));
 
     private String buildApiURL(double latitude, double longitude) {
         String loc = locationFormatter.format(latitude) + "," + locationFormatter.format(longitude);
-        return String.format("%s?key=%s&q=%s&%s", WEATHER_API_URL_BASE, API_KEY, loc, AQI_PARAM);
+        return String.format("%s?key=%s&q=%s&%s&%s&%s", WEATHER_API_URL_BASE, API_KEY, loc, DAYS_PARAM, AQI_PARAM, ALERTS_PARAM);
     }
 
     private JsonNode requestWeather(HttpGet request, CloseableHttpClient httpClient) {
