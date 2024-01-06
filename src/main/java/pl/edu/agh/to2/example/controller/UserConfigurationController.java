@@ -59,7 +59,7 @@ public class UserConfigurationController {
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
 
             List<Location> locations = locationRequests.stream()
-                            .map(locationRequest -> new Location(locationRequest.latitude(), locationRequest.longitude()))
+                            .map(locationRequest -> new Location(locationRequest.latitude(), locationRequest.longitude(), locationRequest.time()))
                             .toList();
             userConfiguration.setLocations(locations);
 
