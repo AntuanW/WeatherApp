@@ -16,6 +16,7 @@ const Weather = () => {
 
     useEffect(()=> {
         getWeather().then((res) => {
+            console.log(res)
             setWeather(res)
             setColor(res.temperatureScale)
             setError(false);

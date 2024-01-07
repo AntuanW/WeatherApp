@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button } from '@mui/material'
-import { getSavedLocationsFromStorage } from '../../services/weatherAPIService'
+import { Box, Typography, Button, IconButton } from '@mui/material'
+import { getSavedLocationsFromStorage, removeLocationFromStorage } from '../../services/weatherAPIService'
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const LocationDropdown = () => {
+const LocationDropdown = ({pasteSelectLocation}) => {
     const [savedLocations, setSavedLocations] = useState([]);
 
     useEffect(() => {
         const storedLocations = getSavedLocationsFromStorage();
         setSavedLocations(storedLocations)
-        console.log(storedLocations)
       }, []);
 
       const handleSelectLocation = (location) => {
-        //Tu mozna rozpatrzyc to dodawanie do formsa (chyba)
-        console.log(location)
+        pasteSelectLocation(location);
       };
 
     return (
@@ -25,10 +24,19 @@ const LocationDropdown = () => {
        <ul>
          {savedLocations.map((location, index) => (
            <li key={index}>
-             <b>{location.name}</b> (lat:{location.latitude}, long:{location.longitude}, time:{location.time})
-             <Button variant='outlined' onClick={() => handleSelectLocation(location)} sx={{ margin: 2}}>
+             <><b>{location.name}</b> (lat:{location.latitude}, long:{location.longitude}, time:{location.time})
+
+             <IconButton aria-label="delete" size="large"
+                onClick={() => {
+                  setSavedLocations([...savedLocations.slice(0, index), ...savedLocations.slice(index + 1)])
+                  removeLocationFromStorage(index)}}>
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
+
+              <Button variant='outlined' onClick={() => handleSelectLocation(location)} sx={{ margin: 2}}>
                Use Location
              </Button>
+             </>
            </li>
          ))}
        </ul>
