@@ -17,6 +17,7 @@ import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,10 +49,11 @@ class WardrobeServiceTest {
     @Test
     void testGetRightWardrobeWithSuccess() throws JsonProcessingException {
         String userId = "testUser";
-        UserConfiguration userConfiguration = new UserConfiguration(userId);
-        userConfiguration.setLocation(new Location(
-                50.0619, 19.9367, Optional.empty(), Optional.empty()
+        List<Location> listOfSingleLocation = List.of(new Location(
+                50.0619, 19.9367, LocalTime.of(12, 0)
         ));
+        UserConfiguration userConfiguration = new UserConfiguration(userId);
+        userConfiguration.setLocations(listOfSingleLocation);
 
         Clothes mockedClothes = new Clothes("Sandals", "Shorts",
                 List.of("T-shirt"), List.of("Sunglasses", "Hat", "Baseball cap"));
@@ -70,7 +72,7 @@ class WardrobeServiceTest {
     void testGetRightWardrobeWithResourceNotFoundException() {
         String userId = "testUser";
         UserConfiguration userConfiguration = new UserConfiguration(userId);
-        userConfiguration.setLocation(null);
+        userConfiguration.setLocations(List.of());
 
         when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
 

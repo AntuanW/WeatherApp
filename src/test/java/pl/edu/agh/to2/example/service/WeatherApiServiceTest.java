@@ -6,6 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import pl.edu.agh.to2.example.model.Location;
 
+import java.time.LocalTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherApiServiceTest {
@@ -17,12 +19,12 @@ class WeatherApiServiceTest {
 
     @BeforeEach
     void setUp() {
-        location = new Location(50.0619, 19.9367, null, null);
+        location = new Location(50.0619, 19.9367, LocalTime.now());
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void testGetWeatherData() {
-        assertNotNull(weatherApiService.getWeatherData(location.latitude(), location.longitude()));
+        assertNotNull(weatherApiService.getWeatherData(location));
     }
 }

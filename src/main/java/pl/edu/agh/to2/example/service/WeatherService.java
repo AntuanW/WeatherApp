@@ -34,7 +34,6 @@ public class WeatherService {
     private static final String FORECAST_PARAM = "forecast";
     private static final String FORECASTDAY_PARAM = "forecastday";
     private static final String HOUR_PARAM = "hour";
-    private static final String TIME_PARAM = "time";
 
     @Autowired
     public WeatherService(UserConfigurationRepository userConfigurationRepository, WeatherApiService weatherApiService,

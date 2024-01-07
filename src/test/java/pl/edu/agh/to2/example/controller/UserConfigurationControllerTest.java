@@ -15,6 +15,9 @@ import pl.edu.agh.to2.example.controller.payload.UserResponse;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 
+import java.time.LocalTime;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 class UserConfigurationControllerTest {
@@ -44,12 +47,12 @@ class UserConfigurationControllerTest {
     @Test
     void testPostLocationWithSuccess() {
         String userToken = "testToken";
-        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, null, null);
+        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, LocalTime.of(20, 0));
         UserConfiguration userConfiguration = new UserConfiguration(userToken);
 
         when(userConfigurationRepository.findByUserId(userToken)).thenReturn(java.util.Optional.of(userConfiguration));
 
-        ResponseEntity<String> response = userConfigurationController.postLocation(userToken, locationRequest);
+        ResponseEntity<String> response = userConfigurationController.postLocation(userToken, List.of(locationRequest));
 
         verify(userConfigurationRepository, times(1)).findByUserId(userToken);
         verify(userConfigurationRepository, times(1)).saveUserConfiguration(userConfiguration);
@@ -60,12 +63,12 @@ class UserConfigurationControllerTest {
     @Test
     void testPostLocationWithUserNotFound() {
         String userToken = "User not found";
-        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, null, null);
+        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, LocalTime.of(20, 0));
 
         when(userConfigurationRepository.findByUserId(userToken)).thenReturn(java.util.Optional.empty());
         when(userConfigurationRepository.findByUserId(userToken)).thenReturn(java.util.Optional.empty());
 
-        ResponseEntity<String> response = userConfigurationController.postLocation(userToken, locationRequest);
+        ResponseEntity<String> response = userConfigurationController.postLocation(userToken, List.of(locationRequest));
 
         verify(userConfigurationRepository, times(1)).findByUserId(userToken);
         verify(userConfigurationRepository, never()).saveUserConfiguration(any(UserConfiguration.class));
@@ -76,11 +79,11 @@ class UserConfigurationControllerTest {
     @Test
     void testPostLocationWithException() {
         String userToken = "testToken";
-        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, null, null);
+        LocationRequest locationRequest = new LocationRequest(10.0, 20.0, LocalTime.of(20, 0));
 
         when(userConfigurationRepository.findByUserId(userToken)).thenThrow(new RuntimeException("Test Exception"));
 
-        ResponseEntity<String> response = userConfigurationController.postLocation(userToken, locationRequest);
+        ResponseEntity<String> response = userConfigurationController.postLocation(userToken, List.of(locationRequest));
 
         verify(userConfigurationRepository, times(1)).findByUserId(userToken);
         verify(userConfigurationRepository, never()).saveUserConfiguration(any(UserConfiguration.class));
