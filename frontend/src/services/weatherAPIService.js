@@ -37,7 +37,7 @@ const postLocation = (data) => {
                 const longitude = data[`longitude${index}`];
                 const time = data[`time${index}`];
 
-                if (latitude === '') break;
+                if (latitude === '') continue;
 
                 const locationObject = { latitude, longitude, time };
                 dataToSend.push(locationObject);

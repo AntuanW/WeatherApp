@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FormControl, Button, Typography } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { FormProvider } from 'react-hook-form';
@@ -11,6 +11,12 @@ import LocationDropdown from './FormTools/LocationDropdown';
 const Form = () => {
     const methods = useForm();
     const navigate = useNavigate();
+
+    const locationSectionRef = useRef();
+
+    const useSelectLocation = (location) => {
+        locationSectionRef.current.useSavedLocation(location);
+      };
 
     const onSubmit = methods.handleSubmit(data => {
         postLocation(methods.getValues()).then((res) => {
@@ -34,8 +40,8 @@ const Form = () => {
         >
             <Typography variant="h5" sx={{ marginBottom: 3, color: '#0e0f3b', textAlign: 'center', textShadow: '1px 1px 1px #fff' }}> 
             Don't know what to wear?</Typography>
-            <LocationDropdown/>
-            <LocationSection />
+            <LocationDropdown pasteSelectLocation={useSelectLocation}/>
+            <LocationSection ref = {locationSectionRef}/>
             <Button variant="outlined" onClick={onSubmit} sx={{ marginTop: 2 }}>Show weather</Button>
         </FormControl>
         </FormProvider>

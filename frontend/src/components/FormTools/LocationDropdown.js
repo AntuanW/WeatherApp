@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material'
 import { getSavedLocationsFromStorage } from '../../services/weatherAPIService'
 
-const LocationDropdown = () => {
+const LocationDropdown = ({pasteSelectLocation}) => {
     const [savedLocations, setSavedLocations] = useState([]);
 
     useEffect(() => {
         const storedLocations = getSavedLocationsFromStorage();
         setSavedLocations(storedLocations)
-        console.log(storedLocations)
       }, []);
 
       const handleSelectLocation = (location) => {
-        //Tu mozna rozpatrzyc to dodawanie do formsa (chyba)
-        console.log(location)
+        pasteSelectLocation(location);
       };
 
     return (
