@@ -9,11 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pl.edu.agh.to2.example.model.Location;
-import pl.edu.agh.to2.example.persistance.ClothesRepository;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
-import pl.edu.agh.to2.example.wardrobe.Clothes;
-import pl.edu.agh.to2.example.wardrobe.Wardrobe;
 import pl.edu.agh.to2.example.weather.Weather;
 import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
@@ -22,7 +19,6 @@ import pl.edu.agh.to2.example.weather.measures.Temperature;
 import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
 import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 

@@ -27,7 +27,7 @@ class UserConfigurationTest {
 
     @Test
     void testGetLocations() {
-        assertEquals(null, userConfiguration.getLocations());
+        assertNull(userConfiguration.getLocations());
         userConfiguration.setLocations(locations);
         assertEquals(locations, userConfiguration.getLocations());
     }
