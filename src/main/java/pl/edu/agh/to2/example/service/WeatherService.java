@@ -1,7 +1,6 @@
 package pl.edu.agh.to2.example.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
@@ -13,7 +12,6 @@ import pl.edu.agh.to2.example.weather.Weather;
 import pl.edu.agh.to2.example.weather.measures.*;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
