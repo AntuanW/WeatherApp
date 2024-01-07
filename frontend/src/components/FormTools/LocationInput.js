@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import CoordinatesInput from './CoordinatesInput';
 import NameInput from './NameInput';
 import TimeInput from './TimeInput';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const LocationInput = (props) => {
-    const { title, latitudeLabel, longitudeLabel, timeLabel, nameLabel } = props;
+    const { title, latitudeLabel, longitudeLabel, timeLabel, nameLabel, index, remove, replace } = props;
 
     const latitudeValidation = {
         required: {
@@ -41,11 +42,16 @@ const LocationInput = (props) => {
 
     return (
         <div className = "locationInput">
-        <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b',    textAlign: 'center', fontWeight: 'bold' }}>{title}</Typography>
-        <CoordinatesInput label={latitudeLabel} id={latitudeLabel}  validation={latitudeValidation}/>
-        <CoordinatesInput label={longitudeLabel}  id={longitudeLabel}  validation={longitudeValidation} /> 
-        <TimeInput label={timeLabel} id={timeLabel}/>
-        <NameInput label={nameLabel} id={nameLabel}/>
+        <Typography variant="h10" sx={{ marginTop: 2, color: '#0e0f3b',    textAlign: 'center', fontWeight: 'bold' }}>{title}
+            <IconButton aria-label="delete" size="large"
+                onClick={() => remove(index)}>
+                <DeleteIcon fontSize="inherit" />
+            </IconButton>
+        </Typography>
+        <CoordinatesInput id={latitudeLabel}  validation={latitudeValidation} index = {index}/>
+        <CoordinatesInput id={longitudeLabel}  validation={longitudeValidation} index = {index}/> 
+        <TimeInput id={timeLabel} index = {index}/>
+        <NameInput id={nameLabel} index = {index} replace = {replace}/>
         </div>
     );
 };

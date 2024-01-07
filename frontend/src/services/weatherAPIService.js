@@ -26,32 +26,24 @@ const getWardrobe = () => {
 
 const postLocation = (data) => {
     console.log(data);
-    let dataToSend = [];
 
-    for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-            const match = key.match(/^latitude(\d+)$/);
-            if (match) {
-                const index = match[1];
-                const latitude = data[`latitude${index}`];
-                const longitude = data[`longitude${index}`];
-                const time = data[`time${index}`];
-
-                if (latitude === '') continue;
-
-                const locationObject = { latitude, longitude, time };
-                dataToSend.push(locationObject);
-
-                const name = data[`name${index}`];
-                if (name !== null && name !== undefined) {
-                    const locationWithName = { ...locationObject, name };
-                    addLocationToStorage(locationWithName)
-                }
+    let dataToSend = data.map(obj => {
+        return Object.keys(obj).reduce((accumulator, key) => {
+            if (!key.startsWith('name')) {
+                accumulator[key] = obj[key];
             }
-        }
-    }
+            return accumulator;
+        }, {});
+    });
 
     console.log(dataToSend)
+
+    data.map(obj => {
+        let name = obj.name
+        if (name !== "") {
+            addLocationToStorage(obj)
+        }
+    });
 
     return new Promise((resolve, reject) => {
         axios.post("http://localhost:8080/users/configuration/location", 
@@ -117,9 +109,15 @@ const addLocationToStorage = (newLocation) => {
     sessionStorage.setItem('savedLocations', JSON.stringify(updatedList));
 };
 
+const removeLocationFromStorage = (index) => {
+    const savedLocations = getSavedLocationsFromStorage()
+    const updatedList = [...savedLocations.slice(0, index), ...savedLocations.slice(index + 1)];
+    sessionStorage.setItem('savedLocations', JSON.stringify(updatedList));
+};
+
 const getSavedLocationsFromStorage = () => {
     const savedLocationsString = sessionStorage.getItem('savedLocations');
     return savedLocationsString ? JSON.parse(savedLocationsString) : [];
 };
 
-export {getWeather, getWardrobe, postLocation, openUserSession, getSavedLocationsFromStorage}
+export {getWeather, getWardrobe, postLocation, openUserSession, getSavedLocationsFromStorage, removeLocationFromStorage}
