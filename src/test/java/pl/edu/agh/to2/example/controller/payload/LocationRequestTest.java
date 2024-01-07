@@ -3,33 +3,36 @@ package pl.edu.agh.to2.example.controller.payload;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LocationRequestTest {
-    private static LocationRequest dualLocationRequest;
-    private static LocationRequest singleLocationRequest;
+    private static LocationRequest locationRequest;
+    private static double latitude;
+    private static double longitude;
+    private static LocalTime time;
 
     @BeforeAll
     static void setUp() {
-        dualLocationRequest = new LocationRequest(1.0, 2.0, Optional.of(3.0), Optional.of(4.0));
-        singleLocationRequest = new LocationRequest(1.0, 2.0, Optional.empty(), Optional.empty());
+        latitude = 1.0;
+        longitude = 2.0;
+        time = LocalTime.of(12, 0);
+        locationRequest = new LocationRequest(latitude, longitude, time);
     }
 
     @Test
     void testLatitude() {
-        assertEquals(1.0, dualLocationRequest.latitude());
-        assertEquals(3.0, dualLocationRequest.latitude2().get());
-        assertEquals(1.0, singleLocationRequest.latitude());
-        assertEquals(Optional.empty(), singleLocationRequest.latitude2());
+        assertEquals(latitude, locationRequest.latitude());
     }
 
     @Test
     void testLongitude() {
-        assertEquals(2.0, dualLocationRequest.longitude());
-        assertEquals(4.0, dualLocationRequest.longitude2().get());
-        assertEquals(2.0, singleLocationRequest.longitude());
-        assertEquals(Optional.empty(), singleLocationRequest.longitude2());
+        assertEquals(longitude, locationRequest.longitude());
+    }
+
+    @Test
+    void testTime() {
+        assertEquals(time, locationRequest.time());
     }
 }

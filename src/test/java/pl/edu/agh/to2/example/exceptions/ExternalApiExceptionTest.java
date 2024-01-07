@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.example.model.Location;
 import pl.edu.agh.to2.example.service.WeatherApiService;
 
+import java.time.LocalTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -20,9 +22,10 @@ class ExternalApiExceptionTest {
     void setUp() {
         errorMessage = "Custom error message";
         exception = new ExternalApiException(errorMessage);
-        location = new Location(0.0, 0.0, null, null);
+        LocalTime time = LocalTime.of(21, 37);
+        location = new Location(0.0, 0.0, time);
         weatherApiService = mock(WeatherApiService.class);
-        when(weatherApiService.getWeatherData(location.latitude(), location.longitude())).thenThrow(exception);
+        when(weatherApiService.getWeatherData(location)).thenThrow(exception);
     }
 
     @Test
@@ -34,7 +37,7 @@ class ExternalApiExceptionTest {
     @Test
     void testExternalApiException() {
         assertThrows(ExternalApiException.class, () -> {
-            weatherApiService.getWeatherData(location.latitude(), location.longitude());
+            weatherApiService.getWeatherData(location);
         });
     }
 }
