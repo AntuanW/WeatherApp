@@ -174,7 +174,23 @@ class WeatherServiceTest {
 
     private JsonNode getMockWeatherDataFromJSON(String pathName){
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readTree(json);
+        JsonNode jsonNode = objectMapper.createObjectNode();
+        try {
+            jsonNode = objectMapper.readTree(new File("src/test/java/pl/edu/agh/to2/example/service/mockWeathers/" + pathName));
+            return jsonNode;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonNode;
+    }
+
+    private Weather createMockWeather() {
+        Weather weather = new Weather();
+        weather.setTemperature(Temperature.FREEZING);
+        weather.setTemperatureCelsius(0.2);
+        weather.setForecast(Forecast.getForecast("Partly cloudy"));
+        weather.setAirCondition(AirCondition.fromPM25(0.7));
+        return weather;
     }
 
     private Weather createCombinedMockWeather() {
