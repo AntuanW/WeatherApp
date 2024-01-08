@@ -84,9 +84,9 @@ class WeatherServiceTest {
         userConfiguration.setLocations(List.of(
                 new Location(52.51, -0.11, LocalTime.now().plusMinutes(1)),
                 new Location(69.69, 4.20, LocalTime.now().plusMinutes(1)),
-                new Location(52.51, -0.11, LocalTime.now().plusMinutes(1)),
-                new Location(69.69, 4.20, LocalTime.now().plusMinutes(1)),
-                new Location(52.51, -0.11, LocalTime.now().plusMinutes(1))
+                new Location(15.49, 52.15, LocalTime.now().plusMinutes(1)),
+                new Location(32.22, 51.27, LocalTime.now().plusMinutes(1)),
+                new Location(53.08, 22.59, LocalTime.now().plusMinutes(1))
                 ));
 
         JsonNode weatherData1 = getMockWeather1Json();
@@ -126,16 +126,16 @@ class WeatherServiceTest {
         verify(weatherApiService, times(1)).getWeatherData(
                 userConfiguration.getLocations().get(0)
         );
-        verify(weatherApiService, times(2)).getWeatherData(
+        verify(weatherApiService, times(1)).getWeatherData(
                 userConfiguration.getLocations().get(1)
         );
-        verify(weatherApiService, times(2)).getWeatherData(
+        verify(weatherApiService, times(1)).getWeatherData(
                 userConfiguration.getLocations().get(2)
         );
-        verify(weatherApiService, times(2)).getWeatherData(
+        verify(weatherApiService, times(1)).getWeatherData(
                 userConfiguration.getLocations().get(3)
         );
-        verify(weatherApiService, times(2)).getWeatherData(
+        verify(weatherApiService, times(1)).getWeatherData(
                 userConfiguration.getLocations().get(4)
         );
     }
