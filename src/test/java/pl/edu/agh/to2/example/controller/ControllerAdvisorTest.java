@@ -11,7 +11,7 @@ import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ControllerAdvisorTest {
 

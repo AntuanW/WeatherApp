@@ -18,7 +18,8 @@ import pl.edu.agh.to2.example.weather.measures.Forecast;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class WeatherControllerTest {

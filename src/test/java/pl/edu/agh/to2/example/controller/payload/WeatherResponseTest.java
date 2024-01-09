@@ -6,7 +6,7 @@ import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WeatherResponseTest {
     private WeatherResponse weatherResponse;
