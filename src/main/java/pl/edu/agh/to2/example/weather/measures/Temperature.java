@@ -14,7 +14,7 @@ public enum Temperature {
             return COLD;
         } else if (temperature < 20.0) {
             return WARM;
-        } else if (temperature < 30.0){
+        } else if (temperature < 30.0) {
             return HOT;
         } else {
             return SWELTERING;

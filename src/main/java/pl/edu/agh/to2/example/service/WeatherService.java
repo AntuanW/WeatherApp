@@ -45,7 +45,7 @@ public class WeatherService {
         UserConfiguration userConfiguration = userConfigurationRepository.findByUserId(userId).orElseThrow(() -> new UserNotFoundException(userId));
         List<Location> locationsProvided = userConfiguration.getLocations();
 
-        if(locationsProvided.isEmpty()) throw new ResourceNotFoundException("No location provided");
+        if (locationsProvided.isEmpty()) throw new ResourceNotFoundException("No location provided");
 
         List<Weather> weathers = locationsProvided.stream()
                 .map(location -> extractWeather(weatherApiService.getWeatherData(location), location.time()))
@@ -67,17 +67,17 @@ public class WeatherService {
         weather.setLocationName(locationName.toString());
 
         Weather minimumTemperatureWeather = weathers.stream()
-                        .min(Comparator.comparing(Weather::getTemperatureCelsius))
-                        .orElseThrow(NoSuchElementException::new);
+                .min(Comparator.comparing(Weather::getTemperatureCelsius))
+                .orElseThrow(NoSuchElementException::new);
 
         weather.setTemperatureCelsius(minimumTemperatureWeather.getTemperatureCelsius());
 
         weather.setTemperature(minimumTemperatureWeather.getTemperature());
 
         Forecast forecast = weathers.stream()
-                        .max(Comparator.comparing(w -> w.getForecast().ordinal()))
-                        .map(Weather::getForecast)
-                        .orElseThrow(NoSuchElementException::new);
+                .max(Comparator.comparing(w -> w.getForecast().ordinal()))
+                .map(Weather::getForecast)
+                .orElseThrow(NoSuchElementException::new);
 
         weather.setForecast(forecast);
 

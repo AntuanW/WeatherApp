@@ -24,6 +24,7 @@ public class UserConfigurationController {
     private static final Logger logger = Logger.getLogger(String.valueOf(UserConfigurationController.class));
 
     private final UserConfigurationRepository userConfigurationRepository;
+
     @Autowired
     public UserConfigurationController(UserConfigurationRepository userConfigurationRepository) {
         this.userConfigurationRepository = userConfigurationRepository;
@@ -59,8 +60,8 @@ public class UserConfigurationController {
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
 
             List<Location> locations = locationRequests.stream()
-                            .map(locationRequest -> new Location(locationRequest.latitude(), locationRequest.longitude(), locationRequest.time()))
-                            .toList();
+                    .map(locationRequest -> new Location(locationRequest.latitude(), locationRequest.longitude(), locationRequest.time()))
+                    .toList();
             userConfiguration.setLocations(locations);
 
             userConfigurationRepository.saveUserConfiguration(userConfiguration);

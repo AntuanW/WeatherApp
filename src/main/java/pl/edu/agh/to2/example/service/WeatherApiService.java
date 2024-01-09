@@ -28,7 +28,7 @@ public class WeatherApiService {
     private final CloseableHttpClient httpClient;
 
     @Autowired
-    public WeatherApiService(CloseableHttpClient httpClient){
+    public WeatherApiService(CloseableHttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
