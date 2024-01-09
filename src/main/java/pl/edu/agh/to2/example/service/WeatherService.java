@@ -9,11 +9,15 @@ import pl.edu.agh.to2.example.model.Location;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 import pl.edu.agh.to2.example.weather.Weather;
-import pl.edu.agh.to2.example.weather.measures.*;
+import pl.edu.agh.to2.example.weather.measures.AirCondition;
+import pl.edu.agh.to2.example.weather.measures.Forecast;
+import pl.edu.agh.to2.example.weather.measures.Temperature;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class WeatherService {

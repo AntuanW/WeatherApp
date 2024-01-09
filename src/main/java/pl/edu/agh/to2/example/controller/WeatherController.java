@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.to2.example.controller.payload.WeatherResponse;
 import pl.edu.agh.to2.example.service.WardrobeService;
+import pl.edu.agh.to2.example.service.WeatherService;
 import pl.edu.agh.to2.example.wardrobe.Wardrobe;
 import pl.edu.agh.to2.example.weather.Weather;
-import pl.edu.agh.to2.example.service.WeatherService;
 
 @RestController
 @CrossOrigin()
