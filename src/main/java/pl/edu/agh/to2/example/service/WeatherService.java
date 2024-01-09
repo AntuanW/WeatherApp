@@ -17,9 +17,6 @@ import java.util.*;
 
 @Service
 public class WeatherService {
-    private final UserConfigurationRepository userConfigurationRepository;
-    private final WeatherApiService weatherApiService;
-    private final TemperatureService temperatureService;
     private static final String CURRENT_PARAM = "current";
     private static final String NAME_PARAM = "name";
     private static final String TEXT_PARAM = "text";
@@ -32,6 +29,9 @@ public class WeatherService {
     private static final String FORECAST_PARAM = "forecast";
     private static final String FORECASTDAY_PARAM = "forecastday";
     private static final String HOUR_PARAM = "hour";
+    private final UserConfigurationRepository userConfigurationRepository;
+    private final WeatherApiService weatherApiService;
+    private final TemperatureService temperatureService;
 
     @Autowired
     public WeatherService(UserConfigurationRepository userConfigurationRepository, WeatherApiService weatherApiService,
