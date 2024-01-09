@@ -30,6 +30,7 @@ class WeatherResponseTest {
     void testLocationName() {
         assertEquals(locationName, weatherResponse.locationName());
     }
+
     @Test
     void testTemperature() {
         assertEquals(temperature, weatherResponse.temperature());

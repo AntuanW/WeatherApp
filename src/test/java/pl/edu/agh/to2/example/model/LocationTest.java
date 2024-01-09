@@ -27,7 +27,7 @@ class LocationTest {
     }
 
     @Test
-    void testTime(){
+    void testTime() {
         assertEquals(LocalTime.of(16, 0), location.time());
     }
 }

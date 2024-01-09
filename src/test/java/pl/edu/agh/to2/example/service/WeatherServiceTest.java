@@ -87,7 +87,7 @@ class WeatherServiceTest {
                 new Location(15.49, 52.15, LocalTime.now().plusMinutes(1)),
                 new Location(32.22, 51.27, LocalTime.now().plusMinutes(1)),
                 new Location(53.08, 22.59, LocalTime.now().plusMinutes(1))
-                ));
+        ));
 
         JsonNode weatherData1 = getMockWeather1Json();
         JsonNode weatherData2 = getMockWeather2Json();
@@ -172,7 +172,7 @@ class WeatherServiceTest {
         return getMockWeatherDataFromJSON("mockWeather2.json");
     }
 
-    private JsonNode getMockWeatherDataFromJSON(String pathName){
+    private JsonNode getMockWeatherDataFromJSON(String pathName) {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.createObjectNode();
         try {
