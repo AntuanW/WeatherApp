@@ -15,13 +15,11 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 @RestController()
 @CrossOrigin()
 @RequestMapping(path = "/users/configuration")
 public class UserConfigurationController {
-    private static final Logger logger = Logger.getLogger(String.valueOf(UserConfigurationController.class));
 
     private final UserConfigurationRepository userConfigurationRepository;
 
@@ -55,7 +53,6 @@ public class UserConfigurationController {
             @RequestBody List<LocationRequest> locationRequests
     ) {
         try {
-            logger.info(() -> "Message: " + locationRequests.size());
             UserConfiguration userConfiguration = userConfigurationRepository
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
 
