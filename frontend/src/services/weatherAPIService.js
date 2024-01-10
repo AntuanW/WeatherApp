@@ -36,8 +36,6 @@ const postLocation = (data) => {
         }, {});
     });
 
-    console.log(dataToSend)
-
     data.map(obj => {
         let name = obj.name
         if (name !== "") {

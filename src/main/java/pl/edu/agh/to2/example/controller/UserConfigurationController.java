@@ -42,8 +42,13 @@ public class UserConfigurationController {
     public ResponseEntity<String> checkUser(
             @RequestHeader("Authorization") Optional<String> userToken
     ) {
-        String token = userToken.orElseThrow(() -> new UserNotFoundException(""));
-        userConfigurationRepository.findByUserId(token).orElseThrow(() -> new UserNotFoundException(token));
+        if (userToken.isEmpty()) {
+            throw new UserNotFoundException("Authorization token is missing");
+        }
+
+        userToken.ifPresent(token -> userConfigurationRepository.findByUserId(token)
+                .orElseThrow(() -> new UserNotFoundException(token)));
+
         return ResponseEntity.ok().body("OK");
     }
 
