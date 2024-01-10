@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.example.exceptions.ExternalApiException;
 import pl.edu.agh.to2.example.model.Location;
@@ -27,7 +26,7 @@ public class WeatherApiService {
 
     private final CloseableHttpClient httpClient;
 
-    @Autowired
+
     public WeatherApiService(CloseableHttpClient httpClient) {
         this.httpClient = httpClient;
     }
