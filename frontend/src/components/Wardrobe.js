@@ -13,6 +13,7 @@ const Wardrobe = () => {
             console.log(res)
             setWardrobe(res)
         })
+        .catch(e => console.log(e))
     }, [])
 
     const wardrobeStyle = {

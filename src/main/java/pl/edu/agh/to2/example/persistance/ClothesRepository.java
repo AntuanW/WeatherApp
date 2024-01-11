@@ -25,7 +25,10 @@ public class ClothesRepository {
                     List.of("Scarf")),
             Temperature.FREEZING, new Clothes("Boots", "Trousers",
                     List.of("Jumper", "Cardigan", "Jacket"),
-                    List.of("Scarf", "Gloves", "Winter cap"))
+                    List.of("Scarf", "Gloves", "Winter cap")),
+            Temperature.SWELTERING, new Clothes("Flip-flops", "Shorts",
+                    List.of("Tank Top"),
+                    List.of("Sunglasses", "Baseball Cap", "Sunhat"))
     );
 
     public Optional<Clothes> getByTemperature(Temperature temperature) {

@@ -1,11 +1,10 @@
 package pl.edu.agh.to2.example.controller.payload;
 
-import java.util.Optional;
+import java.time.LocalTime;
 
 public record LocationRequest(
         double latitude,
         double longitude,
-        Optional<Double> latitude2,
-        Optional<Double> longitude2
+        LocalTime time
 ) {
 }

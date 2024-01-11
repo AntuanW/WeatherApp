@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { isValid, findInputErrors } from "../../services/formCheck.js"
 import { TextField } from '@mui/material';
 
-const Input = (props) => {
-    const {label, id, validation} = props;
-    const {
-        register,
-        formState: { errors },
-    } = useFormContext()
+const CoordinatesInput = (props) => {
+    const {id, validation, index} = props;
 
-    const inputError = findInputErrors(errors, id);
+    const { register, formState: { errors } } = useFormContext();
+    const inputError = findInputErrors(errors, index, id);
     const isInvalid = !isValid(inputError);
 
     return (
@@ -18,16 +15,17 @@ const Input = (props) => {
             variant="standard"
             fullWidth
             style={{ margin: "10px 0" }}
-            id={id}
+            id={`${id}${index}`}
             type="number"
-            label={label}
+            label={id}
             InputLabelProps={{ shrink: true }}
             inputProps={{ step: 0.001 }}
             helperText={inputError.error?.message}
             error = {isInvalid}
-            {...register(id, validation)}
+            required={true}
+            {...register(`location.${index}.${id}`, validation)}
         />
     );
 };
 
-export default Input;
+export default CoordinatesInput;

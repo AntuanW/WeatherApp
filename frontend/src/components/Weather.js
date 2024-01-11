@@ -16,6 +16,7 @@ const Weather = () => {
 
     useEffect(()=> {
         getWeather().then((res) => {
+            console.log(res)
             setWeather(res)
             setColor(res.temperatureScale)
             setError(false);
@@ -37,6 +38,9 @@ const Weather = () => {
                 setTemperatureColor("green");
                 break;
             case 'HOT':
+                setTemperatureColor("#FFA500");
+                break;
+            case 'SWELTERING':
                 setTemperatureColor("red");
                 break;
             default:

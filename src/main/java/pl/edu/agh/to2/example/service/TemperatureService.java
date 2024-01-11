@@ -9,7 +9,8 @@ public class TemperatureService {
     private static final double WIND_SPEED_CONSTANT1 = 11.37;
     private static final double WIND_SPEED_CONSTANT2 = 0.16;
     private static final double WIND_CHILL_CONSTANT = 0.3965;
-    public double calculateSensedTemperature(double temperature, double windSpeedKmPerHour){
+
+    public double calculateSensedTemperature(double temperature, double windSpeedKmPerHour) {
         double sensedTemperature = BASE_CONSTANT +
                 TEMPERATURE_CONSTANT * temperature -
                 WIND_SPEED_CONSTANT1 * Math.pow(windSpeedKmPerHour, WIND_SPEED_CONSTANT2) +

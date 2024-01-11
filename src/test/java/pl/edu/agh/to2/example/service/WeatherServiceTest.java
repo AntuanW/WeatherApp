@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.example.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,20 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
+import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
 import pl.edu.agh.to2.example.model.Location;
-import pl.edu.agh.to2.example.persistance.ClothesRepository;
 import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
-import pl.edu.agh.to2.example.wardrobe.Clothes;
-import pl.edu.agh.to2.example.wardrobe.Wardrobe;
 import pl.edu.agh.to2.example.weather.Weather;
 import pl.edu.agh.to2.example.weather.measures.AirCondition;
 import pl.edu.agh.to2.example.weather.measures.Forecast;
 import pl.edu.agh.to2.example.weather.measures.Temperature;
 
-import pl.edu.agh.to2.example.exceptions.ResourceNotFoundException;
-import pl.edu.agh.to2.example.exceptions.UserNotFoundException;
-
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,20 +46,22 @@ class WeatherServiceTest {
     }
 
     @Test
-    void testGetWeatherWithSuccessSingleLocation() throws JsonProcessingException {
+    void testGetWeatherWithSuccessSingleLocation() {
         String userId = "testUser";
         UserConfiguration userConfiguration = new UserConfiguration(userId);
-        userConfiguration.setLocation(new Location(
-                50.0619, 19.9367, Optional.empty(), Optional.empty()
-        ));
+        userConfiguration.setLocations(
+                List.of(new Location(52.51, -0.11, LocalTime.now().plusMinutes(1)))
+        );
 
-        JsonNode weatherData = createMockWeatherData();
+        JsonNode weatherData = getMockWeather1Json();
         Weather expectedWeather = createMockWeather();
 
         when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
-        when(weatherApiService.getWeatherData(
-                userConfiguration.getLocation().get().latitude(),
-                userConfiguration.getLocation().get().longitude())
+
+        when(
+                weatherApiService.getWeatherData(
+                        userConfiguration.getLocations().get(0)
+                )
         ).thenReturn(weatherData);
 
         Weather result = weatherService.getWeather(userId);
@@ -72,85 +72,71 @@ class WeatherServiceTest {
         assertEquals(expectedWeather.getAirCondition(), result.getAirCondition());
         verify(userConfigurationRepository, times(1)).findByUserId(userId);
         verify(weatherApiService, times(1)).getWeatherData(
-                userConfiguration.getLocation().get().latitude(),
-                userConfiguration.getLocation().get().longitude()
+                userConfiguration.getLocations().get(0)
         );
     }
 
     @Test
-    void testGetWeatherWithSuccessDoubleLocation() throws JsonProcessingException {
+    void testGetWeatherWithSuccessMultipleLocation() {
         String userId = "testUser";
         UserConfiguration userConfiguration = new UserConfiguration(userId);
-        userConfiguration.setLocation(new Location(
-                50.0619, 19.9367, Optional.of(45.01), Optional.of(50.98)
+        userConfiguration.setLocations(List.of(
+                new Location(52.51, -0.11, LocalTime.now().plusMinutes(1)),
+                new Location(69.69, 4.20, LocalTime.now().plusMinutes(1)),
+                new Location(15.49, 52.15, LocalTime.now().plusMinutes(1)),
+                new Location(32.22, 51.27, LocalTime.now().plusMinutes(1)),
+                new Location(53.08, 22.59, LocalTime.now().plusMinutes(1))
         ));
 
-        JsonNode weatherData = createMockWeatherData();
-        Weather expectedWeather = createMockWeather();
+        JsonNode weatherData1 = getMockWeather1Json();
+        JsonNode weatherData2 = getMockWeather2Json();
+        Weather expectedCombinedWeather = createCombinedMockWeather();
 
         when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
         when(weatherApiService.getWeatherData(
-                userConfiguration.getLocation().get().latitude(),
-                userConfiguration.getLocation().get().longitude())
-        ).thenReturn(weatherData);
+                userConfiguration.getLocations().get(0)
+        )).thenReturn(weatherData1);
 
         when(weatherApiService.getWeatherData(
-                userConfiguration.getLocation().get().latitude2().get(),
-                userConfiguration.getLocation().get().longitude2().get())
-        ).thenReturn(weatherData);
+                userConfiguration.getLocations().get(1)
+        )).thenReturn(weatherData2);
+
+        when(weatherApiService.getWeatherData(
+                userConfiguration.getLocations().get(2)
+        )).thenReturn(weatherData1);
+
+        when(weatherApiService.getWeatherData(
+                userConfiguration.getLocations().get(3)
+        )).thenReturn(weatherData2);
+
+        when(weatherApiService.getWeatherData(
+                userConfiguration.getLocations().get(4)
+        )).thenReturn(weatherData1);
 
         Weather result = weatherService.getWeather(userId);
 
         assertNotNull(result);
-        assertEquals(expectedWeather.getTemperature(), result.getTemperature());
-        assertEquals(expectedWeather.getForecast(), result.getForecast());
-        assertEquals(expectedWeather.getAirCondition(), result.getAirCondition());
+        assertEquals(expectedCombinedWeather.getTemperature(), result.getTemperature());
+        assertEquals(expectedCombinedWeather.getForecast(), result.getForecast());
+        assertEquals(expectedCombinedWeather.getAirCondition(), result.getAirCondition());
+
         verify(userConfigurationRepository, times(1)).findByUserId(userId);
+
         verify(weatherApiService, times(1)).getWeatherData(
-                userConfiguration.getLocation().get().latitude(),
-                userConfiguration.getLocation().get().longitude()
+                userConfiguration.getLocations().get(0)
         );
         verify(weatherApiService, times(1)).getWeatherData(
-                userConfiguration.getLocation().get().latitude2().get(),
-                userConfiguration.getLocation().get().longitude2().get()
+                userConfiguration.getLocations().get(1)
         );
-
-    }
-
-    @Test
-    void testGetCombinedWeather() throws JsonProcessingException{
-        String userId = "testUser";
-        UserConfiguration userConfiguration = new UserConfiguration(userId);
-        userConfiguration.setLocation(new Location(
-                50.0619, 19.9367, Optional.of(45.01), Optional.of(50.98)
-        ));
-        JsonNode weatherData = createMockWeatherData();
-        JsonNode weatherData2 = createMockWeatherDataToCombine();
-
-        Weather expectedWeather = createMockWeatherCombined();
-
-        when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
-        when(weatherApiService.getWeatherData(
-                userConfiguration.getLocation().get().latitude(),
-                userConfiguration.getLocation().get().longitude())
-        ).thenReturn(weatherData);
-
-        when(weatherApiService.getWeatherData(
-                userConfiguration.getLocation().get().latitude2().get(),
-                userConfiguration.getLocation().get().longitude2().get())
-        ).thenReturn(weatherData2);
-
-        Weather result = weatherService.getWeather(userId);
-
-        verify(weatherApiService, times(2)).getWeatherData(
-                anyDouble(),
-                anyDouble()
+        verify(weatherApiService, times(1)).getWeatherData(
+                userConfiguration.getLocations().get(2)
         );
-
-        assertNotNull(result);
-        assertEquals(expectedWeather.getTemperature(), result.getTemperature());
-        assertEquals(expectedWeather.getForecast(), result.getForecast());
-        assertEquals(expectedWeather.getAirCondition(), result.getAirCondition());
+        verify(weatherApiService, times(1)).getWeatherData(
+                userConfiguration.getLocations().get(3)
+        );
+        verify(weatherApiService, times(1)).getWeatherData(
+                userConfiguration.getLocations().get(4)
+        );
     }
 
     @Test
@@ -161,52 +147,57 @@ class WeatherServiceTest {
         assertThrows(UserNotFoundException.class, () -> weatherService.getWeather(userId));
 
         verify(userConfigurationRepository, times(1)).findByUserId(userId);
-        verify(weatherApiService, never()).getWeatherData(anyDouble(), anyDouble());
+        verify(weatherApiService, never()).getWeatherData(any(Location.class));
     }
 
     @Test
     void testGetWeatherWithResourceNotFoundException() {
         String userId = "testUser";
         UserConfiguration userConfiguration = new UserConfiguration(userId);
-        userConfiguration.setLocation(null);
+        userConfiguration.setLocations(List.of());
         when(userConfigurationRepository.findByUserId(userId)).thenReturn(Optional.of(userConfiguration));
 
         assertThrows(ResourceNotFoundException.class, () -> weatherService.getWeather(userId));
 
         verify(userConfigurationRepository, times(1)).findByUserId(userId);
-        verify(weatherApiService, never()).getWeatherData(anyDouble(), anyDouble());
+        verify(weatherApiService, never()).getWeatherData(any(Location.class));
     }
 
-    private JsonNode createMockWeatherData() throws JsonProcessingException {
-        String json = "{ \"location\": { \"name\": \"CityName\" }, \"current\": { \"temp_c\": 3.0, \"condition\": { \"text\": \"Sunny\" }, \"air_quality\": { \"pm2_5\": 2 }, \"wind_kph\": 0.1 } }";
-        return readTree(json);
+    private JsonNode getMockWeather1Json() {
+        return getMockWeatherDataFromJSON("mockWeather1.json");
     }
 
-    private JsonNode createMockWeatherDataToCombine() throws JsonProcessingException {
-        String json = "{ \"location\": { \"name\": \"CityName\" }, \"current\": { \"temp_c\": 11.0, \"condition\": { \"text\": \"Rainy\" }, \"air_quality\": { \"pm2_5\": 90 }, \"wind_kph\": 0.1 } }";
-        return readTree(json);
+    private JsonNode getMockWeather2Json() {
+        return getMockWeatherDataFromJSON("mockWeather2.json");
+    }
+
+    private JsonNode getMockWeatherDataFromJSON(String pathName) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.createObjectNode();
+        try {
+            jsonNode = objectMapper.readTree(new File("src/test/java/pl/edu/agh/to2/example/service/mockWeathers/" + pathName));
+            return jsonNode;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonNode;
     }
 
     private Weather createMockWeather() {
         Weather weather = new Weather();
         weather.setTemperature(Temperature.FREEZING);
-        weather.setTemperatureCelsius(3.0);
-        weather.setForecast(Forecast.getForecast("Sunny"));
-        weather.setAirCondition(AirCondition.fromPM25(2));
+        weather.setTemperatureCelsius(0.2);
+        weather.setForecast(Forecast.getForecast("Partly cloudy"));
+        weather.setAirCondition(AirCondition.fromPM25(0.7));
         return weather;
     }
 
-    private Weather createMockWeatherCombined() {
+    private Weather createCombinedMockWeather() {
         Weather weather = new Weather();
         weather.setTemperature(Temperature.FREEZING);
-        weather.setTemperatureCelsius(3.0);
+        weather.setTemperatureCelsius(0.2);
         weather.setForecast(Forecast.getForecast("Rainy"));
-        weather.setAirCondition(AirCondition.fromPM25(90));
+        weather.setAirCondition(AirCondition.fromPM25(200));
         return weather;
-    }
-
-    private JsonNode readTree(String json) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readTree(json);
     }
 }

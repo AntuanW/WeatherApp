@@ -3,16 +3,17 @@ package pl.edu.agh.to2.example.model;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LocationTest {
     private static Location location;
 
     @BeforeAll
     static void setUp() {
-        location = new Location(1.0, 2.0, Optional.of(3.0), Optional.of(4.0));
+        LocalTime time = LocalTime.of(16, 0);
+        location = new Location(1.0, 2.0, time);
     }
 
     @Test
@@ -26,12 +27,7 @@ class LocationTest {
     }
 
     @Test
-    void testLatitude2(){
-        assertEquals(Optional.of(3.0), location.latitude2());
-    }
-
-    @Test
-    void testLongitude2(){
-        assertEquals(Optional.of(4.0), location.longitude2());
+    void testTime() {
+        assertEquals(LocalTime.of(16, 0), location.time());
     }
 }

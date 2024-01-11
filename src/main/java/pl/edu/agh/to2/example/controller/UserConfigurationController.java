@@ -12,16 +12,17 @@ import pl.edu.agh.to2.example.persistance.UserConfiguration;
 import pl.edu.agh.to2.example.persistance.UserConfigurationRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 @RestController()
 @CrossOrigin()
 @RequestMapping(path = "/users/configuration")
 public class UserConfigurationController {
-    private static final Logger logger = Logger.getLogger(String.valueOf(UserConfigurationController.class));
 
     private final UserConfigurationRepository userConfigurationRepository;
+
     @Autowired
     public UserConfigurationController(UserConfigurationRepository userConfigurationRepository) {
         this.userConfigurationRepository = userConfigurationRepository;
@@ -37,22 +38,34 @@ public class UserConfigurationController {
         return ResponseEntity.ok().body(new UserResponse(userToken));
     }
 
+    @PostMapping("/checkUser")
+    public ResponseEntity<String> checkUser(
+            @RequestHeader("Authorization") Optional<String> userToken
+    ) {
+        if (userToken.isEmpty()) {
+            throw new UserNotFoundException("Authorization token is missing");
+        }
+
+        userToken.ifPresent(token -> userConfigurationRepository.findByUserId(token)
+                .orElseThrow(() -> new UserNotFoundException(token)));
+
+        return ResponseEntity.ok().body("OK");
+    }
+
     @PostMapping("/location")
     public ResponseEntity<String> postLocation(
             @RequestHeader("Authorization") String userToken,
-            @RequestBody LocationRequest locationRequest
+            @RequestBody List<LocationRequest> locationRequests
     ) {
         try {
-            logger.info(() -> "Message: " + locationRequest.toString());
             UserConfiguration userConfiguration = userConfigurationRepository
                     .findByUserId(userToken).orElseThrow(() -> new UserNotFoundException("User not found"));
-            Location location = new Location(
-                    locationRequest.latitude(),
-                    locationRequest.longitude(),
-                    locationRequest.latitude2(),
-                    locationRequest.longitude2()
-            );
-            userConfiguration.setLocation(location);
+
+            List<Location> locations = locationRequests.stream()
+                    .map(locationRequest -> new Location(locationRequest.latitude(), locationRequest.longitude(), locationRequest.time()))
+                    .toList();
+            userConfiguration.setLocations(locations);
+
             userConfigurationRepository.saveUserConfiguration(userConfiguration);
             return ResponseEntity.ok().body("User location successfully saved");
         } catch (UserNotFoundException e) {

@@ -2,22 +2,22 @@ package pl.edu.agh.to2.example.persistance;
 
 import pl.edu.agh.to2.example.model.Location;
 
-import java.util.Optional;
+import java.util.List;
 
 public class UserConfiguration {
     private final String userId;
-    private Location location;
+    private List<Location> locations;
 
     public UserConfiguration(String userId) {
         this.userId = userId;
     }
 
-    public Optional<Location> getLocation() {
-        return Optional.ofNullable(location);
+    public List<Location> getLocations() {
+        return locations;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 
     public String getUserId() {
